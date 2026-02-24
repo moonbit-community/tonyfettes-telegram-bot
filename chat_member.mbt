@@ -204,100 +204,100 @@ pub(all) enum ChatMember {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for ChatMember with to_json(self) {
+pub impl ToJson for ChatMember with to_json(self) {
   match self {
     Owner(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("creator"),
-        "user": @json.to_json(v.user),
-        "is_anonymous": @json.to_json(v.is_anonymous),
+        "status": "creator".to_json(),
+        "user": v.user.to_json(),
+        "is_anonymous": v.is_anonymous.to_json(),
       }
       if v.custom_title is Some(t) {
-        object["custom_title"] = @json.to_json(t)
+        object["custom_title"] = t.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Administrator(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("administrator"),
-        "user": @json.to_json(v.user),
-        "can_be_edited": @json.to_json(v.can_be_edited),
-        "is_anonymous": @json.to_json(v.is_anonymous),
-        "can_manage_chat": @json.to_json(v.can_manage_chat),
-        "can_delete_messages": @json.to_json(v.can_delete_messages),
-        "can_manage_video_chats": @json.to_json(v.can_manage_video_chats),
-        "can_restrict_members": @json.to_json(v.can_restrict_members),
-        "can_promote_members": @json.to_json(v.can_promote_members),
-        "can_change_info": @json.to_json(v.can_change_info),
-        "can_invite_users": @json.to_json(v.can_invite_users),
-        "can_post_stories": @json.to_json(v.can_post_stories),
-        "can_edit_stories": @json.to_json(v.can_edit_stories),
-        "can_delete_stories": @json.to_json(v.can_delete_stories),
+        "status": "administrator".to_json(),
+        "user": v.user.to_json(),
+        "can_be_edited": v.can_be_edited.to_json(),
+        "is_anonymous": v.is_anonymous.to_json(),
+        "can_manage_chat": v.can_manage_chat.to_json(),
+        "can_delete_messages": v.can_delete_messages.to_json(),
+        "can_manage_video_chats": v.can_manage_video_chats.to_json(),
+        "can_restrict_members": v.can_restrict_members.to_json(),
+        "can_promote_members": v.can_promote_members.to_json(),
+        "can_change_info": v.can_change_info.to_json(),
+        "can_invite_users": v.can_invite_users.to_json(),
+        "can_post_stories": v.can_post_stories.to_json(),
+        "can_edit_stories": v.can_edit_stories.to_json(),
+        "can_delete_stories": v.can_delete_stories.to_json(),
       }
       if v.can_post_messages is Some(x) {
-        object["can_post_messages"] = @json.to_json(x)
+        object["can_post_messages"] = x.to_json()
       }
       if v.can_edit_messages is Some(x) {
-        object["can_edit_messages"] = @json.to_json(x)
+        object["can_edit_messages"] = x.to_json()
       }
       if v.can_pin_messages is Some(x) {
-        object["can_pin_messages"] = @json.to_json(x)
+        object["can_pin_messages"] = x.to_json()
       }
       if v.can_manage_topics is Some(x) {
-        object["can_manage_topics"] = @json.to_json(x)
+        object["can_manage_topics"] = x.to_json()
       }
       if v.custom_title is Some(t) {
-        object["custom_title"] = @json.to_json(t)
+        object["custom_title"] = t.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Member(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("member"),
-        "user": @json.to_json(v.user),
+        "status": "member".to_json(),
+        "user": v.user.to_json(),
       }
       if v.until_date is Some(d) {
-        object["until_date"] = @json.to_json(d)
+        object["until_date"] = d.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Restricted(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("restricted"),
-        "user": @json.to_json(v.user),
-        "is_member": @json.to_json(v.is_member),
-        "can_send_messages": @json.to_json(v.can_send_messages),
-        "can_send_audios": @json.to_json(v.can_send_audios),
-        "can_send_documents": @json.to_json(v.can_send_documents),
-        "can_send_photos": @json.to_json(v.can_send_photos),
-        "can_send_videos": @json.to_json(v.can_send_videos),
-        "can_send_video_notes": @json.to_json(v.can_send_video_notes),
-        "can_send_voice_notes": @json.to_json(v.can_send_voice_notes),
-        "can_send_polls": @json.to_json(v.can_send_polls),
-        "can_send_other_messages": @json.to_json(v.can_send_other_messages),
-        "can_add_web_page_previews": @json.to_json(v.can_add_web_page_previews),
-        "can_change_info": @json.to_json(v.can_change_info),
-        "can_invite_users": @json.to_json(v.can_invite_users),
-        "can_pin_messages": @json.to_json(v.can_pin_messages),
-        "can_manage_topics": @json.to_json(v.can_manage_topics),
-        "until_date": @json.to_json(v.until_date),
+        "status": "restricted".to_json(),
+        "user": v.user.to_json(),
+        "is_member": v.is_member.to_json(),
+        "can_send_messages": v.can_send_messages.to_json(),
+        "can_send_audios": v.can_send_audios.to_json(),
+        "can_send_documents": v.can_send_documents.to_json(),
+        "can_send_photos": v.can_send_photos.to_json(),
+        "can_send_videos": v.can_send_videos.to_json(),
+        "can_send_video_notes": v.can_send_video_notes.to_json(),
+        "can_send_voice_notes": v.can_send_voice_notes.to_json(),
+        "can_send_polls": v.can_send_polls.to_json(),
+        "can_send_other_messages": v.can_send_other_messages.to_json(),
+        "can_add_web_page_previews": v.can_add_web_page_previews.to_json(),
+        "can_change_info": v.can_change_info.to_json(),
+        "can_invite_users": v.can_invite_users.to_json(),
+        "can_pin_messages": v.can_pin_messages.to_json(),
+        "can_manage_topics": v.can_manage_topics.to_json(),
+        "until_date": v.until_date.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Left(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("left"),
-        "user": @json.to_json(v.user),
+        "status": "left".to_json(),
+        "user": v.user.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Banned(v) => {
       let object : Map[String, Json] = {
-        "status": @json.to_json("kicked"),
-        "user": @json.to_json(v.user),
-        "until_date": @json.to_json(v.until_date),
+        "status": "kicked".to_json(),
+        "user": v.user.to_json(),
+        "until_date": v.until_date.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -305,10 +305,10 @@ pub impl @json.ToJson for ChatMember with to_json(self) {
 ///|
 pub impl @json.FromJson for ChatMember with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatMember")
+    raise @json.JsonDecodeError((path, "Expected object for ChatMember"))
   }
   guard object["status"] is String(status) else {
-    raise @json.JsonDecodeError(path~, "Expected status field")
+    raise @json.JsonDecodeError((path, "Expected status field"))
   }
   match status {
     "creator" => {
@@ -518,7 +518,9 @@ pub impl @json.FromJson for ChatMember with from_json(json, path) {
       Banned(ChatMemberBanned::new(user~, until_date~))
     }
     _ =>
-      raise @json.JsonDecodeError(path~, "Unknown ChatMember status: " + status)
+      raise @json.JsonDecodeError(
+        (path, "Unknown ChatMember status: " + status),
+      )
   }
 }
 
@@ -578,57 +580,57 @@ pub fn ChatPermissions::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatPermissions with to_json(self) {
+pub impl ToJson for ChatPermissions with to_json(self) {
   let object : Map[String, Json] = {}
   if self.can_send_messages is Some(v) {
-    object["can_send_messages"] = @json.to_json(v)
+    object["can_send_messages"] = v.to_json()
   }
   if self.can_send_audios is Some(v) {
-    object["can_send_audios"] = @json.to_json(v)
+    object["can_send_audios"] = v.to_json()
   }
   if self.can_send_documents is Some(v) {
-    object["can_send_documents"] = @json.to_json(v)
+    object["can_send_documents"] = v.to_json()
   }
   if self.can_send_photos is Some(v) {
-    object["can_send_photos"] = @json.to_json(v)
+    object["can_send_photos"] = v.to_json()
   }
   if self.can_send_videos is Some(v) {
-    object["can_send_videos"] = @json.to_json(v)
+    object["can_send_videos"] = v.to_json()
   }
   if self.can_send_video_notes is Some(v) {
-    object["can_send_video_notes"] = @json.to_json(v)
+    object["can_send_video_notes"] = v.to_json()
   }
   if self.can_send_voice_notes is Some(v) {
-    object["can_send_voice_notes"] = @json.to_json(v)
+    object["can_send_voice_notes"] = v.to_json()
   }
   if self.can_send_polls is Some(v) {
-    object["can_send_polls"] = @json.to_json(v)
+    object["can_send_polls"] = v.to_json()
   }
   if self.can_send_other_messages is Some(v) {
-    object["can_send_other_messages"] = @json.to_json(v)
+    object["can_send_other_messages"] = v.to_json()
   }
   if self.can_add_web_page_previews is Some(v) {
-    object["can_add_web_page_previews"] = @json.to_json(v)
+    object["can_add_web_page_previews"] = v.to_json()
   }
   if self.can_change_info is Some(v) {
-    object["can_change_info"] = @json.to_json(v)
+    object["can_change_info"] = v.to_json()
   }
   if self.can_invite_users is Some(v) {
-    object["can_invite_users"] = @json.to_json(v)
+    object["can_invite_users"] = v.to_json()
   }
   if self.can_pin_messages is Some(v) {
-    object["can_pin_messages"] = @json.to_json(v)
+    object["can_pin_messages"] = v.to_json()
   }
   if self.can_manage_topics is Some(v) {
-    object["can_manage_topics"] = @json.to_json(v)
+    object["can_manage_topics"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatPermissions with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatPermissions")
+    raise @json.JsonDecodeError((path, "Expected object for ChatPermissions"))
   }
   let can_send_messages : Bool? = if object.get("can_send_messages") is Some(v) {
     Some(@json.from_json(v, path~))
@@ -784,41 +786,40 @@ pub fn ChatAdministratorRights::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatAdministratorRights with to_json(self) {
+pub impl ToJson for ChatAdministratorRights with to_json(self) {
   let object : Map[String, Json] = {
-    "is_anonymous": @json.to_json(self.is_anonymous),
-    "can_manage_chat": @json.to_json(self.can_manage_chat),
-    "can_delete_messages": @json.to_json(self.can_delete_messages),
-    "can_manage_video_chats": @json.to_json(self.can_manage_video_chats),
-    "can_restrict_members": @json.to_json(self.can_restrict_members),
-    "can_promote_members": @json.to_json(self.can_promote_members),
-    "can_change_info": @json.to_json(self.can_change_info),
-    "can_invite_users": @json.to_json(self.can_invite_users),
-    "can_post_stories": @json.to_json(self.can_post_stories),
-    "can_edit_stories": @json.to_json(self.can_edit_stories),
-    "can_delete_stories": @json.to_json(self.can_delete_stories),
+    "is_anonymous": self.is_anonymous.to_json(),
+    "can_manage_chat": self.can_manage_chat.to_json(),
+    "can_delete_messages": self.can_delete_messages.to_json(),
+    "can_manage_video_chats": self.can_manage_video_chats.to_json(),
+    "can_restrict_members": self.can_restrict_members.to_json(),
+    "can_promote_members": self.can_promote_members.to_json(),
+    "can_change_info": self.can_change_info.to_json(),
+    "can_invite_users": self.can_invite_users.to_json(),
+    "can_post_stories": self.can_post_stories.to_json(),
+    "can_edit_stories": self.can_edit_stories.to_json(),
+    "can_delete_stories": self.can_delete_stories.to_json(),
   }
   if self.can_post_messages is Some(v) {
-    object["can_post_messages"] = @json.to_json(v)
+    object["can_post_messages"] = v.to_json()
   }
   if self.can_edit_messages is Some(v) {
-    object["can_edit_messages"] = @json.to_json(v)
+    object["can_edit_messages"] = v.to_json()
   }
   if self.can_pin_messages is Some(v) {
-    object["can_pin_messages"] = @json.to_json(v)
+    object["can_pin_messages"] = v.to_json()
   }
   if self.can_manage_topics is Some(v) {
-    object["can_manage_topics"] = @json.to_json(v)
+    object["can_manage_topics"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatAdministratorRights with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for ChatAdministratorRights",
+      (path, "Expected object for ChatAdministratorRights"),
     )
   }
   let is_anonymous : Bool = @json.from_json(object["is_anonymous"], path~)

@@ -15,12 +15,12 @@ pub fn BusinessOpeningHoursInterval::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessOpeningHoursInterval with to_json(self) {
+pub impl ToJson for BusinessOpeningHoursInterval with to_json(self) {
   let object : Map[String, Json] = {
-    "opening_minute": @json.to_json(self.opening_minute),
-    "closing_minute": @json.to_json(self.closing_minute),
+    "opening_minute": self.opening_minute.to_json(),
+    "closing_minute": self.closing_minute.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -30,8 +30,7 @@ pub impl @json.FromJson for BusinessOpeningHoursInterval with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for BusinessOpeningHoursInterval",
+      (path, "Expected object for BusinessOpeningHoursInterval"),
     )
   }
   let opening_minute : Int = @json.from_json(object["opening_minute"], path~)
@@ -56,20 +55,19 @@ pub fn BusinessOpeningHours::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessOpeningHours with to_json(self) {
+pub impl ToJson for BusinessOpeningHours with to_json(self) {
   let object : Map[String, Json] = {
-    "time_zone_name": @json.to_json(self.time_zone_name),
-    "opening_hours": @json.to_json(self.opening_hours),
+    "time_zone_name": self.time_zone_name.to_json(),
+    "opening_hours": self.opening_hours.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for BusinessOpeningHours with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for BusinessOpeningHours",
+      (path, "Expected object for BusinessOpeningHours"),
     )
   }
   let time_zone_name : String = @json.from_json(object["time_zone_name"], path~)
@@ -97,18 +95,18 @@ pub fn BusinessLocation::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessLocation with to_json(self) {
-  let object : Map[String, Json] = { "address": @json.to_json(self.address) }
+pub impl ToJson for BusinessLocation with to_json(self) {
+  let object : Map[String, Json] = { "address": self.address.to_json() }
   if self.location is Some(v) {
-    object["location"] = @json.to_json(v)
+    object["location"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for BusinessLocation with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BusinessLocation")
+    raise @json.JsonDecodeError((path, "Expected object for BusinessLocation"))
   }
   let address : String = @json.from_json(object["address"], path~)
   let location : Location? = if object.get("location") is Some(v) {
@@ -138,24 +136,24 @@ pub fn BusinessIntro::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessIntro with to_json(self) {
+pub impl ToJson for BusinessIntro with to_json(self) {
   let object : Map[String, Json] = {}
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.message is Some(v) {
-    object["message"] = @json.to_json(v)
+    object["message"] = v.to_json()
   }
   if self.sticker is Some(v) {
-    object["sticker"] = @json.to_json(v)
+    object["sticker"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for BusinessIntro with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BusinessIntro")
+    raise @json.JsonDecodeError((path, "Expected object for BusinessIntro"))
   }
   let title : String? = if object.get("title") is Some(v) {
     Some(@json.from_json(v, path~))
@@ -200,26 +198,28 @@ pub fn BusinessConnection::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessConnection with to_json(self) {
+pub impl ToJson for BusinessConnection with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "user": @json.to_json(self.user),
-    "user_chat_id": @json.to_json(self.user_chat_id),
-    "date": @json.to_json(self.date),
-    "can_reply": @json.to_json(self.can_reply),
-    "is_enabled": @json.to_json(self.is_enabled),
+    "id": self.id.to_json(),
+    "user": self.user.to_json(),
+    "user_chat_id": int64_to_json(self.user_chat_id),
+    "date": self.date.to_json(),
+    "can_reply": self.can_reply.to_json(),
+    "is_enabled": self.is_enabled.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for BusinessConnection with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BusinessConnection")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for BusinessConnection"),
+    )
   }
   let id : String = @json.from_json(object["id"], path~)
   let user : User = @json.from_json(object["user"], path~)
-  let user_chat_id : Int64 = @json.from_json(object["user_chat_id"], path~)
+  let user_chat_id : Int64 = int64_from_json(object["user_chat_id"], path)
   let date : Int = @json.from_json(object["date"], path~)
   let can_reply : Bool = @json.from_json(object["can_reply"], path~)
   let is_enabled : Bool = @json.from_json(object["is_enabled"], path~)
@@ -245,21 +245,20 @@ pub fn BusinessMessagesDeleted::new(
 }
 
 ///|
-pub impl @json.ToJson for BusinessMessagesDeleted with to_json(self) {
+pub impl ToJson for BusinessMessagesDeleted with to_json(self) {
   let object : Map[String, Json] = {
-    "business_connection_id": @json.to_json(self.business_connection_id),
-    "chat": @json.to_json(self.chat),
-    "message_ids": @json.to_json(self.message_ids),
+    "business_connection_id": self.business_connection_id.to_json(),
+    "chat": self.chat.to_json(),
+    "message_ids": self.message_ids.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for BusinessMessagesDeleted with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for BusinessMessagesDeleted",
+      (path, "Expected object for BusinessMessagesDeleted"),
     )
   }
   let business_connection_id : String = @json.from_json(

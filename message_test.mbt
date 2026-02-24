@@ -20,7 +20,7 @@ test "Message JSON round-trip" {
     ),
     text="Hello, world!",
   )
-  let json = @json.to_json(message)
+  let json = message.to_json()
   let parsed : Message = @json.from_json(json)
   inspect(parsed.message_id, content="789")
   inspect(parsed.text, content="Some(\"Hello, world!\")")
@@ -59,7 +59,7 @@ test "Message with new fields JSON round-trip" {
     gift_id="gift_123",
     is_from_blockchain=true,
   )
-  let json = @json.to_json(message)
+  let json = message.to_json()
   let parsed : Message = @json.from_json(json)
   inspect(parsed.message_id, content="790")
   inspect(parsed.message_thread_id, content="Some(5)")
@@ -82,7 +82,7 @@ test "Message with direct_messages_topic field" {
     text="Message with topic",
     direct_messages_topic~,
   )
-  let json = @json.to_json(message)
+  let json = message.to_json()
   let reconstructed : Message = @json.from_json(json)
   inspect(reconstructed.direct_messages_topic is Some(_), content="true")
   guard reconstructed.direct_messages_topic is Some(topic) else { return }

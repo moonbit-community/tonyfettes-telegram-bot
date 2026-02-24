@@ -2,7 +2,7 @@
 test "Story JSON round-trip" {
   let chat = Chat::new(id=123456L, type_=ChatType::Private, first_name="Alice")
   let story = Story::new(chat~, id=42)
-  let json = @json.to_json(story)
+  let json = story.to_json()
   let parsed : Story = @json.from_json(json)
   inspect(parsed.id, content="42")
   inspect(parsed.chat.id, content="123456")
@@ -14,7 +14,7 @@ test "Story JSON round-trip" {
 test "Story with group chat JSON round-trip" {
   let chat = Chat::new(id=789L, type_=ChatType::Group, title="Test Group")
   let story = Story::new(chat~, id=100)
-  let json = @json.to_json(story)
+  let json = story.to_json()
   let parsed : Story = @json.from_json(json)
   inspect(parsed.id, content="100")
   inspect(parsed.chat.id, content="789")

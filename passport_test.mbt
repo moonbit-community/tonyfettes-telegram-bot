@@ -3,10 +3,10 @@ test "PassportFile JSON round-trip" {
   let file = PassportFile::new(
     file_id="file123",
     file_unique_id="unique456",
-    file_size=1024,
+    file_size=1024L,
     file_date=1609459200,
   )
-  let json = @json.to_json(file)
+  let json = file.to_json()
   let parsed : PassportFile = @json.from_json(json)
   inspect(parsed.file_id, content="file123")
   inspect(parsed.file_unique_id, content="unique456")
@@ -21,7 +21,7 @@ test "EncryptedCredentials JSON round-trip" {
     hash="hash_value",
     secret="secret_key",
   )
-  let json = @json.to_json(credentials)
+  let json = credentials.to_json()
   let parsed : EncryptedCredentials = @json.from_json(json)
   inspect(parsed.data, content="encrypted_data")
   inspect(parsed.hash, content="hash_value")
@@ -34,7 +34,7 @@ test "EncryptedPassportElement JSON round-trip with minimal fields" {
     type_="personal_details",
     hash="element_hash",
   )
-  let json = @json.to_json(element)
+  let json = element.to_json()
   let parsed : EncryptedPassportElement = @json.from_json(json)
   inspect(parsed.type_, content="personal_details")
   inspect(parsed.hash, content="element_hash")
@@ -53,37 +53,37 @@ test "EncryptedPassportElement JSON round-trip with all fields" {
   let file1 = PassportFile::new(
     file_id="file1",
     file_unique_id="unique1",
-    file_size=512,
+    file_size=512L,
     file_date=1609459200,
   )
   let file2 = PassportFile::new(
     file_id="file2",
     file_unique_id="unique2",
-    file_size=1024,
+    file_size=1024L,
     file_date=1609459300,
   )
   let front = PassportFile::new(
     file_id="front_file",
     file_unique_id="front_unique",
-    file_size=2048,
+    file_size=2048L,
     file_date=1609459400,
   )
   let reverse = PassportFile::new(
     file_id="reverse_file",
     file_unique_id="reverse_unique",
-    file_size=2048,
+    file_size=2048L,
     file_date=1609459500,
   )
   let selfie_file = PassportFile::new(
     file_id="selfie_file",
     file_unique_id="selfie_unique",
-    file_size=4096,
+    file_size=4096L,
     file_date=1609459600,
   )
   let translation_file = PassportFile::new(
     file_id="translation_file",
     file_unique_id="translation_unique",
-    file_size=3072,
+    file_size=3072L,
     file_date=1609459700,
   )
   let element = EncryptedPassportElement::new(
@@ -98,7 +98,7 @@ test "EncryptedPassportElement JSON round-trip with all fields" {
     selfie=selfie_file,
     translation=[translation_file],
   )
-  let json = @json.to_json(element)
+  let json = element.to_json()
   let parsed : EncryptedPassportElement = @json.from_json(json)
   inspect(parsed.type_, content="driver_license")
   inspect(parsed.hash, content="full_hash")
@@ -124,7 +124,7 @@ test "PassportData JSON round-trip" {
   let file = PassportFile::new(
     file_id="doc_file",
     file_unique_id="doc_unique",
-    file_size=2048,
+    file_size=2048L,
     file_date=1609459200,
   )
   let element1 = EncryptedPassportElement::new(
@@ -143,7 +143,7 @@ test "PassportData JSON round-trip" {
     secret="credentials_secret",
   )
   let passport_data = PassportData::new(data=[element1, element2], credentials~)
-  let json = @json.to_json(passport_data)
+  let json = passport_data.to_json()
   let parsed : PassportData = @json.from_json(json)
   inspect(parsed.data.length(), content="2")
   inspect(parsed.data[0].type_, content="personal_details")

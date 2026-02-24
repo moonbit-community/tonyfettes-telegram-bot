@@ -178,89 +178,89 @@ pub(all) enum PassportElementError {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for PassportElementError with to_json(self) {
+pub impl ToJson for PassportElementError with to_json(self) {
   match self {
     DataField(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("data"),
-        "type": @json.to_json(v.type_),
-        "field_name": @json.to_json(v.field_name),
-        "data_hash": @json.to_json(v.data_hash),
-        "message": @json.to_json(v.message),
+        "source": "data".to_json(),
+        "type": v.type_.to_json(),
+        "field_name": v.field_name.to_json(),
+        "data_hash": v.data_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     FrontSide(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("front_side"),
-        "type": @json.to_json(v.type_),
-        "file_hash": @json.to_json(v.file_hash),
-        "message": @json.to_json(v.message),
+        "source": "front_side".to_json(),
+        "type": v.type_.to_json(),
+        "file_hash": v.file_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     ReverseSide(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("reverse_side"),
-        "type": @json.to_json(v.type_),
-        "file_hash": @json.to_json(v.file_hash),
-        "message": @json.to_json(v.message),
+        "source": "reverse_side".to_json(),
+        "type": v.type_.to_json(),
+        "file_hash": v.file_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Selfie(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("selfie"),
-        "type": @json.to_json(v.type_),
-        "file_hash": @json.to_json(v.file_hash),
-        "message": @json.to_json(v.message),
+        "source": "selfie".to_json(),
+        "type": v.type_.to_json(),
+        "file_hash": v.file_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     File(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("file"),
-        "type": @json.to_json(v.type_),
-        "file_hash": @json.to_json(v.file_hash),
-        "message": @json.to_json(v.message),
+        "source": "file".to_json(),
+        "type": v.type_.to_json(),
+        "file_hash": v.file_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Files(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("files"),
-        "type": @json.to_json(v.type_),
-        "file_hashes": @json.to_json(v.file_hashes),
-        "message": @json.to_json(v.message),
+        "source": "files".to_json(),
+        "type": v.type_.to_json(),
+        "file_hashes": v.file_hashes.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     TranslationFile(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("translation_file"),
-        "type": @json.to_json(v.type_),
-        "file_hash": @json.to_json(v.file_hash),
-        "message": @json.to_json(v.message),
+        "source": "translation_file".to_json(),
+        "type": v.type_.to_json(),
+        "file_hash": v.file_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     TranslationFiles(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("translation_files"),
-        "type": @json.to_json(v.type_),
-        "file_hashes": @json.to_json(v.file_hashes),
-        "message": @json.to_json(v.message),
+        "source": "translation_files".to_json(),
+        "type": v.type_.to_json(),
+        "file_hashes": v.file_hashes.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Unspecified(v) => {
       let object : Map[String, Json] = {
-        "source": @json.to_json("unspecified"),
-        "type": @json.to_json(v.type_),
-        "element_hash": @json.to_json(v.element_hash),
-        "message": @json.to_json(v.message),
+        "source": "unspecified".to_json(),
+        "type": v.type_.to_json(),
+        "element_hash": v.element_hash.to_json(),
+        "message": v.message.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -269,14 +269,12 @@ pub impl @json.ToJson for PassportElementError with to_json(self) {
 pub impl @json.FromJson for PassportElementError with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for PassportElementError",
+      (path, "Expected object for PassportElementError"),
     )
   }
   guard object["source"] is String(source) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected source field for PassportElementError",
+      (path, "Expected source field for PassportElementError"),
     )
   }
   match source {
@@ -343,8 +341,7 @@ pub impl @json.FromJson for PassportElementError with from_json(json, path) {
     }
     _ =>
       raise @json.JsonDecodeError(
-        path~,
-        "Unknown source for PassportElementError: \{source}",
+        (path, "Unknown source for PassportElementError: \{source}"),
       )
   }
 }

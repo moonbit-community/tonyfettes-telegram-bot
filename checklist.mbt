@@ -17,19 +17,19 @@ pub fn ChecklistTask::new(
 }
 
 ///|
-pub impl @json.ToJson for ChecklistTask with to_json(self) {
+pub impl ToJson for ChecklistTask with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "text": @json.to_json(self.text),
-    "is_done": @json.to_json(self.is_done),
+    "id": self.id.to_json(),
+    "text": self.text.to_json(),
+    "is_done": self.is_done.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChecklistTask with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChecklistTask")
+    raise @json.JsonDecodeError((path, "Expected object for ChecklistTask"))
   }
   let id : Int = @json.from_json(object["id"], path~)
   let text : String = @json.from_json(object["text"], path~)
@@ -54,18 +54,18 @@ pub fn Checklist::new(
 }
 
 ///|
-pub impl @json.ToJson for Checklist with to_json(self) {
+pub impl ToJson for Checklist with to_json(self) {
   let object : Map[String, Json] = {
-    "header": @json.to_json(self.header),
-    "tasks": @json.to_json(self.tasks),
+    "header": self.header.to_json(),
+    "tasks": self.tasks.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Checklist with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Checklist")
+    raise @json.JsonDecodeError((path, "Expected object for Checklist"))
   }
   let header : String = @json.from_json(object["header"], path~)
   let tasks : Array[ChecklistTask] = @json.from_json(object["tasks"], path~)
@@ -85,15 +85,17 @@ pub fn InputChecklistTask::new(text~ : String) -> InputChecklistTask {
 }
 
 ///|
-pub impl @json.ToJson for InputChecklistTask with to_json(self) {
-  let object : Map[String, Json] = { "text": @json.to_json(self.text) }
-  @json.to_json(object)
+pub impl ToJson for InputChecklistTask with to_json(self) {
+  let object : Map[String, Json] = { "text": self.text.to_json() }
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InputChecklistTask with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for InputChecklistTask")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for InputChecklistTask"),
+    )
   }
   let text : String = @json.from_json(object["text"], path~)
   { text, }
@@ -116,18 +118,18 @@ pub fn InputChecklist::new(
 }
 
 ///|
-pub impl @json.ToJson for InputChecklist with to_json(self) {
+pub impl ToJson for InputChecklist with to_json(self) {
   let object : Map[String, Json] = {
-    "header": @json.to_json(self.header),
-    "tasks": @json.to_json(self.tasks),
+    "header": self.header.to_json(),
+    "tasks": self.tasks.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InputChecklist with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for InputChecklist")
+    raise @json.JsonDecodeError((path, "Expected object for InputChecklist"))
   }
   let header : String = @json.from_json(object["header"], path~)
   let tasks : Array[InputChecklistTask] = @json.from_json(
@@ -148,15 +150,17 @@ pub fn ChecklistTasksDone::new() -> ChecklistTasksDone {
 }
 
 ///|
-pub impl @json.ToJson for ChecklistTasksDone with to_json(_self) {
+pub impl ToJson for ChecklistTasksDone with to_json(_self) {
   let object : Map[String, Json] = {}
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChecklistTasksDone with from_json(json, path) {
   guard json is Object(_) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChecklistTasksDone")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for ChecklistTasksDone"),
+    )
   }
   ChecklistTasksDone::{  }
 }
@@ -172,17 +176,16 @@ pub fn ChecklistTasksAdded::new() -> ChecklistTasksAdded {
 }
 
 ///|
-pub impl @json.ToJson for ChecklistTasksAdded with to_json(_self) {
+pub impl ToJson for ChecklistTasksAdded with to_json(_self) {
   let object : Map[String, Json] = {}
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChecklistTasksAdded with from_json(json, path) {
   guard json is Object(_) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for ChecklistTasksAdded",
+      (path, "Expected object for ChecklistTasksAdded"),
     )
   }
   ChecklistTasksAdded::{  }

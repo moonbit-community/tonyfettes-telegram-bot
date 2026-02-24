@@ -4,7 +4,7 @@ test "BusinessOpeningHoursInterval JSON round-trip" {
     opening_minute=540,
     closing_minute=1020,
   )
-  let json = @json.to_json(interval)
+  let json = interval.to_json()
   let parsed : BusinessOpeningHoursInterval = @json.from_json(json)
   inspect(parsed.opening_minute, content="540")
   inspect(parsed.closing_minute, content="1020")
@@ -16,7 +16,7 @@ test "BusinessOpeningHours JSON round-trip" {
     BusinessOpeningHoursInterval::new(opening_minute=540, closing_minute=1020),
     BusinessOpeningHoursInterval::new(opening_minute=1980, closing_minute=2460),
   ])
-  let json = @json.to_json(hours)
+  let json = hours.to_json()
   let parsed : BusinessOpeningHours = @json.from_json(json)
   inspect(parsed.time_zone_name, content="Europe/Berlin")
   inspect(parsed.opening_hours.length(), content="2")
@@ -30,7 +30,7 @@ test "BusinessLocation JSON round-trip" {
     address="123 Main Street, Berlin",
     location=Location::new(latitude=52.52, longitude=13.405),
   )
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : BusinessLocation = @json.from_json(json)
   inspect(parsed.address, content="123 Main Street, Berlin")
   inspect(parsed.location.map(fn(l) { l.latitude }), content="Some(52.52)")
@@ -39,7 +39,7 @@ test "BusinessLocation JSON round-trip" {
 ///|
 test "BusinessLocation JSON round-trip without location" {
   let location = BusinessLocation::new(address="123 Main Street, Berlin")
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : BusinessLocation = @json.from_json(json)
   inspect(parsed.address, content="123 Main Street, Berlin")
   inspect(parsed.location, content="None")
@@ -51,7 +51,7 @@ test "BusinessIntro JSON round-trip" {
     title="Welcome",
     message="Hello, how can I help you?",
   )
-  let json = @json.to_json(intro)
+  let json = intro.to_json()
   let parsed : BusinessIntro = @json.from_json(json)
   inspect(parsed.title, content="Some(\"Welcome\")")
   inspect(parsed.message, content="Some(\"Hello, how can I help you?\")")
@@ -61,7 +61,7 @@ test "BusinessIntro JSON round-trip" {
 ///|
 test "BusinessIntro JSON round-trip empty" {
   let intro = BusinessIntro::new()
-  let json = @json.to_json(intro)
+  let json = intro.to_json()
   let parsed : BusinessIntro = @json.from_json(json)
   inspect(parsed.title, content="None")
   inspect(parsed.message, content="None")
@@ -78,7 +78,7 @@ test "BusinessConnection JSON round-trip" {
     can_reply=true,
     is_enabled=true,
   )
-  let json = @json.to_json(connection)
+  let json = connection.to_json()
   let parsed : BusinessConnection = @json.from_json(json)
   inspect(parsed.id, content="conn_12345")
   inspect(parsed.user.first_name, content="John")
@@ -95,7 +95,7 @@ test "BusinessMessagesDeleted JSON round-trip" {
     chat=Chat::new(id=789L, type_=ChatType::Private),
     message_ids=[1, 2, 3, 4, 5],
   )
-  let json = @json.to_json(deleted)
+  let json = deleted.to_json()
   let parsed : BusinessMessagesDeleted = @json.from_json(json)
   inspect(parsed.business_connection_id, content="conn_12345")
   inspect(parsed.chat.id, content="789")

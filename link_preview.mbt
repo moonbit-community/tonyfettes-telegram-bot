@@ -21,30 +21,32 @@ pub fn LinkPreviewOptions::new(
 }
 
 ///|
-pub impl @json.ToJson for LinkPreviewOptions with to_json(self) {
+pub impl ToJson for LinkPreviewOptions with to_json(self) {
   let object : Map[String, Json] = {}
   if self.is_disabled is Some(v) {
-    object["is_disabled"] = @json.to_json(v)
+    object["is_disabled"] = v.to_json()
   }
   if self.url is Some(v) {
-    object["url"] = @json.to_json(v)
+    object["url"] = v.to_json()
   }
   if self.prefer_small_media is Some(v) {
-    object["prefer_small_media"] = @json.to_json(v)
+    object["prefer_small_media"] = v.to_json()
   }
   if self.prefer_large_media is Some(v) {
-    object["prefer_large_media"] = @json.to_json(v)
+    object["prefer_large_media"] = v.to_json()
   }
   if self.show_above_text is Some(v) {
-    object["show_above_text"] = @json.to_json(v)
+    object["show_above_text"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for LinkPreviewOptions with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for LinkPreviewOptions")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for LinkPreviewOptions"),
+    )
   }
   let is_disabled : Bool? = if object.get("is_disabled") is Some(v) {
     Some(@json.from_json(v, path~))
@@ -97,24 +99,24 @@ pub fn TextQuote::new(
 }
 
 ///|
-pub impl @json.ToJson for TextQuote with to_json(self) {
+pub impl ToJson for TextQuote with to_json(self) {
   let object : Map[String, Json] = {
-    "text": @json.to_json(self.text),
-    "position": @json.to_json(self.position),
+    "text": self.text.to_json(),
+    "position": self.position.to_json(),
   }
   if self.entities is Some(v) {
-    object["entities"] = @json.to_json(v)
+    object["entities"] = v.to_json()
   }
   if self.is_manual is Some(v) {
-    object["is_manual"] = @json.to_json(v)
+    object["is_manual"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for TextQuote with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for TextQuote")
+    raise @json.JsonDecodeError((path, "Expected object for TextQuote"))
   }
   let text : String = @json.from_json(object["text"], path~)
   let entities : Array[MessageEntity]? = if object.get("entities") is Some(v) {

@@ -8,7 +8,7 @@ test "PassportElementErrorDataField JSON round-trip" {
       message="Invalid first name",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is DataField(v) else {
     fail("Expected PassportElementError::DataField")
@@ -28,7 +28,7 @@ test "PassportElementErrorFrontSide JSON round-trip" {
       message="Photo is blurry",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is FrontSide(v) else {
     fail("Expected PassportElementError::FrontSide")
@@ -47,7 +47,7 @@ test "PassportElementErrorReverseSide JSON round-trip" {
       message="Document expired",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is ReverseSide(v) else {
     fail("Expected PassportElementError::ReverseSide")
@@ -66,7 +66,7 @@ test "PassportElementErrorSelfie JSON round-trip" {
       message="Face not visible",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is Selfie(v) else {
     fail("Expected PassportElementError::Selfie")
@@ -85,7 +85,7 @@ test "PassportElementErrorFile JSON round-trip" {
       message="File corrupted",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is File(v) else { fail("Expected PassportElementError::File") }
   inspect(v.type_, content="utility_bill")
@@ -102,7 +102,7 @@ test "PassportElementErrorFiles JSON round-trip" {
       message="Multiple files invalid",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is Files(v) else { fail("Expected PassportElementError::Files") }
   inspect(v.type_, content="bank_statement")
@@ -119,7 +119,7 @@ test "PassportElementErrorTranslationFile JSON round-trip" {
       message="Translation unclear",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is TranslationFile(v) else {
     fail("Expected PassportElementError::TranslationFile")
@@ -138,7 +138,7 @@ test "PassportElementErrorTranslationFiles JSON round-trip" {
       message="Translations incomplete",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is TranslationFiles(v) else {
     fail("Expected PassportElementError::TranslationFiles")
@@ -157,7 +157,7 @@ test "PassportElementErrorUnspecified JSON round-trip" {
       message="Unspecified error",
     ),
   )
-  let json = @json.to_json(error)
+  let json = error.to_json()
   let parsed : PassportElementError = @json.from_json(json)
   guard parsed is Unspecified(v) else {
     fail("Expected PassportElementError::Unspecified")

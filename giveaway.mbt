@@ -11,18 +11,18 @@ pub fn GiveawayCreated::new(prize_star_count? : Int) -> GiveawayCreated {
 }
 
 ///|
-pub impl @json.ToJson for GiveawayCreated with to_json(self) {
+pub impl ToJson for GiveawayCreated with to_json(self) {
   let object : Map[String, Json] = {}
   if self.prize_star_count is Some(v) {
-    object["prize_star_count"] = @json.to_json(v)
+    object["prize_star_count"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for GiveawayCreated with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for GiveawayCreated")
+    raise @json.JsonDecodeError((path, "Expected object for GiveawayCreated"))
   }
   let prize_star_count : Int? = if object.get("prize_star_count") is Some(v) {
     Some(@json.from_json(v, path~))
@@ -73,37 +73,37 @@ pub fn Giveaway::new(
 }
 
 ///|
-pub impl @json.ToJson for Giveaway with to_json(self) {
+pub impl ToJson for Giveaway with to_json(self) {
   let object : Map[String, Json] = {
-    "chats": @json.to_json(self.chats),
-    "winners_selection_date": @json.to_json(self.winners_selection_date),
-    "winner_count": @json.to_json(self.winner_count),
+    "chats": self.chats.to_json(),
+    "winners_selection_date": self.winners_selection_date.to_json(),
+    "winner_count": self.winner_count.to_json(),
   }
   if self.only_new_members is Some(v) {
-    object["only_new_members"] = @json.to_json(v)
+    object["only_new_members"] = v.to_json()
   }
   if self.has_public_winners is Some(v) {
-    object["has_public_winners"] = @json.to_json(v)
+    object["has_public_winners"] = v.to_json()
   }
   if self.prize_description is Some(v) {
-    object["prize_description"] = @json.to_json(v)
+    object["prize_description"] = v.to_json()
   }
   if self.country_codes is Some(v) {
-    object["country_codes"] = @json.to_json(v)
+    object["country_codes"] = v.to_json()
   }
   if self.prize_star_count is Some(v) {
-    object["prize_star_count"] = @json.to_json(v)
+    object["prize_star_count"] = v.to_json()
   }
   if self.premium_subscription_month_count is Some(v) {
-    object["premium_subscription_month_count"] = @json.to_json(v)
+    object["premium_subscription_month_count"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Giveaway with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Giveaway")
+    raise @json.JsonDecodeError((path, "Expected object for Giveaway"))
   }
   let chats : Array[Chat] = @json.from_json(object["chats"], path~)
   let winners_selection_date : Int = @json.from_json(
@@ -209,42 +209,42 @@ pub fn GiveawayWinners::new(
 }
 
 ///|
-pub impl @json.ToJson for GiveawayWinners with to_json(self) {
+pub impl ToJson for GiveawayWinners with to_json(self) {
   let object : Map[String, Json] = {
-    "chat": @json.to_json(self.chat),
-    "giveaway_message_id": @json.to_json(self.giveaway_message_id),
-    "winners_selection_date": @json.to_json(self.winners_selection_date),
-    "winner_count": @json.to_json(self.winner_count),
-    "winners": @json.to_json(self.winners),
+    "chat": self.chat.to_json(),
+    "giveaway_message_id": self.giveaway_message_id.to_json(),
+    "winners_selection_date": self.winners_selection_date.to_json(),
+    "winner_count": self.winner_count.to_json(),
+    "winners": self.winners.to_json(),
   }
   if self.additional_chat_count is Some(v) {
-    object["additional_chat_count"] = @json.to_json(v)
+    object["additional_chat_count"] = v.to_json()
   }
   if self.prize_star_count is Some(v) {
-    object["prize_star_count"] = @json.to_json(v)
+    object["prize_star_count"] = v.to_json()
   }
   if self.premium_subscription_month_count is Some(v) {
-    object["premium_subscription_month_count"] = @json.to_json(v)
+    object["premium_subscription_month_count"] = v.to_json()
   }
   if self.unclaimed_prize_count is Some(v) {
-    object["unclaimed_prize_count"] = @json.to_json(v)
+    object["unclaimed_prize_count"] = v.to_json()
   }
   if self.only_new_members is Some(v) {
-    object["only_new_members"] = @json.to_json(v)
+    object["only_new_members"] = v.to_json()
   }
   if self.was_refunded is Some(v) {
-    object["was_refunded"] = @json.to_json(v)
+    object["was_refunded"] = v.to_json()
   }
   if self.prize_description is Some(v) {
-    object["prize_description"] = @json.to_json(v)
+    object["prize_description"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for GiveawayWinners with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for GiveawayWinners")
+    raise @json.JsonDecodeError((path, "Expected object for GiveawayWinners"))
   }
   let chat : Chat = @json.from_json(object["chat"], path~)
   let giveaway_message_id : Int = @json.from_json(
@@ -336,26 +336,26 @@ pub fn GiveawayCompleted::new(
 }
 
 ///|
-pub impl @json.ToJson for GiveawayCompleted with to_json(self) {
+pub impl ToJson for GiveawayCompleted with to_json(self) {
   let object : Map[String, Json] = {
-    "winner_count": @json.to_json(self.winner_count),
+    "winner_count": self.winner_count.to_json(),
   }
   if self.unclaimed_prize_count is Some(v) {
-    object["unclaimed_prize_count"] = @json.to_json(v)
+    object["unclaimed_prize_count"] = v.to_json()
   }
   if self.giveaway_message is Some(v) {
-    object["giveaway_message"] = @json.to_json(v)
+    object["giveaway_message"] = v.to_json()
   }
   if self.is_star_giveaway is Some(v) {
-    object["is_star_giveaway"] = @json.to_json(v)
+    object["is_star_giveaway"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for GiveawayCompleted with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for GiveawayCompleted")
+    raise @json.JsonDecodeError((path, "Expected object for GiveawayCompleted"))
   }
   let winner_count : Int = @json.from_json(object["winner_count"], path~)
   let unclaimed_prize_count : Int? = if object.get("unclaimed_prize_count")

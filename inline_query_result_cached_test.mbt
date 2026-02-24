@@ -1,7 +1,7 @@
 ///|
 test "CachedInputMessageContent JSON round-trip" {
   let content = CachedInputMessageContent::new(message_text="Hello, World!")
-  let json = @json.to_json(content)
+  let json = content.to_json()
   let parsed : CachedInputMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Hello, World!")
 }
@@ -12,7 +12,7 @@ test "InlineQueryResultCachedPhoto minimal JSON round-trip" {
     id="photo_1",
     photo_file_id="AgACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedPhoto = @json.from_json(json)
   inspect(parsed.type_, content="photo")
   inspect(parsed.id, content="photo_1")
@@ -39,7 +39,7 @@ test "InlineQueryResultCachedPhoto full JSON round-trip" {
       message_text="Custom message",
     ),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedPhoto = @json.from_json(json)
   inspect(parsed.type_, content="photo")
   inspect(parsed.id, content="photo_2")
@@ -62,7 +62,7 @@ test "InlineQueryResultCachedGif minimal JSON round-trip" {
     id="gif_1",
     gif_file_id="CgACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedGif = @json.from_json(json)
   inspect(parsed.type_, content="gif")
   inspect(parsed.id, content="gif_1")
@@ -80,7 +80,7 @@ test "InlineQueryResultCachedGif full JSON round-trip" {
     parse_mode="Markdown",
     show_caption_above_media=false,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedGif = @json.from_json(json)
   inspect(parsed.type_, content="gif")
   inspect(parsed.title, content="Some(\"Funny GIF\")")
@@ -95,7 +95,7 @@ test "InlineQueryResultCachedMpeg4Gif minimal JSON round-trip" {
     id="mpeg4_1",
     mpeg4_file_id="BgACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedMpeg4Gif = @json.from_json(json)
   inspect(parsed.type_, content="mpeg4_gif")
   inspect(parsed.id, content="mpeg4_1")
@@ -112,7 +112,7 @@ test "InlineQueryResultCachedMpeg4Gif full JSON round-trip" {
     parse_mode="HTML",
     show_caption_above_media=true,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedMpeg4Gif = @json.from_json(json)
   inspect(parsed.type_, content="mpeg4_gif")
   inspect(parsed.title, content="Some(\"MPEG4 Animation\")")
@@ -126,7 +126,7 @@ test "InlineQueryResultCachedSticker minimal JSON round-trip" {
     id="sticker_1",
     sticker_file_id="CAACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedSticker = @json.from_json(json)
   inspect(parsed.type_, content="sticker")
   inspect(parsed.id, content="sticker_1")
@@ -147,7 +147,7 @@ test "InlineQueryResultCachedSticker full JSON round-trip" {
       message_text="Sticker sent!",
     ),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedSticker = @json.from_json(json)
   inspect(parsed.type_, content="sticker")
   guard parsed.reply_markup is Some(markup) else { panic() }
@@ -163,7 +163,7 @@ test "InlineQueryResultCachedDocument minimal JSON round-trip" {
     title="Document Title",
     document_file_id="BQACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedDocument = @json.from_json(json)
   inspect(parsed.type_, content="document")
   inspect(parsed.id, content="doc_1")
@@ -183,7 +183,7 @@ test "InlineQueryResultCachedDocument full JSON round-trip" {
     parse_mode="MarkdownV2",
     caption_entities=[MessageEntity::new(type_="italic", offset=0, length=4)],
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedDocument = @json.from_json(json)
   inspect(parsed.type_, content="document")
   inspect(parsed.title, content="Important Document")
@@ -202,7 +202,7 @@ test "InlineQueryResultCachedVideo minimal JSON round-trip" {
     video_file_id="BAACAgIAAxkBAAI",
     title="Video Title",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedVideo = @json.from_json(json)
   inspect(parsed.type_, content="video")
   inspect(parsed.id, content="video_1")
@@ -222,7 +222,7 @@ test "InlineQueryResultCachedVideo full JSON round-trip" {
     parse_mode="HTML",
     show_caption_above_media=true,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedVideo = @json.from_json(json)
   inspect(parsed.type_, content="video")
   inspect(parsed.title, content="Amazing Video")
@@ -238,7 +238,7 @@ test "InlineQueryResultCachedVoice minimal JSON round-trip" {
     voice_file_id="AwACAgIAAxkBAAI",
     title="Voice Message",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedVoice = @json.from_json(json)
   inspect(parsed.type_, content="voice")
   inspect(parsed.id, content="voice_1")
@@ -257,7 +257,7 @@ test "InlineQueryResultCachedVoice full JSON round-trip" {
     parse_mode="HTML",
     caption_entities=[MessageEntity::new(type_="underline", offset=0, length=6)],
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedVoice = @json.from_json(json)
   inspect(parsed.type_, content="voice")
   inspect(parsed.title, content="Important Voice Note")
@@ -272,7 +272,7 @@ test "InlineQueryResultCachedAudio minimal JSON round-trip" {
     id="audio_1",
     audio_file_id="CQACAgIAAxkBAAI",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedAudio = @json.from_json(json)
   inspect(parsed.type_, content="audio")
   inspect(parsed.id, content="audio_1")
@@ -295,7 +295,7 @@ test "InlineQueryResultCachedAudio full JSON round-trip" {
       message_text="Here is the audio",
     ),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultCachedAudio = @json.from_json(json)
   inspect(parsed.type_, content="audio")
   inspect(parsed.caption, content="Some(\"Great song!\")")

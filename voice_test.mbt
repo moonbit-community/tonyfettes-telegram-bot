@@ -7,7 +7,7 @@ test "Voice JSON round-trip" {
     mime_type="audio/ogg",
     file_size=25000L,
   )
-  let json = @json.to_json(voice)
+  let json = voice.to_json()
   let parsed : Voice = @json.from_json(json)
   inspect(parsed.file_id, content="AwACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATvoice")
@@ -23,7 +23,7 @@ test "Voice JSON round-trip without optionals" {
     file_unique_id="AQADAgATvoice",
     duration=15,
   )
-  let json = @json.to_json(voice)
+  let json = voice.to_json()
   let parsed : Voice = @json.from_json(json)
   inspect(parsed.file_id, content="AwACAgIAAxkBAAI")
   inspect(parsed.mime_type, content="None")

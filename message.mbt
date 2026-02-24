@@ -24,28 +24,28 @@ pub fn MessageEntity::new(
 }
 
 ///|
-pub impl @json.ToJson for MessageEntity with to_json(self) {
+pub impl ToJson for MessageEntity with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "offset": @json.to_json(self.offset),
-    "length": @json.to_json(self.length),
+    "type": self.type_.to_json(),
+    "offset": self.offset.to_json(),
+    "length": self.length.to_json(),
   }
   if self.url is Some(v) {
-    object["url"] = @json.to_json(v)
+    object["url"] = v.to_json()
   }
   if self.user is Some(v) {
-    object["user"] = @json.to_json(v)
+    object["user"] = v.to_json()
   }
   if self.language is Some(v) {
-    object["language"] = @json.to_json(v)
+    object["language"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for MessageEntity with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for MessageEntity")
+    raise @json.JsonDecodeError((path, "Expected object for MessageEntity"))
   }
   let type_ : String = @json.from_json(object["type"], path~)
   let offset : Int = @json.from_json(object["offset"], path~)
@@ -121,49 +121,49 @@ pub fn Message::new(
 }
 
 ///|
-pub impl @json.ToJson for Message with to_json(self) {
+pub impl ToJson for Message with to_json(self) {
   let object : Map[String, Json] = {
-    "message_id": @json.to_json(self.message_id),
-    "date": @json.to_json(self.date),
-    "chat": @json.to_json(self.chat),
+    "message_id": self.message_id.to_json(),
+    "date": self.date.to_json(),
+    "chat": self.chat.to_json(),
   }
   if self.from is Some(v) {
-    object["from"] = @json.to_json(v)
+    object["from"] = v.to_json()
   }
   if self.text is Some(v) {
-    object["text"] = @json.to_json(v)
+    object["text"] = v.to_json()
   }
   if self.entities is Some(v) {
-    object["entities"] = @json.to_json(v)
+    object["entities"] = v.to_json()
   }
   if self.reply_to_message is Some(v) {
-    object["reply_to_message"] = @json.to_json(v)
+    object["reply_to_message"] = v.to_json()
   }
   if self.message_thread_id is Some(v) {
-    object["message_thread_id"] = @json.to_json(v)
+    object["message_thread_id"] = v.to_json()
   }
   if self.is_topic_message is Some(v) {
-    object["is_topic_message"] = @json.to_json(v)
+    object["is_topic_message"] = v.to_json()
   }
   if self.direct_messages_topic is Some(v) {
-    object["direct_messages_topic"] = @json.to_json(v)
+    object["direct_messages_topic"] = v.to_json()
   }
   if self.gift_upgrade_sent is Some(v) {
-    object["gift_upgrade_sent"] = @json.to_json(v)
+    object["gift_upgrade_sent"] = v.to_json()
   }
   if self.gift_id is Some(v) {
-    object["gift_id"] = @json.to_json(v)
+    object["gift_id"] = v.to_json()
   }
   if self.is_from_blockchain is Some(v) {
-    object["is_from_blockchain"] = @json.to_json(v)
+    object["is_from_blockchain"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Message with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Message")
+    raise @json.JsonDecodeError((path, "Expected object for Message"))
   }
   let message_id : Int = @json.from_json(object["message_id"], path~)
   let from : User? = if object.get("from") is Some(v) {

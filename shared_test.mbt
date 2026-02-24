@@ -6,7 +6,7 @@ test "PhotoSize JSON round-trip" {
     width=640,
     height=480,
   )
-  let json = @json.to_json(photo)
+  let json = photo.to_json()
   let parsed : PhotoSize = @json.from_json(json)
   inspect(parsed.file_id, content="photo123")
   inspect(parsed.file_unique_id, content="unique456")
@@ -22,7 +22,7 @@ test "SharedUser JSON round-trip" {
     last_name="Doe",
     username="johndoe",
   )
-  let json = @json.to_json(user)
+  let json = user.to_json()
   let parsed : SharedUser = @json.from_json(json)
   inspect(parsed.user_id, content="12345")
   inspect(parsed.first_name, content="Some(\"John\")")
@@ -40,7 +40,7 @@ test "SharedUser with photo JSON round-trip" {
     height=480,
   )
   let user = SharedUser::new(user_id=67890L, photo=[photo])
-  let json = @json.to_json(user)
+  let json = user.to_json()
   let parsed : SharedUser = @json.from_json(json)
   inspect(parsed.user_id, content="67890")
   inspect(parsed.first_name, content="None")
@@ -54,7 +54,7 @@ test "UsersShared JSON round-trip" {
   let user1 = SharedUser::new(user_id=111L, first_name="Alice")
   let user2 = SharedUser::new(user_id=222L, first_name="Bob")
   let shared = UsersShared::new(request_id=42, users=[user1, user2])
-  let json = @json.to_json(shared)
+  let json = shared.to_json()
   let parsed : UsersShared = @json.from_json(json)
   inspect(parsed.request_id, content="42")
   inspect(parsed.users.length(), content="2")
@@ -70,7 +70,7 @@ test "ChatShared JSON round-trip" {
     title="My Group",
     username="mygroup",
   )
-  let json = @json.to_json(shared)
+  let json = shared.to_json()
   let parsed : ChatShared = @json.from_json(json)
   inspect(parsed.request_id, content="99")
   inspect(parsed.chat_id, content="123456")
@@ -82,7 +82,7 @@ test "ChatShared JSON round-trip" {
 ///|
 test "ChatShared minimal JSON round-trip" {
   let shared = ChatShared::new(request_id=1, chat_id=789L)
-  let json = @json.to_json(shared)
+  let json = shared.to_json()
   let parsed : ChatShared = @json.from_json(json)
   inspect(parsed.request_id, content="1")
   inspect(parsed.chat_id, content="789")

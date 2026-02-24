@@ -19,24 +19,24 @@ pub fn LoginUrl::new(
 }
 
 ///|
-pub impl @json.ToJson for LoginUrl with to_json(self) {
-  let object : Map[String, Json] = { "url": @json.to_json(self.url) }
+pub impl ToJson for LoginUrl with to_json(self) {
+  let object : Map[String, Json] = { "url": self.url.to_json() }
   if self.forward_text is Some(v) {
-    object["forward_text"] = @json.to_json(v)
+    object["forward_text"] = v.to_json()
   }
   if self.bot_username is Some(v) {
-    object["bot_username"] = @json.to_json(v)
+    object["bot_username"] = v.to_json()
   }
   if self.request_write_access is Some(v) {
-    object["request_write_access"] = @json.to_json(v)
+    object["request_write_access"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for LoginUrl with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for LoginUrl")
+    raise @json.JsonDecodeError((path, "Expected object for LoginUrl"))
   }
   let url : String = @json.from_json(object["url"], path~)
   let forward_text : String? = if object.get("forward_text") is Some(v) {
@@ -87,24 +87,24 @@ pub fn SwitchInlineQueryChosenChat::new(
 }
 
 ///|
-pub impl @json.ToJson for SwitchInlineQueryChosenChat with to_json(self) {
+pub impl ToJson for SwitchInlineQueryChosenChat with to_json(self) {
   let object : Map[String, Json] = {}
   if self.query is Some(v) {
-    object["query"] = @json.to_json(v)
+    object["query"] = v.to_json()
   }
   if self.allow_user_chats is Some(v) {
-    object["allow_user_chats"] = @json.to_json(v)
+    object["allow_user_chats"] = v.to_json()
   }
   if self.allow_bot_chats is Some(v) {
-    object["allow_bot_chats"] = @json.to_json(v)
+    object["allow_bot_chats"] = v.to_json()
   }
   if self.allow_group_chats is Some(v) {
-    object["allow_group_chats"] = @json.to_json(v)
+    object["allow_group_chats"] = v.to_json()
   }
   if self.allow_channel_chats is Some(v) {
-    object["allow_channel_chats"] = @json.to_json(v)
+    object["allow_channel_chats"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -114,8 +114,7 @@ pub impl @json.FromJson for SwitchInlineQueryChosenChat with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for SwitchInlineQueryChosenChat",
+      (path, "Expected object for SwitchInlineQueryChosenChat"),
     )
   }
   let query : String? = if object.get("query") is Some(v) {
@@ -164,15 +163,15 @@ pub fn CallbackGame::new() -> CallbackGame {
 }
 
 ///|
-pub impl @json.ToJson for CallbackGame with to_json(_self) {
+pub impl ToJson for CallbackGame with to_json(_self) {
   let object : Map[String, Json] = {}
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for CallbackGame with from_json(json, path) {
   guard json is Object(_) else {
-    raise @json.JsonDecodeError(path~, "Expected object for CallbackGame")
+    raise @json.JsonDecodeError((path, "Expected object for CallbackGame"))
   }
   CallbackGame::{  }
 }

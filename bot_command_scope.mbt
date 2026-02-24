@@ -53,51 +53,47 @@ pub(all) enum BotCommandScope {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for BotCommandScope with to_json(self) {
+pub impl ToJson for BotCommandScope with to_json(self) {
   match self {
     Default => {
-      let object : Map[String, Json] = { "type": @json.to_json("default") }
-      @json.to_json(object)
+      let object : Map[String, Json] = { "type": "default".to_json() }
+      object.to_json()
     }
     AllPrivateChats => {
-      let object : Map[String, Json] = {
-        "type": @json.to_json("all_private_chats"),
-      }
-      @json.to_json(object)
+      let object : Map[String, Json] = { "type": "all_private_chats".to_json() }
+      object.to_json()
     }
     AllGroupChats => {
-      let object : Map[String, Json] = {
-        "type": @json.to_json("all_group_chats"),
-      }
-      @json.to_json(object)
+      let object : Map[String, Json] = { "type": "all_group_chats".to_json() }
+      object.to_json()
     }
     AllChatAdministrators => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("all_chat_administrators"),
+        "type": "all_chat_administrators".to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Chat(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("chat"),
-        "chat_id": @json.to_json(v.chat_id),
+        "type": "chat".to_json(),
+        "chat_id": int64_to_json(v.chat_id),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     ChatAdministrators(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("chat_administrators"),
-        "chat_id": @json.to_json(v.chat_id),
+        "type": "chat_administrators".to_json(),
+        "chat_id": int64_to_json(v.chat_id),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     ChatMember(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("chat_member"),
-        "chat_id": @json.to_json(v.chat_id),
-        "user_id": @json.to_json(v.user_id),
+        "type": "chat_member".to_json(),
+        "chat_id": int64_to_json(v.chat_id),
+        "user_id": int64_to_json(v.user_id),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -105,12 +101,11 @@ pub impl @json.ToJson for BotCommandScope with to_json(self) {
 ///|
 pub impl @json.FromJson for BotCommandScope with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BotCommandScope")
+    raise @json.JsonDecodeError((path, "Expected object for BotCommandScope"))
   }
   guard object["type"] is String(type_) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected type field for BotCommandScope",
+      (path, "Expected type field for BotCommandScope"),
     )
   }
   match type_ {
@@ -119,22 +114,21 @@ pub impl @json.FromJson for BotCommandScope with from_json(json, path) {
     "all_group_chats" => AllGroupChats
     "all_chat_administrators" => AllChatAdministrators
     "chat" => {
-      let chat_id : Int64 = @json.from_json(object["chat_id"], path~)
+      let chat_id : Int64 = int64_from_json(object["chat_id"], path)
       Chat({ chat_id, })
     }
     "chat_administrators" => {
-      let chat_id : Int64 = @json.from_json(object["chat_id"], path~)
+      let chat_id : Int64 = int64_from_json(object["chat_id"], path)
       ChatAdministrators({ chat_id, })
     }
     "chat_member" => {
-      let chat_id : Int64 = @json.from_json(object["chat_id"], path~)
-      let user_id : Int64 = @json.from_json(object["user_id"], path~)
+      let chat_id : Int64 = int64_from_json(object["chat_id"], path)
+      let user_id : Int64 = int64_from_json(object["user_id"], path)
       ChatMember({ chat_id, user_id })
     }
     _ =>
       raise @json.JsonDecodeError(
-        path~,
-        "Unknown BotCommandScope type: \{type_}",
+        (path, "Unknown BotCommandScope type: \{type_}"),
       )
   }
 }

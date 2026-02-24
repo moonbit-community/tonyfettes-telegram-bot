@@ -33,31 +33,31 @@ pub fn Venue::new(
 }
 
 ///|
-pub impl @json.ToJson for Venue with to_json(self) {
+pub impl ToJson for Venue with to_json(self) {
   let object : Map[String, Json] = {
-    "location": @json.to_json(self.location),
-    "title": @json.to_json(self.title),
-    "address": @json.to_json(self.address),
+    "location": self.location.to_json(),
+    "title": self.title.to_json(),
+    "address": self.address.to_json(),
   }
   if self.foursquare_id is Some(v) {
-    object["foursquare_id"] = @json.to_json(v)
+    object["foursquare_id"] = v.to_json()
   }
   if self.foursquare_type is Some(v) {
-    object["foursquare_type"] = @json.to_json(v)
+    object["foursquare_type"] = v.to_json()
   }
   if self.google_place_id is Some(v) {
-    object["google_place_id"] = @json.to_json(v)
+    object["google_place_id"] = v.to_json()
   }
   if self.google_place_type is Some(v) {
-    object["google_place_type"] = @json.to_json(v)
+    object["google_place_type"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Venue with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Venue")
+    raise @json.JsonDecodeError((path, "Expected object for Venue"))
   }
   let location : Location = @json.from_json(object["location"], path~)
   let title : String = @json.from_json(object["title"], path~)

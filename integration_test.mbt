@@ -1,25 +1,22 @@
 ///|
-using @json {type Json}
-
-///|
 /// Build Telegram API success response JSON
-fn[T : @json.ToJson] telegram_success(result : T) -> String {
+fn[T : ToJson] telegram_success(result : T) -> String {
   let response : Map[String, Json] = {
-    "ok": @json.to_json(true),
-    "result": @json.to_json(result),
+    "ok": true.to_json(),
+    "result": result.to_json(),
   }
-  @json.stringify(@json.to_json(response))
+  response.to_json().stringify()
 }
 
 ///|
 /// Build Telegram API error response JSON
 fn telegram_error(code : Int, description : String) -> String {
   let response : Map[String, Json] = {
-    "ok": @json.to_json(false),
-    "error_code": @json.to_json(code),
-    "description": @json.to_json(description),
+    "ok": false.to_json(),
+    "error_code": code.to_json(),
+    "description": description.to_json(),
   }
-  @json.stringify(@json.to_json(response))
+  response.to_json().stringify()
 }
 
 ///|

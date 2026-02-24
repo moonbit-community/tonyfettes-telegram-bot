@@ -78,46 +78,46 @@ pub(all) enum MessageOrigin {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for MessageOrigin with to_json(self) {
+pub impl ToJson for MessageOrigin with to_json(self) {
   match self {
     User(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("user"),
-        "date": @json.to_json(v.date),
-        "sender_user": @json.to_json(v.sender_user),
+        "type": "user".to_json(),
+        "date": v.date.to_json(),
+        "sender_user": v.sender_user.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     HiddenUser(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("hidden_user"),
-        "date": @json.to_json(v.date),
-        "sender_user_name": @json.to_json(v.sender_user_name),
+        "type": "hidden_user".to_json(),
+        "date": v.date.to_json(),
+        "sender_user_name": v.sender_user_name.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Chat(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("chat"),
-        "date": @json.to_json(v.date),
-        "sender_chat": @json.to_json(v.sender_chat),
+        "type": "chat".to_json(),
+        "date": v.date.to_json(),
+        "sender_chat": v.sender_chat.to_json(),
       }
       if v.author_signature is Some(sig) {
-        object["author_signature"] = @json.to_json(sig)
+        object["author_signature"] = sig.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Channel(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("channel"),
-        "date": @json.to_json(v.date),
-        "chat": @json.to_json(v.chat),
-        "message_id": @json.to_json(v.message_id),
+        "type": "channel".to_json(),
+        "date": v.date.to_json(),
+        "chat": v.chat.to_json(),
+        "message_id": v.message_id.to_json(),
       }
       if v.author_signature is Some(sig) {
-        object["author_signature"] = @json.to_json(sig)
+        object["author_signature"] = sig.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -125,10 +125,10 @@ pub impl @json.ToJson for MessageOrigin with to_json(self) {
 ///|
 pub impl @json.FromJson for MessageOrigin with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for MessageOrigin")
+    raise @json.JsonDecodeError((path, "Expected object for MessageOrigin"))
   }
   guard object["type"] is String(type_) else {
-    raise @json.JsonDecodeError(path~, "Expected type field for MessageOrigin")
+    raise @json.JsonDecodeError((path, "Expected type field for MessageOrigin"))
   }
   match type_ {
     "user" => {
@@ -168,6 +168,8 @@ pub impl @json.FromJson for MessageOrigin with from_json(json, path) {
       Channel({ date, chat, message_id, author_signature })
     }
     _ =>
-      raise @json.JsonDecodeError(path~, "Unknown MessageOrigin type: \{type_}")
+      raise @json.JsonDecodeError(
+        (path, "Unknown MessageOrigin type: \{type_}"),
+      )
   }
 }

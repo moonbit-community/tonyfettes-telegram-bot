@@ -12,18 +12,18 @@ pub fn Dice::new(emoji~ : String, value~ : Int) -> Dice {
 }
 
 ///|
-pub impl @json.ToJson for Dice with to_json(self) {
+pub impl ToJson for Dice with to_json(self) {
   let object : Map[String, Json] = {
-    "emoji": @json.to_json(self.emoji),
-    "value": @json.to_json(self.value),
+    "emoji": self.emoji.to_json(),
+    "value": self.value.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Dice with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Dice")
+    raise @json.JsonDecodeError((path, "Expected object for Dice"))
   }
   let emoji : String = @json.from_json(object["emoji"], path~)
   let value : Int = @json.from_json(object["value"], path~)

@@ -45,43 +45,42 @@ pub fn InlineQueryResultArticle::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultArticle with to_json(self) {
+pub impl ToJson for InlineQueryResultArticle with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "title": @json.to_json(self.title),
-    "input_message_content": @json.to_json(self.input_message_content),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "title": self.title.to_json(),
+    "input_message_content": self.input_message_content.to_json(),
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.url is Some(v) {
-    object["url"] = @json.to_json(v)
+    object["url"] = v.to_json()
   }
   if self.hide_url is Some(v) {
-    object["hide_url"] = @json.to_json(v)
+    object["hide_url"] = v.to_json()
   }
   if self.description is Some(v) {
-    object["description"] = @json.to_json(v)
+    object["description"] = v.to_json()
   }
   if self.thumbnail_url is Some(v) {
-    object["thumbnail_url"] = @json.to_json(v)
+    object["thumbnail_url"] = v.to_json()
   }
   if self.thumbnail_width is Some(v) {
-    object["thumbnail_width"] = @json.to_json(v)
+    object["thumbnail_width"] = v.to_json()
   }
   if self.thumbnail_height is Some(v) {
-    object["thumbnail_height"] = @json.to_json(v)
+    object["thumbnail_height"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQueryResultArticle with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultArticle",
+      (path, "Expected object for InlineQueryResultArticle"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -189,43 +188,42 @@ pub fn InlineQueryResultContact::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultContact with to_json(self) {
+pub impl ToJson for InlineQueryResultContact with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "phone_number": @json.to_json(self.phone_number),
-    "first_name": @json.to_json(self.first_name),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "phone_number": self.phone_number.to_json(),
+    "first_name": self.first_name.to_json(),
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
   if self.vcard is Some(v) {
-    object["vcard"] = @json.to_json(v)
+    object["vcard"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
   if self.thumbnail_url is Some(v) {
-    object["thumbnail_url"] = @json.to_json(v)
+    object["thumbnail_url"] = v.to_json()
   }
   if self.thumbnail_width is Some(v) {
-    object["thumbnail_width"] = @json.to_json(v)
+    object["thumbnail_width"] = v.to_json()
   }
   if self.thumbnail_height is Some(v) {
-    object["thumbnail_height"] = @json.to_json(v)
+    object["thumbnail_height"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQueryResultContact with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultContact",
+      (path, "Expected object for InlineQueryResultContact"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -342,50 +340,49 @@ pub fn InlineQueryResultLocation::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultLocation with to_json(self) {
+pub impl ToJson for InlineQueryResultLocation with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "latitude": @json.to_json(self.latitude),
-    "longitude": @json.to_json(self.longitude),
-    "title": @json.to_json(self.title),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "latitude": self.latitude.to_json(),
+    "longitude": self.longitude.to_json(),
+    "title": self.title.to_json(),
   }
   if self.horizontal_accuracy is Some(v) {
-    object["horizontal_accuracy"] = @json.to_json(v)
+    object["horizontal_accuracy"] = v.to_json()
   }
   if self.live_period is Some(v) {
-    object["live_period"] = @json.to_json(v)
+    object["live_period"] = v.to_json()
   }
   if self.heading is Some(v) {
-    object["heading"] = @json.to_json(v)
+    object["heading"] = v.to_json()
   }
   if self.proximity_alert_radius is Some(v) {
-    object["proximity_alert_radius"] = @json.to_json(v)
+    object["proximity_alert_radius"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
   if self.thumbnail_url is Some(v) {
-    object["thumbnail_url"] = @json.to_json(v)
+    object["thumbnail_url"] = v.to_json()
   }
   if self.thumbnail_width is Some(v) {
-    object["thumbnail_width"] = @json.to_json(v)
+    object["thumbnail_width"] = v.to_json()
   }
   if self.thumbnail_height is Some(v) {
-    object["thumbnail_height"] = @json.to_json(v)
+    object["thumbnail_height"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQueryResultLocation with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultLocation",
+      (path, "Expected object for InlineQueryResultLocation"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -521,51 +518,50 @@ pub fn InlineQueryResultVenue::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultVenue with to_json(self) {
+pub impl ToJson for InlineQueryResultVenue with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "latitude": @json.to_json(self.latitude),
-    "longitude": @json.to_json(self.longitude),
-    "title": @json.to_json(self.title),
-    "address": @json.to_json(self.address),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "latitude": self.latitude.to_json(),
+    "longitude": self.longitude.to_json(),
+    "title": self.title.to_json(),
+    "address": self.address.to_json(),
   }
   if self.foursquare_id is Some(v) {
-    object["foursquare_id"] = @json.to_json(v)
+    object["foursquare_id"] = v.to_json()
   }
   if self.foursquare_type is Some(v) {
-    object["foursquare_type"] = @json.to_json(v)
+    object["foursquare_type"] = v.to_json()
   }
   if self.google_place_id is Some(v) {
-    object["google_place_id"] = @json.to_json(v)
+    object["google_place_id"] = v.to_json()
   }
   if self.google_place_type is Some(v) {
-    object["google_place_type"] = @json.to_json(v)
+    object["google_place_type"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
   if self.thumbnail_url is Some(v) {
-    object["thumbnail_url"] = @json.to_json(v)
+    object["thumbnail_url"] = v.to_json()
   }
   if self.thumbnail_width is Some(v) {
-    object["thumbnail_width"] = @json.to_json(v)
+    object["thumbnail_width"] = v.to_json()
   }
   if self.thumbnail_height is Some(v) {
-    object["thumbnail_height"] = @json.to_json(v)
+    object["thumbnail_height"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQueryResultVenue with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultVenue",
+      (path, "Expected object for InlineQueryResultVenue"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)

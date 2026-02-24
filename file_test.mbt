@@ -6,7 +6,7 @@ test "File JSON round-trip" {
     file_size=1024000L,
     file_path="photos/file_0.jpg",
   )
-  let json = @json.to_json(file)
+  let json = file.to_json()
   let parsed : File = @json.from_json(json)
   inspect(parsed.file_id, content="AgACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATfile")
@@ -17,7 +17,7 @@ test "File JSON round-trip" {
 ///|
 test "File JSON round-trip without optionals" {
   let file = File::new(file_id="AgACAgIAAxkBAAI", file_unique_id="AQADAgATfile")
-  let json = @json.to_json(file)
+  let json = file.to_json()
   let parsed : File = @json.from_json(json)
   inspect(parsed.file_id, content="AgACAgIAAxkBAAI")
   inspect(parsed.file_size, content="None")

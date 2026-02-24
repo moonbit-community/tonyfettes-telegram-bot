@@ -17,7 +17,7 @@ test "Audio JSON round-trip" {
     file_size=3500000L,
     thumbnail~,
   )
-  let json = @json.to_json(audio)
+  let json = audio.to_json()
   let parsed : Audio = @json.from_json(json)
   inspect(parsed.file_id, content="CQACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATaudio")
@@ -36,7 +36,7 @@ test "Audio JSON round-trip without optionals" {
     file_unique_id="AQADAgATaudio",
     duration=180,
   )
-  let json = @json.to_json(audio)
+  let json = audio.to_json()
   let parsed : Audio = @json.from_json(json)
   inspect(parsed.file_id, content="CQACAgIAAxkBAAI")
   inspect(parsed.performer, content="None")

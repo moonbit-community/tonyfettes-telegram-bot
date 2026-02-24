@@ -15,20 +15,19 @@ pub fn DocumentPlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for DocumentPlaceholder with to_json(self) {
+pub impl ToJson for DocumentPlaceholder with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for DocumentPlaceholder with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for DocumentPlaceholder",
+      (path, "Expected object for DocumentPlaceholder"),
     )
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
@@ -89,30 +88,30 @@ pub(all) enum BackgroundFill {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for BackgroundFill with to_json(self) {
+pub impl ToJson for BackgroundFill with to_json(self) {
   match self {
     Solid(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("solid"),
-        "color": @json.to_json(v.color),
+        "type": "solid".to_json(),
+        "color": v.color.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Gradient(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("gradient"),
-        "top_color": @json.to_json(v.top_color),
-        "bottom_color": @json.to_json(v.bottom_color),
-        "rotation_angle": @json.to_json(v.rotation_angle),
+        "type": "gradient".to_json(),
+        "top_color": v.top_color.to_json(),
+        "bottom_color": v.bottom_color.to_json(),
+        "rotation_angle": v.rotation_angle.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     FreeformGradient(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("freeform_gradient"),
-        "colors": @json.to_json(v.colors),
+        "type": "freeform_gradient".to_json(),
+        "colors": v.colors.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -120,10 +119,12 @@ pub impl @json.ToJson for BackgroundFill with to_json(self) {
 ///|
 pub impl @json.FromJson for BackgroundFill with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BackgroundFill")
+    raise @json.JsonDecodeError((path, "Expected object for BackgroundFill"))
   }
   guard object["type"] is String(type_) else {
-    raise @json.JsonDecodeError(path~, "Expected type field for BackgroundFill")
+    raise @json.JsonDecodeError(
+      (path, "Expected type field for BackgroundFill"),
+    )
   }
   match type_ {
     "solid" => {
@@ -145,8 +146,7 @@ pub impl @json.FromJson for BackgroundFill with from_json(json, path) {
     }
     _ =>
       raise @json.JsonDecodeError(
-        path~,
-        "Unknown type for BackgroundFill: \{type_}",
+        (path, "Unknown type for BackgroundFill: \{type_}"),
       )
   }
 }
@@ -234,51 +234,51 @@ pub(all) enum BackgroundType {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for BackgroundType with to_json(self) {
+pub impl ToJson for BackgroundType with to_json(self) {
   match self {
     Fill(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("fill"),
-        "fill": @json.to_json(v.fill),
-        "dark_theme_dimming": @json.to_json(v.dark_theme_dimming),
+        "type": "fill".to_json(),
+        "fill": v.fill.to_json(),
+        "dark_theme_dimming": v.dark_theme_dimming.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Wallpaper(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("wallpaper"),
-        "document": @json.to_json(v.document),
-        "dark_theme_dimming": @json.to_json(v.dark_theme_dimming),
+        "type": "wallpaper".to_json(),
+        "document": v.document.to_json(),
+        "dark_theme_dimming": v.dark_theme_dimming.to_json(),
       }
       if v.is_blurred is Some(b) {
-        object["is_blurred"] = @json.to_json(b)
+        object["is_blurred"] = b.to_json()
       }
       if v.is_moving is Some(m) {
-        object["is_moving"] = @json.to_json(m)
+        object["is_moving"] = m.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Pattern(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("pattern"),
-        "document": @json.to_json(v.document),
-        "fill": @json.to_json(v.fill),
-        "intensity": @json.to_json(v.intensity),
+        "type": "pattern".to_json(),
+        "document": v.document.to_json(),
+        "fill": v.fill.to_json(),
+        "intensity": v.intensity.to_json(),
       }
       if v.is_inverted is Some(i) {
-        object["is_inverted"] = @json.to_json(i)
+        object["is_inverted"] = i.to_json()
       }
       if v.is_moving is Some(m) {
-        object["is_moving"] = @json.to_json(m)
+        object["is_moving"] = m.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     ChatTheme(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("chat_theme"),
-        "theme_name": @json.to_json(v.theme_name),
+        "type": "chat_theme".to_json(),
+        "theme_name": v.theme_name.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -286,10 +286,12 @@ pub impl @json.ToJson for BackgroundType with to_json(self) {
 ///|
 pub impl @json.FromJson for BackgroundType with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for BackgroundType")
+    raise @json.JsonDecodeError((path, "Expected object for BackgroundType"))
   }
   guard object["type"] is String(type_) else {
-    raise @json.JsonDecodeError(path~, "Expected type field for BackgroundType")
+    raise @json.JsonDecodeError(
+      (path, "Expected type field for BackgroundType"),
+    )
   }
   match type_ {
     "fill" => {
@@ -346,8 +348,7 @@ pub impl @json.FromJson for BackgroundType with from_json(json, path) {
     }
     _ =>
       raise @json.JsonDecodeError(
-        path~,
-        "Unknown type for BackgroundType: \{type_}",
+        (path, "Unknown type for BackgroundType: \{type_}"),
       )
   }
 }
@@ -365,15 +366,15 @@ pub fn ChatBackground::new(type_~ : BackgroundType) -> ChatBackground {
 }
 
 ///|
-pub impl @json.ToJson for ChatBackground with to_json(self) {
-  let object : Map[String, Json] = { "type": @json.to_json(self.type_) }
-  @json.to_json(object)
+pub impl ToJson for ChatBackground with to_json(self) {
+  let object : Map[String, Json] = { "type": self.type_.to_json() }
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatBackground with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatBackground")
+    raise @json.JsonDecodeError((path, "Expected object for ChatBackground"))
   }
   let type_ : BackgroundType = @json.from_json(object["type"], path~)
   { type_, }

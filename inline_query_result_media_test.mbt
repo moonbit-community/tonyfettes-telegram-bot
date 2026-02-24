@@ -1,7 +1,7 @@
 ///|
 test "InputTextMessageContent JSON round-trip" {
   let content = InputTextMessageContent::new(message_text="Hello, World!")
-  let json = @json.to_json(content)
+  let json = content.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Hello, World!")
 }
@@ -13,7 +13,7 @@ test "InlineQueryResultPhoto minimal JSON round-trip" {
     photo_url="https://example.com/photo.jpg",
     thumbnail_url="https://example.com/thumb.jpg",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultPhoto = @json.from_json(json)
   inspect(parsed.type_, content="photo")
   inspect(parsed.id, content="photo_1")
@@ -43,7 +43,7 @@ test "InlineQueryResultPhoto full JSON round-trip" {
       message_text="Selected photo",
     ),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultPhoto = @json.from_json(json)
   inspect(parsed.type_, content="photo")
   inspect(parsed.id, content="photo_2")
@@ -71,7 +71,7 @@ test "InlineQueryResultGif minimal JSON round-trip" {
     gif_url="https://example.com/animation.gif",
     thumbnail_url="https://example.com/thumb.jpg",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultGif = @json.from_json(json)
   inspect(parsed.type_, content="gif")
   inspect(parsed.id, content="gif_1")
@@ -96,7 +96,7 @@ test "InlineQueryResultGif full JSON round-trip" {
     parse_mode="MarkdownV2",
     show_caption_above_media=false,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultGif = @json.from_json(json)
   inspect(parsed.type_, content="gif")
   inspect(parsed.id, content="gif_2")
@@ -117,7 +117,7 @@ test "InlineQueryResultMpeg4Gif minimal JSON round-trip" {
     mpeg4_url="https://example.com/animation.mp4",
     thumbnail_url="https://example.com/thumb.jpg",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultMpeg4Gif = @json.from_json(json)
   inspect(parsed.type_, content="mpeg4_gif")
   inspect(parsed.id, content="mpeg4_1")
@@ -144,7 +144,7 @@ test "InlineQueryResultMpeg4Gif full JSON round-trip" {
       [InlineKeyboardButton::new(text="View", url="https://example.com")],
     ]),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultMpeg4Gif = @json.from_json(json)
   inspect(parsed.type_, content="mpeg4_gif")
   inspect(parsed.id, content="mpeg4_2")
@@ -173,7 +173,7 @@ test "InlineQueryResultVideo minimal JSON round-trip" {
     thumbnail_url="https://example.com/thumb.jpg",
     title="A Video",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultVideo = @json.from_json(json)
   inspect(parsed.type_, content="video")
   inspect(parsed.id, content="video_1")
@@ -207,7 +207,7 @@ test "InlineQueryResultVideo full JSON round-trip" {
       message_text="You selected a video",
     ),
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultVideo = @json.from_json(json)
   inspect(parsed.type_, content="video")
   inspect(parsed.id, content="video_2")
@@ -238,7 +238,7 @@ test "InlineQueryResultPhoto with caption_entities JSON round-trip" {
     caption="Bold text",
     caption_entities=[MessageEntity::new(type_="bold", offset=0, length=4)],
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultPhoto = @json.from_json(json)
   inspect(parsed.caption, content="Some(\"Bold text\")")
   guard parsed.caption_entities is Some(entities) else {

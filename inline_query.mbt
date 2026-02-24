@@ -23,26 +23,26 @@ pub fn InlineQuery::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQuery with to_json(self) {
+pub impl ToJson for InlineQuery with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "from": @json.to_json(self.from),
-    "query": @json.to_json(self.query),
-    "offset": @json.to_json(self.offset),
+    "id": self.id.to_json(),
+    "from": self.from.to_json(),
+    "query": self.query.to_json(),
+    "offset": self.offset.to_json(),
   }
   if self.chat_type is Some(v) {
-    object["chat_type"] = @json.to_json(v)
+    object["chat_type"] = v.to_json()
   }
   if self.location is Some(v) {
-    object["location"] = @json.to_json(v)
+    object["location"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQuery with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for InlineQuery")
+    raise @json.JsonDecodeError((path, "Expected object for InlineQuery"))
   }
   let id : String = @json.from_json(object["id"], path~)
   let from : User = @json.from_json(object["from"], path~)
@@ -84,25 +84,27 @@ pub fn ChosenInlineResult::new(
 }
 
 ///|
-pub impl @json.ToJson for ChosenInlineResult with to_json(self) {
+pub impl ToJson for ChosenInlineResult with to_json(self) {
   let object : Map[String, Json] = {
-    "result_id": @json.to_json(self.result_id),
-    "from": @json.to_json(self.from),
-    "query": @json.to_json(self.query),
+    "result_id": self.result_id.to_json(),
+    "from": self.from.to_json(),
+    "query": self.query.to_json(),
   }
   if self.location is Some(v) {
-    object["location"] = @json.to_json(v)
+    object["location"] = v.to_json()
   }
   if self.inline_message_id is Some(v) {
-    object["inline_message_id"] = @json.to_json(v)
+    object["inline_message_id"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChosenInlineResult with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChosenInlineResult")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for ChosenInlineResult"),
+    )
   }
   let result_id : String = @json.from_json(object["result_id"], path~)
   let from : User = @json.from_json(object["from"], path~)
@@ -140,23 +142,22 @@ pub fn InlineQueryResultsButton::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultsButton with to_json(self) {
-  let object : Map[String, Json] = { "text": @json.to_json(self.text) }
+pub impl ToJson for InlineQueryResultsButton with to_json(self) {
+  let object : Map[String, Json] = { "text": self.text.to_json() }
   if self.web_app is Some(v) {
-    object["web_app"] = @json.to_json(v)
+    object["web_app"] = v.to_json()
   }
   if self.start_parameter is Some(v) {
-    object["start_parameter"] = @json.to_json(v)
+    object["start_parameter"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InlineQueryResultsButton with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultsButton",
+      (path, "Expected object for InlineQueryResultsButton"),
     )
   }
   let text : String = @json.from_json(object["text"], path~)

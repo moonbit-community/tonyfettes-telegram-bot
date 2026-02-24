@@ -4,7 +4,7 @@
 pub struct PassportFile {
   file_id : String
   file_unique_id : String
-  file_size : Int
+  file_size : Int64
   file_date : Int
 } derive(Show, Eq)
 
@@ -13,31 +13,31 @@ pub struct PassportFile {
 pub fn PassportFile::new(
   file_id~ : String,
   file_unique_id~ : String,
-  file_size~ : Int,
+  file_size~ : Int64,
   file_date~ : Int,
 ) -> PassportFile {
   { file_id, file_unique_id, file_size, file_date }
 }
 
 ///|
-pub impl @json.ToJson for PassportFile with to_json(self) {
+pub impl ToJson for PassportFile with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "file_size": @json.to_json(self.file_size),
-    "file_date": @json.to_json(self.file_date),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "file_size": int64_to_json(self.file_size),
+    "file_date": self.file_date.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for PassportFile with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for PassportFile")
+    raise @json.JsonDecodeError((path, "Expected object for PassportFile"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
-  let file_size : Int = @json.from_json(object["file_size"], path~)
+  let file_size : Int64 = int64_from_json(object["file_size"], path)
   let file_date : Int = @json.from_json(object["file_date"], path~)
   { file_id, file_unique_id, file_size, file_date }
 }
@@ -61,21 +61,20 @@ pub fn EncryptedCredentials::new(
 }
 
 ///|
-pub impl @json.ToJson for EncryptedCredentials with to_json(self) {
+pub impl ToJson for EncryptedCredentials with to_json(self) {
   let object : Map[String, Json] = {
-    "data": @json.to_json(self.data),
-    "hash": @json.to_json(self.hash),
-    "secret": @json.to_json(self.secret),
+    "data": self.data.to_json(),
+    "hash": self.hash.to_json(),
+    "secret": self.secret.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for EncryptedCredentials with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for EncryptedCredentials",
+      (path, "Expected object for EncryptedCredentials"),
     )
   }
   let data : String = @json.from_json(object["data"], path~)
@@ -128,44 +127,43 @@ pub fn EncryptedPassportElement::new(
 }
 
 ///|
-pub impl @json.ToJson for EncryptedPassportElement with to_json(self) {
+pub impl ToJson for EncryptedPassportElement with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "hash": @json.to_json(self.hash),
+    "type": self.type_.to_json(),
+    "hash": self.hash.to_json(),
   }
   if self.data is Some(v) {
-    object["data"] = @json.to_json(v)
+    object["data"] = v.to_json()
   }
   if self.phone_number is Some(v) {
-    object["phone_number"] = @json.to_json(v)
+    object["phone_number"] = v.to_json()
   }
   if self.email is Some(v) {
-    object["email"] = @json.to_json(v)
+    object["email"] = v.to_json()
   }
   if self.files is Some(v) {
-    object["files"] = @json.to_json(v)
+    object["files"] = v.to_json()
   }
   if self.front_side is Some(v) {
-    object["front_side"] = @json.to_json(v)
+    object["front_side"] = v.to_json()
   }
   if self.reverse_side is Some(v) {
-    object["reverse_side"] = @json.to_json(v)
+    object["reverse_side"] = v.to_json()
   }
   if self.selfie is Some(v) {
-    object["selfie"] = @json.to_json(v)
+    object["selfie"] = v.to_json()
   }
   if self.translation is Some(v) {
-    object["translation"] = @json.to_json(v)
+    object["translation"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for EncryptedPassportElement with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for EncryptedPassportElement",
+      (path, "Expected object for EncryptedPassportElement"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -242,18 +240,18 @@ pub fn PassportData::new(
 }
 
 ///|
-pub impl @json.ToJson for PassportData with to_json(self) {
+pub impl ToJson for PassportData with to_json(self) {
   let object : Map[String, Json] = {
-    "data": @json.to_json(self.data),
-    "credentials": @json.to_json(self.credentials),
+    "data": self.data.to_json(),
+    "credentials": self.credentials.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for PassportData with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for PassportData")
+    raise @json.JsonDecodeError((path, "Expected object for PassportData"))
   }
   let data : Array[EncryptedPassportElement] = @json.from_json(
     object["data"],

@@ -39,37 +39,37 @@ pub fn WebhookInfo::new(
 }
 
 ///|
-pub impl @json.ToJson for WebhookInfo with to_json(self) {
+pub impl ToJson for WebhookInfo with to_json(self) {
   let object : Map[String, Json] = {
-    "url": @json.to_json(self.url),
-    "has_custom_certificate": @json.to_json(self.has_custom_certificate),
-    "pending_update_count": @json.to_json(self.pending_update_count),
+    "url": self.url.to_json(),
+    "has_custom_certificate": self.has_custom_certificate.to_json(),
+    "pending_update_count": self.pending_update_count.to_json(),
   }
   if self.ip_address is Some(v) {
-    object["ip_address"] = @json.to_json(v)
+    object["ip_address"] = v.to_json()
   }
   if self.last_error_date is Some(v) {
-    object["last_error_date"] = @json.to_json(v)
+    object["last_error_date"] = v.to_json()
   }
   if self.last_error_message is Some(v) {
-    object["last_error_message"] = @json.to_json(v)
+    object["last_error_message"] = v.to_json()
   }
   if self.last_synchronization_error_date is Some(v) {
-    object["last_synchronization_error_date"] = @json.to_json(v)
+    object["last_synchronization_error_date"] = v.to_json()
   }
   if self.max_connections is Some(v) {
-    object["max_connections"] = @json.to_json(v)
+    object["max_connections"] = v.to_json()
   }
   if self.allowed_updates is Some(v) {
-    object["allowed_updates"] = @json.ToJson::to_json(v)
+    object["allowed_updates"] = ToJson::to_json(v)
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for WebhookInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for WebhookInfo")
+    raise @json.JsonDecodeError((path, "Expected object for WebhookInfo"))
   }
   let url : String = @json.from_json(object["url"], path~)
   let has_custom_certificate : Bool = @json.from_json(

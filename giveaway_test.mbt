@@ -1,7 +1,7 @@
 ///|
 test "GiveawayCreated JSON round-trip" {
   let created = GiveawayCreated::new(prize_star_count=1000)
-  let json = @json.to_json(created)
+  let json = created.to_json()
   let parsed : GiveawayCreated = @json.from_json(json)
   inspect(parsed.prize_star_count, content="Some(1000)")
 }
@@ -9,7 +9,7 @@ test "GiveawayCreated JSON round-trip" {
 ///|
 test "GiveawayCreated JSON round-trip without optional" {
   let created = GiveawayCreated::new()
-  let json = @json.to_json(created)
+  let json = created.to_json()
   let parsed : GiveawayCreated = @json.from_json(json)
   inspect(parsed.prize_star_count, content="None")
 }
@@ -28,7 +28,7 @@ test "Giveaway JSON round-trip" {
     prize_star_count=500,
     premium_subscription_month_count=3,
   )
-  let json = @json.to_json(giveaway)
+  let json = giveaway.to_json()
   let parsed : Giveaway = @json.from_json(json)
   inspect(parsed.chats.length(), content="1")
   inspect(parsed.winners_selection_date, content="1700000000")
@@ -49,7 +49,7 @@ test "Giveaway JSON round-trip minimal" {
     winners_selection_date=1700000000,
     winner_count=10,
   )
-  let json = @json.to_json(giveaway)
+  let json = giveaway.to_json()
   let parsed : Giveaway = @json.from_json(json)
   inspect(parsed.chats.length(), content="1")
   inspect(parsed.winner_count, content="10")
@@ -75,7 +75,7 @@ test "GiveawayWinners JSON round-trip" {
     was_refunded=false,
     prize_description="Monthly premium",
   )
-  let json = @json.to_json(winners_obj)
+  let json = winners_obj.to_json()
   let parsed : GiveawayWinners = @json.from_json(json)
   inspect(parsed.chat.id, content="789")
   inspect(parsed.giveaway_message_id, content="1001")
@@ -102,7 +102,7 @@ test "GiveawayWinners JSON round-trip minimal" {
     winner_count=1,
     winners=[winner],
   )
-  let json = @json.to_json(winners_obj)
+  let json = winners_obj.to_json()
   let parsed : GiveawayWinners = @json.from_json(json)
   inspect(parsed.winner_count, content="1")
   inspect(parsed.additional_chat_count, content="None")
@@ -119,7 +119,7 @@ test "GiveawayCompleted JSON round-trip" {
     giveaway_message=msg,
     is_star_giveaway=true,
   )
-  let json = @json.to_json(completed)
+  let json = completed.to_json()
   let parsed : GiveawayCompleted = @json.from_json(json)
   inspect(parsed.winner_count, content="5")
   inspect(parsed.unclaimed_prize_count, content="Some(2)")
@@ -133,7 +133,7 @@ test "GiveawayCompleted JSON round-trip" {
 ///|
 test "GiveawayCompleted JSON round-trip minimal" {
   let completed = GiveawayCompleted::new(winner_count=10)
-  let json = @json.to_json(completed)
+  let json = completed.to_json()
   let parsed : GiveawayCompleted = @json.from_json(json)
   inspect(parsed.winner_count, content="10")
   inspect(parsed.unclaimed_prize_count, content="None")

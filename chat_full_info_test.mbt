@@ -1,7 +1,7 @@
 ///|
 test "Birthdate JSON round-trip" {
   let birthdate = Birthdate::new(day=15, month=6, year=1990)
-  let json = @json.to_json(birthdate)
+  let json = birthdate.to_json()
   let parsed : Birthdate = @json.from_json(json)
   inspect(parsed.day, content="15")
   inspect(parsed.month, content="6")
@@ -11,7 +11,7 @@ test "Birthdate JSON round-trip" {
 ///|
 test "Birthdate JSON round-trip without year" {
   let birthdate = Birthdate::new(day=25, month=12)
-  let json = @json.to_json(birthdate)
+  let json = birthdate.to_json()
   let parsed : Birthdate = @json.from_json(json)
   inspect(parsed.day, content="25")
   inspect(parsed.month, content="12")
@@ -25,7 +25,7 @@ test "ChatLocation JSON round-trip" {
     location~,
     address="123 Main St, New York, NY",
   )
-  let json = @json.to_json(chat_location)
+  let json = chat_location.to_json()
   let parsed : ChatLocation = @json.from_json(json)
   inspect(parsed.address, content="123 Main St, New York, NY")
   inspect(parsed.location.latitude, content="40.7128")
@@ -37,7 +37,7 @@ test "BusinessIntro JSON round-trip" {
     title="Welcome",
     message="Hello, how can I help you?",
   )
-  let json = @json.to_json(intro)
+  let json = intro.to_json()
   let parsed : BusinessIntro = @json.from_json(json)
   inspect(parsed.title, content="Some(\"Welcome\")")
   inspect(parsed.message, content="Some(\"Hello, how can I help you?\")")
@@ -50,7 +50,7 @@ test "BusinessLocation JSON round-trip" {
     address="10 Downing Street, London",
     location~,
   )
-  let json = @json.to_json(bus_location)
+  let json = bus_location.to_json()
   let parsed : BusinessLocation = @json.from_json(json)
   inspect(parsed.address, content="10 Downing Street, London")
   inspect(parsed.location is Some(_), content="true")
@@ -62,7 +62,7 @@ test "BusinessOpeningHoursInterval JSON round-trip" {
     opening_minute=540,
     closing_minute=1080,
   )
-  let json = @json.to_json(interval)
+  let json = interval.to_json()
   let parsed : BusinessOpeningHoursInterval = @json.from_json(json)
   inspect(parsed.opening_minute, content="540")
   inspect(parsed.closing_minute, content="1080")
@@ -74,7 +74,7 @@ test "BusinessOpeningHours JSON round-trip" {
     BusinessOpeningHoursInterval::new(opening_minute=540, closing_minute=1080),
     BusinessOpeningHoursInterval::new(opening_minute=1980, closing_minute=2520),
   ])
-  let json = @json.to_json(hours)
+  let json = hours.to_json()
   let parsed : BusinessOpeningHours = @json.from_json(json)
   inspect(parsed.time_zone_name, content="America/New_York")
   inspect(parsed.opening_hours.length(), content="2")
@@ -83,7 +83,7 @@ test "BusinessOpeningHours JSON round-trip" {
 ///|
 test "ReactionTypeEmoji JSON round-trip" {
   let reaction = ReactionTypeEmoji::new(emoji="thumbs_up")
-  let json = @json.to_json(reaction)
+  let json = reaction.to_json()
   let parsed : ReactionTypeEmoji = @json.from_json(json)
   inspect(parsed.emoji, content="thumbs_up")
 }
@@ -91,7 +91,7 @@ test "ReactionTypeEmoji JSON round-trip" {
 ///|
 test "ReactionTypeCustomEmoji JSON round-trip" {
   let reaction = ReactionTypeCustomEmoji::new(custom_emoji_id="12345")
-  let json = @json.to_json(reaction)
+  let json = reaction.to_json()
   let parsed : ReactionTypeCustomEmoji = @json.from_json(json)
   inspect(parsed.custom_emoji_id, content="12345")
 }
@@ -99,7 +99,7 @@ test "ReactionTypeCustomEmoji JSON round-trip" {
 ///|
 test "ReactionType Emoji JSON round-trip" {
   let reaction : ReactionType = Emoji(ReactionTypeEmoji::new(emoji="heart"))
-  let json = @json.to_json(reaction)
+  let json = reaction.to_json()
   let parsed : ReactionType = @json.from_json(json)
   guard parsed is Emoji(e) else { fail("Expected Emoji variant") }
   inspect(e.emoji, content="heart")
@@ -110,7 +110,7 @@ test "ReactionType CustomEmoji JSON round-trip" {
   let reaction : ReactionType = CustomEmoji(
     ReactionTypeCustomEmoji::new(custom_emoji_id="abc123"),
   )
-  let json = @json.to_json(reaction)
+  let json = reaction.to_json()
   let parsed : ReactionType = @json.from_json(json)
   guard parsed is CustomEmoji(ce) else { fail("Expected CustomEmoji variant") }
   inspect(ce.custom_emoji_id, content="abc123")
@@ -124,7 +124,7 @@ test "ChatFullInfo minimal JSON round-trip" {
     accent_color_id=1,
     max_reaction_count=11,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : ChatFullInfo = @json.from_json(json)
   inspect(parsed.id, content="123456789")
   inspect(parsed.type_, content="private")
@@ -149,7 +149,7 @@ test "ChatFullInfo with optional fields JSON round-trip" {
     has_protected_content=true,
     has_visible_history=true,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : ChatFullInfo = @json.from_json(json)
   inspect(parsed.id, content="987654321")
   inspect(parsed.type_, content="supergroup")
@@ -173,7 +173,7 @@ test "ChatFullInfo with birthdate JSON round-trip" {
     last_name="Doe",
     birthdate~,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : ChatFullInfo = @json.from_json(json)
   inspect(parsed.first_name, content="Some(\"John\")")
   inspect(parsed.last_name, content="Some(\"Doe\")")
@@ -195,7 +195,7 @@ test "ChatFullInfo with location JSON round-trip" {
     title="Paris Group",
     location=chat_location,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : ChatFullInfo = @json.from_json(json)
   guard parsed.location is Some(loc) else { fail("Expected location") }
   inspect(loc.address, content="Paris, France")
@@ -215,7 +215,7 @@ test "ChatFullInfo with available_reactions JSON round-trip" {
     max_reaction_count=15,
     available_reactions=reactions,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : ChatFullInfo = @json.from_json(json)
   guard parsed.available_reactions is Some(r) else {
     fail("Expected available_reactions")

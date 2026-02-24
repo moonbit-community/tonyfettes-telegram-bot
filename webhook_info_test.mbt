@@ -8,7 +8,7 @@ test "WebhookInfo JSON round-trip" {
     max_connections=40,
     allowed_updates=["message", "callback_query"],
   )
-  let json = @json.to_json(webhook_info)
+  let json = webhook_info.to_json()
   let parsed : WebhookInfo = @json.from_json(json)
   inspect(parsed.url, content="https://example.com/webhook")
   inspect(parsed.has_custom_certificate, content="true")
@@ -31,7 +31,7 @@ test "WebhookInfo JSON round-trip with error fields" {
     last_error_message="Connection timeout",
     last_synchronization_error_date=1641081600,
   )
-  let json = @json.to_json(webhook_info)
+  let json = webhook_info.to_json()
   let parsed : WebhookInfo = @json.from_json(json)
   inspect(parsed.url, content="https://example.com/webhook")
   inspect(parsed.has_custom_certificate, content="false")
@@ -48,7 +48,7 @@ test "WebhookInfo JSON round-trip minimal" {
     has_custom_certificate=false,
     pending_update_count=0,
   )
-  let json = @json.to_json(webhook_info)
+  let json = webhook_info.to_json()
   let parsed : WebhookInfo = @json.from_json(json)
   inspect(parsed.url, content="")
   inspect(parsed.has_custom_certificate, content="false")

@@ -1,7 +1,7 @@
 ///|
 test "Dice JSON round-trip" {
   let dice = Dice::new(emoji="🎲", value=6)
-  let json = @json.to_json(dice)
+  let json = dice.to_json()
   let parsed : Dice = @json.from_json(json)
   inspect(parsed.emoji, content="🎲")
   inspect(parsed.value, content="6")

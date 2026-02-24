@@ -17,21 +17,20 @@ pub fn DirectMessagesTopic::new(
 }
 
 ///|
-pub impl @json.ToJson for DirectMessagesTopic with to_json(self) {
+pub impl ToJson for DirectMessagesTopic with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "name": @json.to_json(self.name),
-    "icon_color": @json.to_json(self.icon_color),
+    "id": self.id.to_json(),
+    "name": self.name.to_json(),
+    "icon_color": self.icon_color.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for DirectMessagesTopic with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for DirectMessagesTopic",
+      (path, "Expected object for DirectMessagesTopic"),
     )
   }
   let id : Int = @json.from_json(object["id"], path~)

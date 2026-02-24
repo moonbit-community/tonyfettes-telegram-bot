@@ -19,22 +19,22 @@ pub fn ForumTopic::new(
 }
 
 ///|
-pub impl @json.ToJson for ForumTopic with to_json(self) {
+pub impl ToJson for ForumTopic with to_json(self) {
   let object : Map[String, Json] = {
-    "message_thread_id": @json.to_json(self.message_thread_id),
-    "name": @json.to_json(self.name),
-    "icon_color": @json.to_json(self.icon_color),
+    "message_thread_id": self.message_thread_id.to_json(),
+    "name": self.name.to_json(),
+    "icon_color": self.icon_color.to_json(),
   }
   if self.icon_custom_emoji_id is Some(v) {
-    object["icon_custom_emoji_id"] = @json.to_json(v)
+    object["icon_custom_emoji_id"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ForumTopic with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ForumTopic")
+    raise @json.JsonDecodeError((path, "Expected object for ForumTopic"))
   }
   let message_thread_id : Int = @json.from_json(
     object["message_thread_id"],
@@ -70,21 +70,21 @@ pub fn ForumTopicCreated::new(
 }
 
 ///|
-pub impl @json.ToJson for ForumTopicCreated with to_json(self) {
+pub impl ToJson for ForumTopicCreated with to_json(self) {
   let object : Map[String, Json] = {
-    "name": @json.to_json(self.name),
-    "icon_color": @json.to_json(self.icon_color),
+    "name": self.name.to_json(),
+    "icon_color": self.icon_color.to_json(),
   }
   if self.icon_custom_emoji_id is Some(v) {
-    object["icon_custom_emoji_id"] = @json.to_json(v)
+    object["icon_custom_emoji_id"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ForumTopicCreated with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ForumTopicCreated")
+    raise @json.JsonDecodeError((path, "Expected object for ForumTopicCreated"))
   }
   let name : String = @json.from_json(object["name"], path~)
   let icon_color : Int = @json.from_json(object["icon_color"], path~)
@@ -114,21 +114,21 @@ pub fn ForumTopicEdited::new(
 }
 
 ///|
-pub impl @json.ToJson for ForumTopicEdited with to_json(self) {
+pub impl ToJson for ForumTopicEdited with to_json(self) {
   let object : Map[String, Json] = {}
   if self.name is Some(v) {
-    object["name"] = @json.to_json(v)
+    object["name"] = v.to_json()
   }
   if self.icon_custom_emoji_id is Some(v) {
-    object["icon_custom_emoji_id"] = @json.to_json(v)
+    object["icon_custom_emoji_id"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ForumTopicEdited with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ForumTopicEdited")
+    raise @json.JsonDecodeError((path, "Expected object for ForumTopicEdited"))
   }
   let name : String? = if object.get("name") is Some(v) {
     Some(@json.from_json(v, path~))

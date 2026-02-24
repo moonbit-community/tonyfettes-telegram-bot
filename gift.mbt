@@ -19,20 +19,22 @@ pub fn StickerPlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for StickerPlaceholder with to_json(self) {
+pub impl ToJson for StickerPlaceholder with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "width": @json.to_json(self.width),
-    "height": @json.to_json(self.height),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "width": self.width.to_json(),
+    "height": self.height.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for StickerPlaceholder with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for StickerPlaceholder")
+    raise @json.JsonDecodeError(
+      (path, "Expected object for StickerPlaceholder"),
+    )
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
@@ -74,22 +76,22 @@ pub fn UniqueGiftColors::new(
 }
 
 ///|
-pub impl @json.ToJson for UniqueGiftColors with to_json(self) {
+pub impl ToJson for UniqueGiftColors with to_json(self) {
   let object : Map[String, Json] = {
-    "background_icon_color": @json.to_json(self.background_icon_color),
-    "text_color": @json.to_json(self.text_color),
-    "hint_color": @json.to_json(self.hint_color),
-    "link_color": @json.to_json(self.link_color),
-    "button_color": @json.to_json(self.button_color),
-    "button_text_color": @json.to_json(self.button_text_color),
+    "background_icon_color": self.background_icon_color.to_json(),
+    "text_color": self.text_color.to_json(),
+    "hint_color": self.hint_color.to_json(),
+    "link_color": self.link_color.to_json(),
+    "button_color": self.button_color.to_json(),
+    "button_text_color": self.button_text_color.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for UniqueGiftColors with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for UniqueGiftColors")
+    raise @json.JsonDecodeError((path, "Expected object for UniqueGiftColors"))
   }
   let background_icon_color : Int = @json.from_json(
     object["background_icon_color"],
@@ -134,24 +136,24 @@ pub fn GiftBackground::new(
 }
 
 ///|
-pub impl @json.ToJson for GiftBackground with to_json(self) {
-  let object : Map[String, Json] = { "type": @json.to_json(self.type_) }
+pub impl ToJson for GiftBackground with to_json(self) {
+  let object : Map[String, Json] = { "type": self.type_.to_json() }
   if self.fill_color is Some(v) {
-    object["fill_color"] = @json.to_json(v)
+    object["fill_color"] = v.to_json()
   }
   if self.gradient_top_color is Some(v) {
-    object["gradient_top_color"] = @json.to_json(v)
+    object["gradient_top_color"] = v.to_json()
   }
   if self.gradient_bottom_color is Some(v) {
-    object["gradient_bottom_color"] = @json.to_json(v)
+    object["gradient_bottom_color"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for GiftBackground with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for GiftBackground")
+    raise @json.JsonDecodeError((path, "Expected object for GiftBackground"))
   }
   let type_ : String = @json.from_json(object["type"], path~)
   let fill_color : Int? = if object.get("fill_color") is Some(v) {
@@ -226,49 +228,49 @@ pub fn Gift::new(
 }
 
 ///|
-pub impl @json.ToJson for Gift with to_json(self) {
+pub impl ToJson for Gift with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "sticker": @json.to_json(self.sticker),
-    "star_count": @json.to_json(self.star_count),
+    "id": self.id.to_json(),
+    "sticker": self.sticker.to_json(),
+    "star_count": self.star_count.to_json(),
   }
   if self.total_count is Some(v) {
-    object["total_count"] = @json.to_json(v)
+    object["total_count"] = v.to_json()
   }
   if self.remaining_count is Some(v) {
-    object["remaining_count"] = @json.to_json(v)
+    object["remaining_count"] = v.to_json()
   }
   if self.publisher_chat is Some(v) {
-    object["publisher_chat"] = @json.to_json(v)
+    object["publisher_chat"] = v.to_json()
   }
   if self.colors is Some(v) {
-    object["colors"] = @json.to_json(v)
+    object["colors"] = v.to_json()
   }
   if self.background is Some(v) {
-    object["background"] = @json.to_json(v)
+    object["background"] = v.to_json()
   }
   if self.unique_gift_variant_count is Some(v) {
-    object["unique_gift_variant_count"] = @json.to_json(v)
+    object["unique_gift_variant_count"] = v.to_json()
   }
   if self.unique_gift_number is Some(v) {
-    object["unique_gift_number"] = @json.to_json(v)
+    object["unique_gift_number"] = v.to_json()
   }
   if self.gifts_from_channels is Some(v) {
-    object["gifts_from_channels"] = @json.to_json(v)
+    object["gifts_from_channels"] = v.to_json()
   }
   if self.is_premium is Some(v) {
-    object["is_premium"] = @json.to_json(v)
+    object["is_premium"] = v.to_json()
   }
   if self.has_colors is Some(v) {
-    object["has_colors"] = @json.to_json(v)
+    object["has_colors"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Gift with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Gift")
+    raise @json.JsonDecodeError((path, "Expected object for Gift"))
   }
   let id : String = @json.from_json(object["id"], path~)
   let sticker : StickerPlaceholder = @json.from_json(object["sticker"], path~)
@@ -357,17 +359,15 @@ pub fn Gifts::new(gifts~ : Array[Gift]) -> Gifts {
 }
 
 ///|
-pub impl @json.ToJson for Gifts with to_json(self) {
-  let object : Map[String, Json] = {
-    "gifts": @json.ToJson::to_json(self.gifts),
-  }
-  @json.to_json(object)
+pub impl ToJson for Gifts with to_json(self) {
+  let object : Map[String, Json] = { "gifts": ToJson::to_json(self.gifts) }
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Gifts with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Gifts")
+    raise @json.JsonDecodeError((path, "Expected object for Gifts"))
   }
   let gifts : Array[Gift] = @json.from_json(object["gifts"], path~)
   { gifts, }
@@ -394,20 +394,20 @@ pub fn AcceptedGiftTypes::new(
 }
 
 ///|
-pub impl @json.ToJson for AcceptedGiftTypes with to_json(self) {
+pub impl ToJson for AcceptedGiftTypes with to_json(self) {
   let object : Map[String, Json] = {
-    "unlimited_gifts": @json.to_json(self.unlimited_gifts),
-    "limited_gifts": @json.to_json(self.limited_gifts),
-    "unique_gifts": @json.to_json(self.unique_gifts),
-    "premium_subscription": @json.to_json(self.premium_subscription),
+    "unlimited_gifts": self.unlimited_gifts.to_json(),
+    "limited_gifts": self.limited_gifts.to_json(),
+    "unique_gifts": self.unique_gifts.to_json(),
+    "premium_subscription": self.premium_subscription.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for AcceptedGiftTypes with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for AcceptedGiftTypes")
+    raise @json.JsonDecodeError((path, "Expected object for AcceptedGiftTypes"))
   }
   let unlimited_gifts : Bool = @json.from_json(object["unlimited_gifts"], path~)
   let limited_gifts : Bool = @json.from_json(object["limited_gifts"], path~)
@@ -448,27 +448,27 @@ pub fn UniqueGiftInfo::new(
 }
 
 ///|
-pub impl @json.ToJson for UniqueGiftInfo with to_json(self) {
-  let object : Map[String, Json] = { "gift_id": @json.to_json(self.gift_id) }
+pub impl ToJson for UniqueGiftInfo with to_json(self) {
+  let object : Map[String, Json] = { "gift_id": self.gift_id.to_json() }
   if self.next_transfer_date is Some(v) {
-    object["next_transfer_date"] = @json.to_json(v)
+    object["next_transfer_date"] = v.to_json()
   }
   if self.last_resale_amount is Some(v) {
-    object["last_resale_amount"] = @json.to_json(v)
+    object["last_resale_amount"] = v.to_json()
   }
   if self.origin is Some(v) {
-    object["origin"] = @json.to_json(v)
+    object["origin"] = v.to_json()
   }
   if self.is_from_blockchain is Some(v) {
-    object["is_from_blockchain"] = @json.to_json(v)
+    object["is_from_blockchain"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for UniqueGiftInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for UniqueGiftInfo")
+    raise @json.JsonDecodeError((path, "Expected object for UniqueGiftInfo"))
   }
   let gift_id : String = @json.from_json(object["gift_id"], path~)
   let next_transfer_date : Int? = if object.get("next_transfer_date") is Some(v) {
@@ -514,15 +514,15 @@ pub fn StarBalance::new(balance~ : Int) -> StarBalance {
 }
 
 ///|
-pub impl @json.ToJson for StarBalance with to_json(self) {
-  let object : Map[String, Json] = { "balance": @json.to_json(self.balance) }
-  @json.to_json(object)
+pub impl ToJson for StarBalance with to_json(self) {
+  let object : Map[String, Json] = { "balance": self.balance.to_json() }
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for StarBalance with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for StarBalance")
+    raise @json.JsonDecodeError((path, "Expected object for StarBalance"))
   }
   let balance : Int = @json.from_json(object["balance"], path~)
   { balance, }

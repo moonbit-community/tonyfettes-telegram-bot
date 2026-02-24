@@ -8,26 +8,26 @@ pub(all) enum ChatType {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for ChatType with to_json(self) {
+pub impl ToJson for ChatType with to_json(self) {
   match self {
-    Private => @json.to_json("private")
-    Group => @json.to_json("group")
-    Supergroup => @json.to_json("supergroup")
-    Channel => @json.to_json("channel")
+    Private => "private".to_json()
+    Group => "group".to_json()
+    Supergroup => "supergroup".to_json()
+    Channel => "channel".to_json()
   }
 }
 
 ///|
 pub impl @json.FromJson for ChatType with from_json(json, path) {
   guard json is String(s) else {
-    raise @json.JsonDecodeError(path~, "Expected string for ChatType")
+    raise @json.JsonDecodeError((path, "Expected string for ChatType"))
   }
   match s {
     "private" => Private
     "group" => Group
     "supergroup" => Supergroup
     "channel" => Channel
-    _ => raise @json.JsonDecodeError(path~, "Unknown ChatType: \{s}")
+    _ => raise @json.JsonDecodeError((path, "Unknown ChatType: \{s}"))
   }
 }
 
@@ -56,32 +56,32 @@ pub fn Chat::new(
 }
 
 ///|
-pub impl @json.ToJson for Chat with to_json(self) {
+pub impl ToJson for Chat with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "type": @json.to_json(self.type_),
+    "id": int64_to_json(self.id),
+    "type": self.type_.to_json(),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.username is Some(v) {
-    object["username"] = @json.to_json(v)
+    object["username"] = v.to_json()
   }
   if self.first_name is Some(v) {
-    object["first_name"] = @json.to_json(v)
+    object["first_name"] = v.to_json()
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Chat with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Chat")
+    raise @json.JsonDecodeError((path, "Expected object for Chat"))
   }
-  let id : Int64 = @json.from_json(object["id"], path~)
+  let id : Int64 = int64_from_json(object["id"], path)
   let type_ : ChatType = @json.from_json(object["type"], path~)
   let title : String? = if object.get("title") is Some(v) {
     Some(@json.from_json(v, path~))

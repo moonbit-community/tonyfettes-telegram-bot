@@ -26,7 +26,7 @@ pub impl Show for TelegramError with output(
         "InvalidUtf8(error=@encoding/utf8.Malformed(\{error}))",
       )
     TelegramError::InvalidJson(error) =>
-      logger.write_string("InvalidJson(error=\{@debug.to_string(error)})")
+      logger.write_string("InvalidJson(error=\{error})")
     TelegramError::InvalidResponse(json) =>
       logger.write_string("InvalidResponse(json=\{json.stringify()})")
     TelegramError::InvalidResult(json, error) =>

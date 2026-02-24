@@ -6,7 +6,7 @@ test "ChatPhoto JSON round-trip" {
     big_file_id="big123",
     big_file_unique_id="biguniq123",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : ChatPhoto = @json.from_json(json)
   inspect(parsed.small_file_id, content="small123")
   inspect(parsed.big_file_id, content="big123")

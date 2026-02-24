@@ -4,7 +4,7 @@ test "MessageOriginUser JSON round-trip" {
   let origin : MessageOrigin = User(
     MessageOriginUser::new(date=1609459200, sender_user=user),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is User(v) else { fail("Expected MessageOrigin::User") }
   inspect(v.date, content="1609459200")
@@ -16,7 +16,7 @@ test "MessageOriginHiddenUser JSON round-trip" {
   let origin : MessageOrigin = HiddenUser(
     MessageOriginHiddenUser::new(date=1609459200, sender_user_name="Anonymous"),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is HiddenUser(v) else {
     fail("Expected MessageOrigin::HiddenUser")
@@ -35,7 +35,7 @@ test "MessageOriginChat JSON round-trip" {
       author_signature="Admin",
     ),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is Chat(v) else { fail("Expected MessageOrigin::Chat") }
   inspect(v.date, content="1609459200")
@@ -49,7 +49,7 @@ test "MessageOriginChat without author_signature" {
   let origin : MessageOrigin = Chat(
     MessageOriginChat::new(date=1609459200, sender_chat=chat),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is Chat(v) else { fail("Expected MessageOrigin::Chat") }
   inspect(v.author_signature, content="None")
@@ -66,7 +66,7 @@ test "MessageOriginChannel JSON round-trip" {
       author_signature="Editor",
     ),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is Channel(v) else { fail("Expected MessageOrigin::Channel") }
   inspect(v.date, content="1609459200")
@@ -81,7 +81,7 @@ test "MessageOriginChannel without author_signature" {
   let origin : MessageOrigin = Channel(
     MessageOriginChannel::new(date=1609459200, chat~, message_id=99),
   )
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOrigin = @json.from_json(json)
   guard parsed is Channel(v) else { fail("Expected MessageOrigin::Channel") }
   inspect(v.author_signature, content="None")

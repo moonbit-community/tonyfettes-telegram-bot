@@ -15,18 +15,18 @@ pub fn FilePlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for FilePlaceholder with to_json(self) {
+pub impl ToJson for FilePlaceholder with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for FilePlaceholder with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for FilePlaceholder")
+    raise @json.JsonDecodeError((path, "Expected object for FilePlaceholder"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
@@ -54,20 +54,20 @@ pub fn MaskPosition::new(
 }
 
 ///|
-pub impl @json.ToJson for MaskPosition with to_json(self) {
+pub impl ToJson for MaskPosition with to_json(self) {
   let object : Map[String, Json] = {
-    "point": @json.to_json(self.point),
-    "x_shift": @json.to_json(self.x_shift),
-    "y_shift": @json.to_json(self.y_shift),
-    "scale": @json.to_json(self.scale),
+    "point": self.point.to_json(),
+    "x_shift": self.x_shift.to_json(),
+    "y_shift": self.y_shift.to_json(),
+    "scale": self.scale.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for MaskPosition with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for MaskPosition")
+    raise @json.JsonDecodeError((path, "Expected object for MaskPosition"))
   }
   let point : String = @json.from_json(object["point"], path~)
   let x_shift : Double = @json.from_json(object["x_shift"], path~)
@@ -135,47 +135,47 @@ pub fn Sticker::new(
 }
 
 ///|
-pub impl @json.ToJson for Sticker with to_json(self) {
+pub impl ToJson for Sticker with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "type": @json.to_json(self.type_),
-    "width": @json.to_json(self.width),
-    "height": @json.to_json(self.height),
-    "is_animated": @json.to_json(self.is_animated),
-    "is_video": @json.to_json(self.is_video),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "type": self.type_.to_json(),
+    "width": self.width.to_json(),
+    "height": self.height.to_json(),
+    "is_animated": self.is_animated.to_json(),
+    "is_video": self.is_video.to_json(),
   }
   if self.thumbnail is Some(v) {
-    object["thumbnail"] = @json.to_json(v)
+    object["thumbnail"] = v.to_json()
   }
   if self.emoji is Some(v) {
-    object["emoji"] = @json.to_json(v)
+    object["emoji"] = v.to_json()
   }
   if self.set_name is Some(v) {
-    object["set_name"] = @json.to_json(v)
+    object["set_name"] = v.to_json()
   }
   if self.premium_animation is Some(v) {
-    object["premium_animation"] = @json.to_json(v)
+    object["premium_animation"] = v.to_json()
   }
   if self.mask_position is Some(v) {
-    object["mask_position"] = @json.to_json(v)
+    object["mask_position"] = v.to_json()
   }
   if self.custom_emoji_id is Some(v) {
-    object["custom_emoji_id"] = @json.to_json(v)
+    object["custom_emoji_id"] = v.to_json()
   }
   if self.needs_repainting is Some(v) {
-    object["needs_repainting"] = @json.to_json(v)
+    object["needs_repainting"] = v.to_json()
   }
   if self.file_size is Some(v) {
-    object["file_size"] = @json.to_json(v)
+    object["file_size"] = int64_to_json(v)
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Sticker with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Sticker")
+    raise @json.JsonDecodeError((path, "Expected object for Sticker"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
@@ -221,7 +221,7 @@ pub impl @json.FromJson for Sticker with from_json(json, path) {
     None
   }
   let file_size : Int64? = if object.get("file_size") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }
@@ -267,23 +267,23 @@ pub fn StickerSet::new(
 }
 
 ///|
-pub impl @json.ToJson for StickerSet with to_json(self) {
+pub impl ToJson for StickerSet with to_json(self) {
   let object : Map[String, Json] = {
-    "name": @json.to_json(self.name),
-    "title": @json.to_json(self.title),
-    "sticker_type": @json.to_json(self.sticker_type),
-    "stickers": @json.to_json(self.stickers),
+    "name": self.name.to_json(),
+    "title": self.title.to_json(),
+    "sticker_type": self.sticker_type.to_json(),
+    "stickers": self.stickers.to_json(),
   }
   if self.thumbnail is Some(v) {
-    object["thumbnail"] = @json.to_json(v)
+    object["thumbnail"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for StickerSet with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for StickerSet")
+    raise @json.JsonDecodeError((path, "Expected object for StickerSet"))
   }
   let name : String = @json.from_json(object["name"], path~)
   let title : String = @json.from_json(object["title"], path~)
@@ -320,25 +320,25 @@ pub fn InputSticker::new(
 }
 
 ///|
-pub impl @json.ToJson for InputSticker with to_json(self) {
+pub impl ToJson for InputSticker with to_json(self) {
   let object : Map[String, Json] = {
-    "sticker": @json.to_json(self.sticker),
-    "format": @json.to_json(self.format),
-    "emoji_list": @json.to_json(self.emoji_list),
+    "sticker": self.sticker.to_json(),
+    "format": self.format.to_json(),
+    "emoji_list": self.emoji_list.to_json(),
   }
   if self.mask_position is Some(v) {
-    object["mask_position"] = @json.to_json(v)
+    object["mask_position"] = v.to_json()
   }
   if self.keywords is Some(v) {
-    object["keywords"] = @json.to_json(v)
+    object["keywords"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InputSticker with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for InputSticker")
+    raise @json.JsonDecodeError((path, "Expected object for InputSticker"))
   }
   let sticker : String = @json.from_json(object["sticker"], path~)
   let format : String = @json.from_json(object["format"], path~)

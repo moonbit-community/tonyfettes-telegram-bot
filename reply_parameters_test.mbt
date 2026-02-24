@@ -1,7 +1,7 @@
 ///|
 test "ChatId JSON round-trip with integer ID" {
   let chat_id : ChatId = ChatId::Id(123456789L)
-  let json = @json.to_json(chat_id)
+  let json = chat_id.to_json()
   let parsed : ChatId = @json.from_json(json)
   inspect(parsed, content="Id(123456789)")
 }
@@ -9,7 +9,7 @@ test "ChatId JSON round-trip with integer ID" {
 ///|
 test "ChatId JSON round-trip with username" {
   let chat_id : ChatId = ChatId::Username("@testchannel")
-  let json = @json.to_json(chat_id)
+  let json = chat_id.to_json()
   let parsed : ChatId = @json.from_json(json)
   inspect(parsed, content="Username(\"@testchannel\")")
 }
@@ -17,7 +17,7 @@ test "ChatId JSON round-trip with username" {
 ///|
 test "ReplyParameters JSON round-trip minimal" {
   let params = ReplyParameters::new(message_id=123)
-  let json = @json.to_json(params)
+  let json = params.to_json()
   let parsed : ReplyParameters = @json.from_json(json)
   inspect(parsed.message_id, content="123")
   inspect(parsed.chat_id, content="None")
@@ -32,7 +32,7 @@ test "ReplyParameters JSON round-trip with chat_id integer" {
     chat_id=ChatId::Id(789L),
     allow_sending_without_reply=true,
   )
-  let json = @json.to_json(params)
+  let json = params.to_json()
   let parsed : ReplyParameters = @json.from_json(json)
   inspect(parsed.message_id, content="456")
   inspect(parsed.chat_id, content="Some(Id(789))")
@@ -45,7 +45,7 @@ test "ReplyParameters JSON round-trip with chat_id username" {
     message_id=100,
     chat_id=ChatId::Username("@mychannel"),
   )
-  let json = @json.to_json(params)
+  let json = params.to_json()
   let parsed : ReplyParameters = @json.from_json(json)
   inspect(parsed.message_id, content="100")
   inspect(parsed.chat_id, content="Some(Username(\"@mychannel\"))")
@@ -61,7 +61,7 @@ test "ReplyParameters JSON round-trip with quote" {
     quote_entities=[entity],
     quote_position=10,
   )
-  let json = @json.to_json(params)
+  let json = params.to_json()
   let parsed : ReplyParameters = @json.from_json(json)
   inspect(parsed.message_id, content="200")
   inspect(parsed.quote, content="Some(\"Hello\")")
@@ -77,7 +77,7 @@ test "ReplyParameters JSON round-trip with quote" {
 ///|
 test "MessageOriginPlaceholder JSON round-trip" {
   let origin = MessageOriginPlaceholder::new(type_="user", date=1700000000)
-  let json = @json.to_json(origin)
+  let json = origin.to_json()
   let parsed : MessageOriginPlaceholder = @json.from_json(json)
   inspect(parsed.type_, content="user")
   inspect(parsed.date, content="1700000000")
@@ -86,7 +86,7 @@ test "MessageOriginPlaceholder JSON round-trip" {
 ///|
 test "LinkPreviewPlaceholder JSON round-trip" {
   let preview = LinkPreviewPlaceholder::new(is_disabled=true)
-  let json = @json.to_json(preview)
+  let json = preview.to_json()
   let parsed : LinkPreviewPlaceholder = @json.from_json(json)
   inspect(parsed.is_disabled, content="Some(true)")
 }
@@ -94,7 +94,7 @@ test "LinkPreviewPlaceholder JSON round-trip" {
 ///|
 test "LinkPreviewPlaceholder JSON round-trip empty" {
   let preview = LinkPreviewPlaceholder::new()
-  let json = @json.to_json(preview)
+  let json = preview.to_json()
   let parsed : LinkPreviewPlaceholder = @json.from_json(json)
   inspect(parsed.is_disabled, content="None")
 }
@@ -102,7 +102,7 @@ test "LinkPreviewPlaceholder JSON round-trip empty" {
 ///|
 test "GamePlaceholder JSON round-trip" {
   let game = GamePlaceholder::new(title="Test Game", description="A fun game")
-  let json = @json.to_json(game)
+  let json = game.to_json()
   let parsed : GamePlaceholder = @json.from_json(json)
   inspect(parsed.title, content="Test Game")
   inspect(parsed.description, content="A fun game")
@@ -112,7 +112,7 @@ test "GamePlaceholder JSON round-trip" {
 test "ExternalReplyInfo JSON round-trip minimal" {
   let origin = MessageOriginPlaceholder::new(type_="user", date=1700000000)
   let reply_info = ExternalReplyInfo::new(origin~)
-  let json = @json.to_json(reply_info)
+  let json = reply_info.to_json()
   let parsed : ExternalReplyInfo = @json.from_json(json)
   inspect(parsed.origin.type_, content="user")
   inspect(parsed.origin.date, content="1700000000")
@@ -130,7 +130,7 @@ test "ExternalReplyInfo JSON round-trip with chat" {
     message_id=456,
     has_media_spoiler=true,
   )
-  let json = @json.to_json(reply_info)
+  let json = reply_info.to_json()
   let parsed : ExternalReplyInfo = @json.from_json(json)
   inspect(parsed.origin.type_, content="channel")
   inspect(parsed.message_id, content="Some(456)")
@@ -144,7 +144,7 @@ test "ExternalReplyInfo JSON round-trip with location" {
   let origin = MessageOriginPlaceholder::new(type_="user", date=1700000000)
   let loc = Location::new(latitude=37.7749, longitude=-122.4194)
   let reply_info = ExternalReplyInfo::new(origin~, location=loc)
-  let json = @json.to_json(reply_info)
+  let json = reply_info.to_json()
   let parsed : ExternalReplyInfo = @json.from_json(json)
   guard parsed.location is Some(l) else { fail("Expected location") }
   inspect(l.latitude, content="37.7749")
@@ -156,7 +156,7 @@ test "ExternalReplyInfo JSON round-trip with game" {
   let origin = MessageOriginPlaceholder::new(type_="user", date=1700000000)
   let game = GamePlaceholder::new(title="Puzzle", description="Fun puzzle game")
   let reply_info = ExternalReplyInfo::new(origin~, game~)
-  let json = @json.to_json(reply_info)
+  let json = reply_info.to_json()
   let parsed : ExternalReplyInfo = @json.from_json(json)
   guard parsed.game is Some(g) else { fail("Expected game") }
   inspect(g.title, content="Puzzle")
@@ -168,7 +168,7 @@ test "ExternalReplyInfo JSON round-trip with link_preview_options" {
   let origin = MessageOriginPlaceholder::new(type_="user", date=1700000000)
   let preview = LinkPreviewPlaceholder::new(is_disabled=false)
   let reply_info = ExternalReplyInfo::new(origin~, link_preview_options=preview)
-  let json = @json.to_json(reply_info)
+  let json = reply_info.to_json()
   let parsed : ExternalReplyInfo = @json.from_json(json)
   guard parsed.link_preview_options is Some(lp) else {
     fail("Expected link_preview_options")

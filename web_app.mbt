@@ -11,15 +11,15 @@ pub fn WebAppInfo::new(url~ : String) -> WebAppInfo {
 }
 
 ///|
-pub impl @json.ToJson for WebAppInfo with to_json(self) {
-  let object : Map[String, Json] = { "url": @json.to_json(self.url) }
-  @json.to_json(object)
+pub impl ToJson for WebAppInfo with to_json(self) {
+  let object : Map[String, Json] = { "url": self.url.to_json() }
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for WebAppInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for WebAppInfo")
+    raise @json.JsonDecodeError((path, "Expected object for WebAppInfo"))
   }
   let url : String = @json.from_json(object["url"], path~)
   { url, }
@@ -38,18 +38,18 @@ pub fn SentWebAppMessage::new(inline_message_id? : String) -> SentWebAppMessage 
 }
 
 ///|
-pub impl @json.ToJson for SentWebAppMessage with to_json(self) {
+pub impl ToJson for SentWebAppMessage with to_json(self) {
   let object : Map[String, Json] = {}
   if self.inline_message_id is Some(v) {
-    object["inline_message_id"] = @json.to_json(v)
+    object["inline_message_id"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for SentWebAppMessage with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for SentWebAppMessage")
+    raise @json.JsonDecodeError((path, "Expected object for SentWebAppMessage"))
   }
   let inline_message_id : String? = if object.get("inline_message_id")
     is Some(v) {

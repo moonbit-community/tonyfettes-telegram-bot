@@ -7,7 +7,7 @@ test "Invoice JSON round-trip" {
     currency="USD",
     total_amount=999,
   )
-  let json = @json.to_json(invoice)
+  let json = invoice.to_json()
   let parsed : Invoice = @json.from_json(json)
   inspect(parsed.title, content="Premium Subscription")
   inspect(
@@ -22,7 +22,7 @@ test "Invoice JSON round-trip" {
 ///|
 test "LabeledPrice JSON round-trip" {
   let price = LabeledPrice::new(label="Product Price", amount=1000)
-  let json = @json.to_json(price)
+  let json = price.to_json()
   let parsed : LabeledPrice = @json.from_json(json)
   inspect(parsed.label, content="Product Price")
   inspect(parsed.amount, content="1000")
@@ -38,7 +38,7 @@ test "ShippingAddress JSON round-trip" {
     street_line2="Apt 4",
     post_code="94102",
   )
-  let json = @json.to_json(address)
+  let json = address.to_json()
   let parsed : ShippingAddress = @json.from_json(json)
   inspect(parsed.country_code, content="US")
   inspect(parsed.state, content="California")
@@ -64,7 +64,7 @@ test "OrderInfo JSON round-trip" {
     email="john@example.com",
     shipping_address=address,
   )
-  let json = @json.to_json(order_info)
+  let json = order_info.to_json()
   let parsed : OrderInfo = @json.from_json(json)
   inspect(parsed.name, content="Some(\"John Doe\")")
   inspect(parsed.phone_number, content="Some(\"+1234567890\")")
@@ -75,7 +75,7 @@ test "OrderInfo JSON round-trip" {
 ///|
 test "OrderInfo JSON round-trip empty" {
   let order_info = OrderInfo::new()
-  let json = @json.to_json(order_info)
+  let json = order_info.to_json()
   let parsed : OrderInfo = @json.from_json(json)
   inspect(parsed.name, content="None")
   inspect(parsed.phone_number, content="None")
@@ -94,7 +94,7 @@ test "ShippingOption JSON round-trip" {
     title="Standard Shipping",
     prices~,
   )
-  let json = @json.to_json(option)
+  let json = option.to_json()
   let parsed : ShippingOption = @json.from_json(json)
   inspect(parsed.id, content="standard")
   inspect(parsed.title, content="Standard Shipping")
@@ -113,7 +113,7 @@ test "SuccessfulPayment JSON round-trip" {
     telegram_payment_charge_id="tg_charge_123",
     provider_payment_charge_id="provider_charge_456",
   )
-  let json = @json.to_json(payment)
+  let json = payment.to_json()
   let parsed : SuccessfulPayment = @json.from_json(json)
   inspect(parsed.currency, content="USD")
   inspect(parsed.total_amount, content="999")
@@ -133,7 +133,7 @@ test "RefundedPayment JSON round-trip" {
     telegram_payment_charge_id="tg_refund_123",
     provider_payment_charge_id="provider_refund_456",
   )
-  let json = @json.to_json(payment)
+  let json = payment.to_json()
   let parsed : RefundedPayment = @json.from_json(json)
   inspect(parsed.currency, content="XTR")
   inspect(parsed.total_amount, content="100")
@@ -153,7 +153,7 @@ test "RefundedPayment JSON round-trip without provider_payment_charge_id" {
     invoice_payload="payload789",
     telegram_payment_charge_id="tg_refund_789",
   )
-  let json = @json.to_json(payment)
+  let json = payment.to_json()
   let parsed : RefundedPayment = @json.from_json(json)
   inspect(parsed.currency, content="XTR")
   inspect(parsed.total_amount, content="50")

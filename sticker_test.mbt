@@ -6,7 +6,7 @@ test "PhotoSize JSON round-trip" {
     width=100,
     height=200,
   )
-  let json = @json.to_json(photo)
+  let json = photo.to_json()
   let parsed : PhotoSize = @json.from_json(json)
   inspect(parsed.file_id, content="photo123")
   inspect(parsed.file_unique_id, content="unique456")
@@ -17,7 +17,7 @@ test "PhotoSize JSON round-trip" {
 ///|
 test "FilePlaceholder JSON round-trip" {
   let file = FilePlaceholder::new(file_id="file123", file_unique_id="unique789")
-  let json = @json.to_json(file)
+  let json = file.to_json()
   let parsed : FilePlaceholder = @json.from_json(json)
   inspect(parsed.file_id, content="file123")
   inspect(parsed.file_unique_id, content="unique789")
@@ -31,7 +31,7 @@ test "MaskPosition JSON round-trip" {
     y_shift=-0.3,
     scale=1.2,
   )
-  let json = @json.to_json(mask)
+  let json = mask.to_json()
   let parsed : MaskPosition = @json.from_json(json)
   inspect(parsed.point, content="forehead")
   inspect(parsed.x_shift, content="0.5")
@@ -50,7 +50,7 @@ test "Sticker JSON round-trip minimal" {
     is_animated=false,
     is_video=false,
   )
-  let json = @json.to_json(sticker)
+  let json = sticker.to_json()
   let parsed : Sticker = @json.from_json(json)
   inspect(parsed.file_id, content="sticker123")
   inspect(parsed.file_unique_id, content="unique456")
@@ -91,7 +91,7 @@ test "Sticker JSON round-trip with optionals" {
     mask_position=mask,
     file_size=12345L,
   )
-  let json = @json.to_json(sticker)
+  let json = sticker.to_json()
   let parsed : Sticker = @json.from_json(json)
   inspect(parsed.file_id, content="sticker456")
   inspect(parsed.type_, content="mask")
@@ -133,7 +133,7 @@ test "StickerSet JSON round-trip" {
     sticker_type="regular",
     stickers=[sticker1, sticker2],
   )
-  let json = @json.to_json(set)
+  let json = set.to_json()
   let parsed : StickerSet = @json.from_json(json)
   inspect(parsed.name, content="test_sticker_set")
   inspect(parsed.title, content="Test Sticker Set")
@@ -166,7 +166,7 @@ test "StickerSet JSON round-trip with thumbnail" {
     stickers=[sticker],
     thumbnail=thumb,
   )
-  let json = @json.to_json(set)
+  let json = set.to_json()
   let parsed : StickerSet = @json.from_json(json)
   inspect(parsed.name, content="emoji_set")
   inspect(parsed.sticker_type, content="custom_emoji")
@@ -179,7 +179,7 @@ test "InputSticker JSON round-trip minimal" {
   let input = InputSticker::new(sticker="CAACAgIAAxkBAAI...", format="static", emoji_list=[
     "U+1F600", "U+1F601",
   ])
-  let json = @json.to_json(input)
+  let json = input.to_json()
   let parsed : InputSticker = @json.from_json(json)
   inspect(parsed.sticker, content="CAACAgIAAxkBAAI...")
   inspect(parsed.format, content="static")
@@ -203,7 +203,7 @@ test "InputSticker JSON round-trip with optionals" {
     mask_position=mask,
     keywords=["funny", "laugh", "lol"],
   )
-  let json = @json.to_json(input)
+  let json = input.to_json()
   let parsed : InputSticker = @json.from_json(json)
   inspect(parsed.sticker, content="https://example.com/sticker.webp")
   inspect(parsed.format, content="animated")

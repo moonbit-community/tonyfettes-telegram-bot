@@ -6,7 +6,7 @@ test "LoginUrl JSON round-trip" {
     bot_username="example_bot",
     request_write_access=true,
   )
-  let json = @json.to_json(login)
+  let json = login.to_json()
   let parsed : LoginUrl = @json.from_json(json)
   inspect(parsed.url, content="https://example.com/login")
   inspect(parsed.forward_text, content="Some(\"Login to Example\")")
@@ -17,7 +17,7 @@ test "LoginUrl JSON round-trip" {
 ///|
 test "LoginUrl JSON round-trip minimal" {
   let login = LoginUrl::new(url="https://example.com/login")
-  let json = @json.to_json(login)
+  let json = login.to_json()
   let parsed : LoginUrl = @json.from_json(json)
   inspect(parsed.url, content="https://example.com/login")
   inspect(parsed.forward_text, content="None")
@@ -34,7 +34,7 @@ test "SwitchInlineQueryChosenChat JSON round-trip" {
     allow_group_chats=true,
     allow_channel_chats=false,
   )
-  let json = @json.to_json(switch_chat)
+  let json = switch_chat.to_json()
   let parsed : SwitchInlineQueryChosenChat = @json.from_json(json)
   inspect(parsed.query, content="Some(\"search query\")")
   inspect(parsed.allow_user_chats, content="Some(true)")
@@ -46,7 +46,7 @@ test "SwitchInlineQueryChosenChat JSON round-trip" {
 ///|
 test "SwitchInlineQueryChosenChat JSON round-trip empty" {
   let switch_chat = SwitchInlineQueryChosenChat::new()
-  let json = @json.to_json(switch_chat)
+  let json = switch_chat.to_json()
   let parsed : SwitchInlineQueryChosenChat = @json.from_json(json)
   inspect(parsed.query, content="None")
   inspect(parsed.allow_user_chats, content="None")
@@ -58,7 +58,7 @@ test "SwitchInlineQueryChosenChat JSON round-trip empty" {
 ///|
 test "CallbackGame JSON round-trip" {
   let game = CallbackGame::new()
-  let json = @json.to_json(game)
+  let json = game.to_json()
   let parsed : CallbackGame = @json.from_json(json)
   inspect(parsed, content="{}")
 }

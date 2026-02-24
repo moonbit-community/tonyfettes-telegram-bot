@@ -30,30 +30,30 @@ pub fn Location::new(
 }
 
 ///|
-pub impl @json.ToJson for Location with to_json(self) {
+pub impl ToJson for Location with to_json(self) {
   let object : Map[String, Json] = {
-    "latitude": @json.to_json(self.latitude),
-    "longitude": @json.to_json(self.longitude),
+    "latitude": self.latitude.to_json(),
+    "longitude": self.longitude.to_json(),
   }
   if self.horizontal_accuracy is Some(v) {
-    object["horizontal_accuracy"] = @json.to_json(v)
+    object["horizontal_accuracy"] = v.to_json()
   }
   if self.live_period is Some(v) {
-    object["live_period"] = @json.to_json(v)
+    object["live_period"] = v.to_json()
   }
   if self.heading is Some(v) {
-    object["heading"] = @json.to_json(v)
+    object["heading"] = v.to_json()
   }
   if self.proximity_alert_radius is Some(v) {
-    object["proximity_alert_radius"] = @json.to_json(v)
+    object["proximity_alert_radius"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Location with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Location")
+    raise @json.JsonDecodeError((path, "Expected object for Location"))
   }
   let latitude : Double = @json.from_json(object["latitude"], path~)
   let longitude : Double = @json.from_json(object["longitude"], path~)

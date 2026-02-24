@@ -7,7 +7,7 @@ test "PhotoSize JSON round-trip" {
     height=240,
     file_size=12345L,
   )
-  let json = @json.to_json(photo)
+  let json = photo.to_json()
   let parsed : PhotoSize = @json.from_json(json)
   inspect(parsed.file_id, content="AgACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgAT")
@@ -24,7 +24,7 @@ test "PhotoSize JSON round-trip without optional" {
     width=640,
     height=480,
   )
-  let json = @json.to_json(photo)
+  let json = photo.to_json()
   let parsed : PhotoSize = @json.from_json(json)
   inspect(parsed.file_id, content="AgACAgIAAxkBAAI")
   inspect(parsed.file_size, content="None")

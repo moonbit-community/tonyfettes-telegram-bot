@@ -17,7 +17,7 @@ test "Animation JSON round-trip" {
     mime_type="image/gif",
     file_size=256000L,
   )
-  let json = @json.to_json(animation)
+  let json = animation.to_json()
   let parsed : Animation = @json.from_json(json)
   inspect(parsed.file_id, content="CgACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATanim")
@@ -38,7 +38,7 @@ test "Animation JSON round-trip without optionals" {
     height=360,
     duration=5,
   )
-  let json = @json.to_json(animation)
+  let json = animation.to_json()
   let parsed : Animation = @json.from_json(json)
   inspect(parsed.file_id, content="CgACAgIAAxkBAAI")
   inspect(parsed.thumbnail, content="None")

@@ -3,7 +3,7 @@ test "InputMessageContentPlaceholder JSON round-trip" {
   let content = InputMessageContentPlaceholder::new(
     message_text="Hello, world!",
   )
-  let json = @json.to_json(content)
+  let json = content.to_json()
   let parsed : InputMessageContentPlaceholder = @json.from_json(json)
   inspect(parsed.message_text, content="Hello, world!")
 }
@@ -19,7 +19,7 @@ test "InlineQueryResultAudio JSON round-trip" {
     performer="Test Artist",
     audio_duration=180,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultAudio = @json.from_json(json)
   inspect(parsed.type_, content="audio")
   inspect(parsed.id, content="audio_123")
@@ -52,7 +52,7 @@ test "InlineQueryResultAudio JSON round-trip with all optional fields" {
     reply_markup=keyboard,
     input_message_content=input_content,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultAudio = @json.from_json(json)
   inspect(parsed.type_, content="audio")
   inspect(parsed.id, content="audio_456")
@@ -78,7 +78,7 @@ test "InlineQueryResultAudio JSON round-trip without optionals" {
     audio_url="https://example.com/audio3.mp3",
     title="Minimal Audio",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultAudio = @json.from_json(json)
   inspect(parsed.type_, content="audio")
   inspect(parsed.id, content="audio_789")
@@ -101,7 +101,7 @@ test "InlineQueryResultVoice JSON round-trip" {
     parse_mode="Markdown",
     voice_duration=30,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultVoice = @json.from_json(json)
   inspect(parsed.type_, content="voice")
   inspect(parsed.id, content="voice_123")
@@ -132,7 +132,7 @@ test "InlineQueryResultVoice JSON round-trip with all optional fields" {
     reply_markup=keyboard,
     input_message_content=input_content,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultVoice = @json.from_json(json)
   inspect(parsed.type_, content="voice")
   inspect(parsed.id, content="voice_456")
@@ -158,7 +158,7 @@ test "InlineQueryResultVoice JSON round-trip without optionals" {
     voice_url="https://example.com/voice3.ogg",
     title="Minimal Voice",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultVoice = @json.from_json(json)
   inspect(parsed.type_, content="voice")
   inspect(parsed.id, content="voice_789")
@@ -184,7 +184,7 @@ test "InlineQueryResultDocument JSON round-trip" {
     thumbnail_width=100,
     thumbnail_height=100,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultDocument = @json.from_json(json)
   inspect(parsed.type_, content="document")
   inspect(parsed.id, content="doc_123")
@@ -231,7 +231,7 @@ test "InlineQueryResultDocument JSON round-trip with all optional fields" {
     thumbnail_width=200,
     thumbnail_height=150,
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultDocument = @json.from_json(json)
   inspect(parsed.type_, content="document")
   inspect(parsed.id, content="doc_456")
@@ -260,7 +260,7 @@ test "InlineQueryResultDocument JSON round-trip without optionals" {
     document_url="https://example.com/doc3.pdf",
     mime_type="application/pdf",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : InlineQueryResultDocument = @json.from_json(json)
   inspect(parsed.type_, content="document")
   inspect(parsed.id, content="doc_789")

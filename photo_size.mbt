@@ -21,30 +21,30 @@ pub fn PhotoSize::new(
 }
 
 ///|
-pub impl @json.ToJson for PhotoSize with to_json(self) {
+pub impl ToJson for PhotoSize with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "width": @json.to_json(self.width),
-    "height": @json.to_json(self.height),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "width": self.width.to_json(),
+    "height": self.height.to_json(),
   }
   if self.file_size is Some(v) {
-    object["file_size"] = @json.to_json(v)
+    object["file_size"] = int64_to_json(v)
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for PhotoSize with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for PhotoSize")
+    raise @json.JsonDecodeError((path, "Expected object for PhotoSize"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
   let width : Int = @json.from_json(object["width"], path~)
   let height : Int = @json.from_json(object["height"], path~)
   let file_size : Int64? = if object.get("file_size") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }

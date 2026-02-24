@@ -13,19 +13,18 @@ pub fn CachedInputMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for CachedInputMessageContent with to_json(self) {
+pub impl ToJson for CachedInputMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "message_text": @json.to_json(self.message_text),
+    "message_text": self.message_text.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for CachedInputMessageContent with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for CachedInputMessageContent",
+      (path, "Expected object for CachedInputMessageContent"),
     )
   }
   let message_text : String = @json.from_json(object["message_text"], path~)
@@ -78,37 +77,37 @@ pub fn InlineQueryResultCachedPhoto::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedPhoto with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedPhoto with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "photo_file_id": @json.to_json(self.photo_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "photo_file_id": self.photo_file_id.to_json(),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.description is Some(v) {
-    object["description"] = @json.to_json(v)
+    object["description"] = v.to_json()
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.show_caption_above_media is Some(v) {
-    object["show_caption_above_media"] = @json.to_json(v)
+    object["show_caption_above_media"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -118,8 +117,7 @@ pub impl @json.FromJson for InlineQueryResultCachedPhoto with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedPhoto",
+      (path, "Expected object for InlineQueryResultCachedPhoto"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -233,34 +231,34 @@ pub fn InlineQueryResultCachedGif::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedGif with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedGif with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "gif_file_id": @json.to_json(self.gif_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "gif_file_id": self.gif_file_id.to_json(),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.show_caption_above_media is Some(v) {
-    object["show_caption_above_media"] = @json.to_json(v)
+    object["show_caption_above_media"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -270,8 +268,7 @@ pub impl @json.FromJson for InlineQueryResultCachedGif with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedGif",
+      (path, "Expected object for InlineQueryResultCachedGif"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -379,34 +376,34 @@ pub fn InlineQueryResultCachedMpeg4Gif::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedMpeg4Gif with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedMpeg4Gif with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "mpeg4_file_id": @json.to_json(self.mpeg4_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "mpeg4_file_id": self.mpeg4_file_id.to_json(),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.show_caption_above_media is Some(v) {
-    object["show_caption_above_media"] = @json.to_json(v)
+    object["show_caption_above_media"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -416,8 +413,7 @@ pub impl @json.FromJson for InlineQueryResultCachedMpeg4Gif with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedMpeg4Gif",
+      (path, "Expected object for InlineQueryResultCachedMpeg4Gif"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -504,19 +500,19 @@ pub fn InlineQueryResultCachedSticker::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedSticker with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedSticker with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "sticker_file_id": @json.to_json(self.sticker_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "sticker_file_id": self.sticker_file_id.to_json(),
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -526,8 +522,7 @@ pub impl @json.FromJson for InlineQueryResultCachedSticker with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedSticker",
+      (path, "Expected object for InlineQueryResultCachedSticker"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -596,32 +591,32 @@ pub fn InlineQueryResultCachedDocument::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedDocument with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedDocument with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "title": @json.to_json(self.title),
-    "document_file_id": @json.to_json(self.document_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "title": self.title.to_json(),
+    "document_file_id": self.document_file_id.to_json(),
   }
   if self.description is Some(v) {
-    object["description"] = @json.to_json(v)
+    object["description"] = v.to_json()
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -631,8 +626,7 @@ pub impl @json.FromJson for InlineQueryResultCachedDocument with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedDocument",
+      (path, "Expected object for InlineQueryResultCachedDocument"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -739,35 +733,35 @@ pub fn InlineQueryResultCachedVideo::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedVideo with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedVideo with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "video_file_id": @json.to_json(self.video_file_id),
-    "title": @json.to_json(self.title),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "video_file_id": self.video_file_id.to_json(),
+    "title": self.title.to_json(),
   }
   if self.description is Some(v) {
-    object["description"] = @json.to_json(v)
+    object["description"] = v.to_json()
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.show_caption_above_media is Some(v) {
-    object["show_caption_above_media"] = @json.to_json(v)
+    object["show_caption_above_media"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -777,8 +771,7 @@ pub impl @json.FromJson for InlineQueryResultCachedVideo with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedVideo",
+      (path, "Expected object for InlineQueryResultCachedVideo"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -885,29 +878,29 @@ pub fn InlineQueryResultCachedVoice::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedVoice with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedVoice with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "voice_file_id": @json.to_json(self.voice_file_id),
-    "title": @json.to_json(self.title),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "voice_file_id": self.voice_file_id.to_json(),
+    "title": self.title.to_json(),
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -917,8 +910,7 @@ pub impl @json.FromJson for InlineQueryResultCachedVoice with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedVoice",
+      (path, "Expected object for InlineQueryResultCachedVoice"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -1007,28 +999,28 @@ pub fn InlineQueryResultCachedAudio::new(
 }
 
 ///|
-pub impl @json.ToJson for InlineQueryResultCachedAudio with to_json(self) {
+pub impl ToJson for InlineQueryResultCachedAudio with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "id": @json.to_json(self.id),
-    "audio_file_id": @json.to_json(self.audio_file_id),
+    "type": self.type_.to_json(),
+    "id": self.id.to_json(),
+    "audio_file_id": self.audio_file_id.to_json(),
   }
   if self.caption is Some(v) {
-    object["caption"] = @json.to_json(v)
+    object["caption"] = v.to_json()
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.caption_entities is Some(v) {
-    object["caption_entities"] = @json.to_json(v)
+    object["caption_entities"] = v.to_json()
   }
   if self.reply_markup is Some(v) {
-    object["reply_markup"] = @json.to_json(v)
+    object["reply_markup"] = v.to_json()
   }
   if self.input_message_content is Some(v) {
-    object["input_message_content"] = @json.to_json(v)
+    object["input_message_content"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -1038,8 +1030,7 @@ pub impl @json.FromJson for InlineQueryResultCachedAudio with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InlineQueryResultCachedAudio",
+      (path, "Expected object for InlineQueryResultCachedAudio"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)

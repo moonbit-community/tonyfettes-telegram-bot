@@ -14,7 +14,7 @@ test "Document JSON round-trip" {
     mime_type="application/pdf",
     file_size=1024000L,
   )
-  let json = @json.to_json(document)
+  let json = document.to_json()
   let parsed : Document = @json.from_json(json)
   inspect(parsed.file_id, content="BQACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATdoc")
@@ -29,7 +29,7 @@ test "Document JSON round-trip without optionals" {
     file_id="BQACAgIAAxkBAAI",
     file_unique_id="AQADAgATdoc",
   )
-  let json = @json.to_json(document)
+  let json = document.to_json()
   let parsed : Document = @json.from_json(json)
   inspect(parsed.file_id, content="BQACAgIAAxkBAAI")
   inspect(parsed.thumbnail, content="None")

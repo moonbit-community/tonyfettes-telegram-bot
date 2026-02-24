@@ -30,34 +30,33 @@ pub fn ReplyKeyboardMarkup::new(
 }
 
 ///|
-pub impl @json.ToJson for ReplyKeyboardMarkup with to_json(self) {
+pub impl ToJson for ReplyKeyboardMarkup with to_json(self) {
   let object : Map[String, Json] = {
-    "keyboard": @json.ToJson::to_json(self.keyboard),
+    "keyboard": ToJson::to_json(self.keyboard),
   }
   if self.is_persistent is Some(v) {
-    object["is_persistent"] = @json.to_json(v)
+    object["is_persistent"] = v.to_json()
   }
   if self.resize_keyboard is Some(v) {
-    object["resize_keyboard"] = @json.to_json(v)
+    object["resize_keyboard"] = v.to_json()
   }
   if self.one_time_keyboard is Some(v) {
-    object["one_time_keyboard"] = @json.to_json(v)
+    object["one_time_keyboard"] = v.to_json()
   }
   if self.input_field_placeholder is Some(v) {
-    object["input_field_placeholder"] = @json.to_json(v)
+    object["input_field_placeholder"] = v.to_json()
   }
   if self.selective is Some(v) {
-    object["selective"] = @json.to_json(v)
+    object["selective"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ReplyKeyboardMarkup with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for ReplyKeyboardMarkup",
+      (path, "Expected object for ReplyKeyboardMarkup"),
     )
   }
   let keyboard : Array[Array[KeyboardButton]] = @json.from_json(
@@ -119,22 +118,21 @@ pub fn ReplyKeyboardRemove::new(
 }
 
 ///|
-pub impl @json.ToJson for ReplyKeyboardRemove with to_json(self) {
+pub impl ToJson for ReplyKeyboardRemove with to_json(self) {
   let object : Map[String, Json] = {
-    "remove_keyboard": @json.to_json(self.remove_keyboard),
+    "remove_keyboard": self.remove_keyboard.to_json(),
   }
   if self.selective is Some(v) {
-    object["selective"] = @json.to_json(v)
+    object["selective"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ReplyKeyboardRemove with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for ReplyKeyboardRemove",
+      (path, "Expected object for ReplyKeyboardRemove"),
     )
   }
   let remove_keyboard : Bool = @json.from_json(object["remove_keyboard"], path~)
@@ -165,23 +163,21 @@ pub fn ForceReply::new(
 }
 
 ///|
-pub impl @json.ToJson for ForceReply with to_json(self) {
-  let object : Map[String, Json] = {
-    "force_reply": @json.to_json(self.force_reply),
-  }
+pub impl ToJson for ForceReply with to_json(self) {
+  let object : Map[String, Json] = { "force_reply": self.force_reply.to_json() }
   if self.input_field_placeholder is Some(v) {
-    object["input_field_placeholder"] = @json.to_json(v)
+    object["input_field_placeholder"] = v.to_json()
   }
   if self.selective is Some(v) {
-    object["selective"] = @json.to_json(v)
+    object["selective"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ForceReply with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ForceReply")
+    raise @json.JsonDecodeError((path, "Expected object for ForceReply"))
   }
   let force_reply : Bool = @json.from_json(object["force_reply"], path~)
   let input_field_placeholder : String? = if object.get(

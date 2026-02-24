@@ -7,7 +7,7 @@ test "LinkPreviewOptions JSON round-trip" {
     prefer_large_media=true,
     show_above_text=false,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="Some(true)")
   inspect(parsed.url, content="Some(\"https://example.com\")")
@@ -19,7 +19,7 @@ test "LinkPreviewOptions JSON round-trip" {
 ///|
 test "LinkPreviewOptions empty JSON round-trip" {
   let object = LinkPreviewOptions::new()
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="None")
   inspect(parsed.url, content="None")
@@ -31,7 +31,7 @@ test "InputTextMessageContent JSON round-trip" {
     message_text="Hello, world!",
     parse_mode="HTML",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Hello, world!")
   inspect(parsed.parse_mode, content="Some(\"HTML\")")
@@ -45,7 +45,7 @@ test "InputTextMessageContent with entities JSON round-trip" {
   let object = InputTextMessageContent::new(message_text="Hello", entities=[
     entity,
   ])
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Hello")
   guard parsed.entities is Some(entities) else { fail("Expected entities") }
@@ -60,7 +60,7 @@ test "InputTextMessageContent with link_preview_options JSON round-trip" {
     message_text="Check this out",
     link_preview_options=options,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Check this out")
   guard parsed.link_preview_options is Some(opts) else {
@@ -79,7 +79,7 @@ test "InputLocationMessageContent JSON round-trip" {
     heading=90,
     proximity_alert_radius=100,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputLocationMessageContent = @json.from_json(json)
   inspect(parsed.latitude, content="40.7128")
   inspect(parsed.longitude, content="-74.006")
@@ -95,7 +95,7 @@ test "InputLocationMessageContent minimal JSON round-trip" {
     latitude=51.5074,
     longitude=-0.1278,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputLocationMessageContent = @json.from_json(json)
   inspect(parsed.latitude, content="51.5074")
   inspect(parsed.longitude, content="-0.1278")
@@ -115,7 +115,7 @@ test "InputVenueMessageContent JSON round-trip" {
     google_place_id="ChIJaXQRs6lZwokRY6EFpJnhNNE",
     google_place_type="point_of_interest",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputVenueMessageContent = @json.from_json(json)
   inspect(parsed.latitude, content="40.7484")
   inspect(parsed.longitude, content="-73.9857")
@@ -138,7 +138,7 @@ test "InputVenueMessageContent minimal JSON round-trip" {
     title="Eiffel Tower",
     address="Champ de Mars, Paris",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputVenueMessageContent = @json.from_json(json)
   inspect(parsed.title, content="Eiffel Tower")
   inspect(parsed.address, content="Champ de Mars, Paris")
@@ -154,7 +154,7 @@ test "InputContactMessageContent JSON round-trip" {
     last_name="Doe",
     vcard="BEGIN:VCARD\nVERSION:3.0\nN:Doe;John\nEND:VCARD",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputContactMessageContent = @json.from_json(json)
   inspect(parsed.phone_number, content="+1234567890")
   inspect(parsed.first_name, content="John")
@@ -171,7 +171,7 @@ test "InputContactMessageContent minimal JSON round-trip" {
     phone_number="+9876543210",
     first_name="Jane",
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputContactMessageContent = @json.from_json(json)
   inspect(parsed.phone_number, content="+9876543210")
   inspect(parsed.first_name, content="Jane")
@@ -207,7 +207,7 @@ test "InputInvoiceMessageContent JSON round-trip" {
     send_email_to_provider=false,
     is_flexible=true,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputInvoiceMessageContent = @json.from_json(json)
   inspect(parsed.title, content="Test Product")
   inspect(parsed.description, content="A test product description")
@@ -246,7 +246,7 @@ test "InputInvoiceMessageContent minimal JSON round-trip" {
     currency="EUR",
     prices~,
   )
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputInvoiceMessageContent = @json.from_json(json)
   inspect(parsed.title, content="Simple Product")
   inspect(parsed.currency, content="EUR")
@@ -259,7 +259,7 @@ test "InputInvoiceMessageContent minimal JSON round-trip" {
 test "InputMessageContent Text JSON round-trip" {
   let text_content = InputTextMessageContent::new(message_text="Hello!")
   let object : InputMessageContent = Text(text_content)
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputMessageContent = @json.from_json(json)
   guard parsed is Text(v) else { fail("Expected Text") }
   inspect(v.message_text, content="Hello!")
@@ -272,7 +272,7 @@ test "InputMessageContent Location JSON round-trip" {
     longitude=139.6503,
   )
   let object : InputMessageContent = Location(location_content)
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputMessageContent = @json.from_json(json)
   guard parsed is Location(v) else { fail("Expected Location") }
   inspect(v.latitude, content="35.6762")
@@ -288,7 +288,7 @@ test "InputMessageContent Venue JSON round-trip" {
     address="4 Chome-2-8 Shibakoen, Minato City, Tokyo",
   )
   let object : InputMessageContent = Venue(venue_content)
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputMessageContent = @json.from_json(json)
   guard parsed is Venue(v) else { fail("Expected Venue") }
   inspect(v.title, content="Tokyo Tower")
@@ -302,7 +302,7 @@ test "InputMessageContent Contact JSON round-trip" {
     first_name="Taro",
   )
   let object : InputMessageContent = Contact(contact_content)
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputMessageContent = @json.from_json(json)
   guard parsed is Contact(v) else { fail("Expected Contact") }
   inspect(v.phone_number, content="+81123456789")
@@ -320,7 +320,7 @@ test "InputMessageContent Invoice JSON round-trip" {
     prices~,
   )
   let object : InputMessageContent = Invoice(invoice_content)
-  let json = @json.to_json(object)
+  let json = object.to_json()
   let parsed : InputMessageContent = @json.from_json(json)
   guard parsed is Invoice(v) else { fail("Expected Invoice") }
   inspect(v.title, content="Premium Service")

@@ -1,7 +1,7 @@
 ///|
 test "WebAppInfo JSON round-trip" {
   let web_app = WebAppInfo::new(url="https://example.com/app")
-  let json = @json.to_json(web_app)
+  let json = web_app.to_json()
   let parsed : WebAppInfo = @json.from_json(json)
   inspect(parsed.url, content="https://example.com/app")
 }
@@ -9,7 +9,7 @@ test "WebAppInfo JSON round-trip" {
 ///|
 test "KeyboardButtonPollType JSON round-trip with type" {
   let poll_type = KeyboardButtonPollType::new(type_="quiz")
-  let json = @json.to_json(poll_type)
+  let json = poll_type.to_json()
   let parsed : KeyboardButtonPollType = @json.from_json(json)
   inspect(parsed.type_, content="Some(\"quiz\")")
 }
@@ -17,7 +17,7 @@ test "KeyboardButtonPollType JSON round-trip with type" {
 ///|
 test "KeyboardButtonPollType JSON round-trip without type" {
   let poll_type = KeyboardButtonPollType::new()
-  let json = @json.to_json(poll_type)
+  let json = poll_type.to_json()
   let parsed : KeyboardButtonPollType = @json.from_json(json)
   inspect(parsed.type_, content="None")
 }
@@ -29,7 +29,7 @@ test "KeyboardButtonRequestUsers JSON round-trip" {
     user_is_bot=true,
     max_quantity=5,
   )
-  let json = @json.to_json(request)
+  let json = request.to_json()
   let parsed : KeyboardButtonRequestUsers = @json.from_json(json)
   inspect(parsed.request_id, content="1")
   inspect(parsed.user_is_bot, content="Some(true)")
@@ -46,7 +46,7 @@ test "KeyboardButtonRequestChat JSON round-trip" {
     chat_is_forum=true,
     bot_is_member=true,
   )
-  let json = @json.to_json(request)
+  let json = request.to_json()
   let parsed : KeyboardButtonRequestChat = @json.from_json(json)
   inspect(parsed.request_id, content="2")
   inspect(parsed.chat_is_channel, content="false")
@@ -58,7 +58,7 @@ test "KeyboardButtonRequestChat JSON round-trip" {
 ///|
 test "KeyboardButton simple JSON round-trip" {
   let button = KeyboardButton::new(text="Send Contact", request_contact=true)
-  let json = @json.to_json(button)
+  let json = button.to_json()
   let parsed : KeyboardButton = @json.from_json(json)
   inspect(parsed.text, content="Send Contact")
   inspect(parsed.request_contact, content="Some(true)")
@@ -71,7 +71,7 @@ test "KeyboardButton with request_users JSON round-trip" {
     text="Select User",
     request_users=KeyboardButtonRequestUsers::new(request_id=1, max_quantity=3),
   )
-  let json = @json.to_json(button)
+  let json = button.to_json()
   let parsed : KeyboardButton = @json.from_json(json)
   inspect(parsed.text, content="Select User")
   guard parsed.request_users is Some(ru) else {
@@ -87,7 +87,7 @@ test "KeyboardButton with web_app JSON round-trip" {
     text="Open App",
     web_app=WebAppInfo::new(url="https://example.com/webapp"),
   )
-  let json = @json.to_json(button)
+  let json = button.to_json()
   let parsed : KeyboardButton = @json.from_json(json)
   inspect(parsed.text, content="Open App")
   guard parsed.web_app is Some(wa) else { fail("Expected web_app to be Some") }

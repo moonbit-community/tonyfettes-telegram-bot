@@ -45,39 +45,39 @@ pub fn Video::new(
 }
 
 ///|
-pub impl @json.ToJson for Video with to_json(self) {
+pub impl ToJson for Video with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "width": @json.to_json(self.width),
-    "height": @json.to_json(self.height),
-    "duration": @json.to_json(self.duration),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "width": self.width.to_json(),
+    "height": self.height.to_json(),
+    "duration": self.duration.to_json(),
   }
   if self.thumbnail is Some(v) {
-    object["thumbnail"] = @json.to_json(v)
+    object["thumbnail"] = v.to_json()
   }
   if self.cover is Some(v) {
-    object["cover"] = @json.to_json(v)
+    object["cover"] = v.to_json()
   }
   if self.start_timestamp is Some(v) {
-    object["start_timestamp"] = @json.to_json(v)
+    object["start_timestamp"] = v.to_json()
   }
   if self.file_name is Some(v) {
-    object["file_name"] = @json.to_json(v)
+    object["file_name"] = v.to_json()
   }
   if self.mime_type is Some(v) {
-    object["mime_type"] = @json.to_json(v)
+    object["mime_type"] = v.to_json()
   }
   if self.file_size is Some(v) {
-    object["file_size"] = @json.to_json(v)
+    object["file_size"] = int64_to_json(v)
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Video with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Video")
+    raise @json.JsonDecodeError((path, "Expected object for Video"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
@@ -110,7 +110,7 @@ pub impl @json.FromJson for Video with from_json(json, path) {
     None
   }
   let file_size : Int64? = if object.get("file_size") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }

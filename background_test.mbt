@@ -1,7 +1,7 @@
 ///|
 test "BackgroundFillSolid JSON round-trip" {
   let fill = BackgroundFill::Solid(BackgroundFillSolid::new(color=0xFF0000))
-  let json = @json.to_json(fill)
+  let json = fill.to_json()
   let parsed : BackgroundFill = @json.from_json(json)
   guard parsed is Solid(s) else { fail("Expected Solid variant") }
   inspect(s.color, content="16711680")
@@ -16,7 +16,7 @@ test "BackgroundFillGradient JSON round-trip" {
       rotation_angle=45,
     ),
   )
-  let json = @json.to_json(fill)
+  let json = fill.to_json()
   let parsed : BackgroundFill = @json.from_json(json)
   guard parsed is Gradient(g) else { fail("Expected Gradient variant") }
   inspect(g.top_color, content="16711680")
@@ -29,7 +29,7 @@ test "BackgroundFillFreeformGradient JSON round-trip" {
   let fill = BackgroundFill::FreeformGradient(
     BackgroundFillFreeformGradient::new(colors=[0xFF0000, 0x00FF00, 0x0000FF]),
   )
-  let json = @json.to_json(fill)
+  let json = fill.to_json()
   let parsed : BackgroundFill = @json.from_json(json)
   guard parsed is FreeformGradient(fg) else {
     fail("Expected FreeformGradient variant")
@@ -45,7 +45,7 @@ test "BackgroundTypeFill JSON round-trip" {
       dark_theme_dimming=50,
     ),
   )
-  let json = @json.to_json(bg_type)
+  let json = bg_type.to_json()
   let parsed : BackgroundType = @json.from_json(json)
   guard parsed is Fill(f) else { fail("Expected Fill variant") }
   inspect(f.dark_theme_dimming, content="50")
@@ -66,7 +66,7 @@ test "BackgroundTypeWallpaper JSON round-trip" {
       is_moving=false,
     ),
   )
-  let json = @json.to_json(bg_type)
+  let json = bg_type.to_json()
   let parsed : BackgroundType = @json.from_json(json)
   guard parsed is Wallpaper(w) else { fail("Expected Wallpaper variant") }
   inspect(w.document.file_id, content="abc123")
@@ -86,7 +86,7 @@ test "BackgroundTypeWallpaper JSON round-trip without optional fields" {
       dark_theme_dimming=30,
     ),
   )
-  let json = @json.to_json(bg_type)
+  let json = bg_type.to_json()
   let parsed : BackgroundType = @json.from_json(json)
   guard parsed is Wallpaper(w) else { fail("Expected Wallpaper variant") }
   inspect(w.is_blurred, content="None")
@@ -112,7 +112,7 @@ test "BackgroundTypePattern JSON round-trip" {
       is_inverted=true,
     ),
   )
-  let json = @json.to_json(bg_type)
+  let json = bg_type.to_json()
   let parsed : BackgroundType = @json.from_json(json)
   guard parsed is Pattern(p) else { fail("Expected Pattern variant") }
   inspect(p.document.file_id, content="pattern123")
@@ -126,7 +126,7 @@ test "BackgroundTypeChatTheme JSON round-trip" {
   let bg_type = BackgroundType::ChatTheme(
     BackgroundTypeChatTheme::new(theme_name="dark_mode"),
   )
-  let json = @json.to_json(bg_type)
+  let json = bg_type.to_json()
   let parsed : BackgroundType = @json.from_json(json)
   guard parsed is ChatTheme(ct) else { fail("Expected ChatTheme variant") }
   inspect(ct.theme_name, content="dark_mode")
@@ -142,7 +142,7 @@ test "ChatBackground JSON round-trip" {
       ),
     ),
   )
-  let json = @json.to_json(background)
+  let json = background.to_json()
   let parsed : ChatBackground = @json.from_json(json)
   guard parsed.type_ is Fill(f) else { fail("Expected Fill type") }
   inspect(f.dark_theme_dimming, content="25")

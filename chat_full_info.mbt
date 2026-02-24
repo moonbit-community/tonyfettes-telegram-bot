@@ -13,21 +13,21 @@ pub fn Birthdate::new(day~ : Int, month~ : Int, year? : Int) -> Birthdate {
 }
 
 ///|
-pub impl @json.ToJson for Birthdate with to_json(self) {
+pub impl ToJson for Birthdate with to_json(self) {
   let object : Map[String, Json] = {
-    "day": @json.to_json(self.day),
-    "month": @json.to_json(self.month),
+    "day": self.day.to_json(),
+    "month": self.month.to_json(),
   }
   if self.year is Some(v) {
-    object["year"] = @json.to_json(v)
+    object["year"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Birthdate with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Birthdate")
+    raise @json.JsonDecodeError((path, "Expected object for Birthdate"))
   }
   let day : Int = @json.from_json(object["day"], path~)
   let month : Int = @json.from_json(object["month"], path~)
@@ -56,18 +56,18 @@ pub fn ChatLocation::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatLocation with to_json(self) {
+pub impl ToJson for ChatLocation with to_json(self) {
   let object : Map[String, Json] = {
-    "location": @json.to_json(self.location),
-    "address": @json.to_json(self.address),
+    "location": self.location.to_json(),
+    "address": self.address.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatLocation with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatLocation")
+    raise @json.JsonDecodeError((path, "Expected object for ChatLocation"))
   }
   let location : Location = @json.from_json(object["location"], path~)
   let address : String = @json.from_json(object["address"], path~)
@@ -87,18 +87,18 @@ pub fn ReactionTypeEmoji::new(emoji~ : String) -> ReactionTypeEmoji {
 }
 
 ///|
-pub impl @json.ToJson for ReactionTypeEmoji with to_json(self) {
+pub impl ToJson for ReactionTypeEmoji with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json("emoji"),
-    "emoji": @json.to_json(self.emoji),
+    "type": "emoji".to_json(),
+    "emoji": self.emoji.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ReactionTypeEmoji with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ReactionTypeEmoji")
+    raise @json.JsonDecodeError((path, "Expected object for ReactionTypeEmoji"))
   }
   let emoji : String = @json.from_json(object["emoji"], path~)
   { emoji, }
@@ -119,20 +119,19 @@ pub fn ReactionTypeCustomEmoji::new(
 }
 
 ///|
-pub impl @json.ToJson for ReactionTypeCustomEmoji with to_json(self) {
+pub impl ToJson for ReactionTypeCustomEmoji with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json("custom_emoji"),
-    "custom_emoji_id": @json.to_json(self.custom_emoji_id),
+    "type": "custom_emoji".to_json(),
+    "custom_emoji_id": self.custom_emoji_id.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ReactionTypeCustomEmoji with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for ReactionTypeCustomEmoji",
+      (path, "Expected object for ReactionTypeCustomEmoji"),
     )
   }
   let custom_emoji_id : String = @json.from_json(
@@ -151,25 +150,25 @@ pub(all) enum ReactionType {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for ReactionType with to_json(self) {
+pub impl ToJson for ReactionType with to_json(self) {
   match self {
-    Emoji(v) => @json.to_json(v)
-    CustomEmoji(v) => @json.to_json(v)
+    Emoji(v) => v.to_json()
+    CustomEmoji(v) => v.to_json()
   }
 }
 
 ///|
 pub impl @json.FromJson for ReactionType with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ReactionType")
+    raise @json.JsonDecodeError((path, "Expected object for ReactionType"))
   }
   guard object["type"] is String(type_) else {
-    raise @json.JsonDecodeError(path~, "Expected type field in ReactionType")
+    raise @json.JsonDecodeError((path, "Expected type field in ReactionType"))
   }
   match type_ {
     "emoji" => Emoji(@json.from_json(json, path~))
     "custom_emoji" => CustomEmoji(@json.from_json(json, path~))
-    _ => raise @json.JsonDecodeError(path~, "Unknown ReactionType: \{type_}")
+    _ => raise @json.JsonDecodeError((path, "Unknown ReactionType: \{type_}"))
   }
 }
 
@@ -319,142 +318,142 @@ pub fn ChatFullInfo::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatFullInfo with to_json(self) {
+pub impl ToJson for ChatFullInfo with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "type": @json.to_json(self.type_),
-    "accent_color_id": @json.to_json(self.accent_color_id),
-    "max_reaction_count": @json.to_json(self.max_reaction_count),
+    "id": int64_to_json(self.id),
+    "type": self.type_.to_json(),
+    "accent_color_id": self.accent_color_id.to_json(),
+    "max_reaction_count": self.max_reaction_count.to_json(),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.username is Some(v) {
-    object["username"] = @json.to_json(v)
+    object["username"] = v.to_json()
   }
   if self.first_name is Some(v) {
-    object["first_name"] = @json.to_json(v)
+    object["first_name"] = v.to_json()
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
   if self.is_forum is Some(v) {
-    object["is_forum"] = @json.to_json(v)
+    object["is_forum"] = v.to_json()
   }
   if self.photo is Some(v) {
-    object["photo"] = @json.to_json(v)
+    object["photo"] = v.to_json()
   }
   if self.active_usernames is Some(v) {
-    object["active_usernames"] = @json.to_json(v)
+    object["active_usernames"] = v.to_json()
   }
   if self.birthdate is Some(v) {
-    object["birthdate"] = @json.to_json(v)
+    object["birthdate"] = v.to_json()
   }
   if self.business_intro is Some(v) {
-    object["business_intro"] = @json.to_json(v)
+    object["business_intro"] = v.to_json()
   }
   if self.business_location is Some(v) {
-    object["business_location"] = @json.to_json(v)
+    object["business_location"] = v.to_json()
   }
   if self.business_opening_hours is Some(v) {
-    object["business_opening_hours"] = @json.to_json(v)
+    object["business_opening_hours"] = v.to_json()
   }
   if self.personal_chat is Some(v) {
-    object["personal_chat"] = @json.to_json(v)
+    object["personal_chat"] = v.to_json()
   }
   if self.available_reactions is Some(v) {
-    object["available_reactions"] = @json.to_json(v)
+    object["available_reactions"] = v.to_json()
   }
   if self.background_custom_emoji_id is Some(v) {
-    object["background_custom_emoji_id"] = @json.to_json(v)
+    object["background_custom_emoji_id"] = v.to_json()
   }
   if self.profile_accent_color_id is Some(v) {
-    object["profile_accent_color_id"] = @json.to_json(v)
+    object["profile_accent_color_id"] = v.to_json()
   }
   if self.profile_background_custom_emoji_id is Some(v) {
-    object["profile_background_custom_emoji_id"] = @json.to_json(v)
+    object["profile_background_custom_emoji_id"] = v.to_json()
   }
   if self.emoji_status_custom_emoji_id is Some(v) {
-    object["emoji_status_custom_emoji_id"] = @json.to_json(v)
+    object["emoji_status_custom_emoji_id"] = v.to_json()
   }
   if self.emoji_status_expiration_date is Some(v) {
-    object["emoji_status_expiration_date"] = @json.to_json(v)
+    object["emoji_status_expiration_date"] = v.to_json()
   }
   if self.bio is Some(v) {
-    object["bio"] = @json.to_json(v)
+    object["bio"] = v.to_json()
   }
   if self.has_private_forwards is Some(v) {
-    object["has_private_forwards"] = @json.to_json(v)
+    object["has_private_forwards"] = v.to_json()
   }
   if self.has_restricted_voice_and_video_messages is Some(v) {
-    object["has_restricted_voice_and_video_messages"] = @json.to_json(v)
+    object["has_restricted_voice_and_video_messages"] = v.to_json()
   }
   if self.join_to_send_messages is Some(v) {
-    object["join_to_send_messages"] = @json.to_json(v)
+    object["join_to_send_messages"] = v.to_json()
   }
   if self.join_by_request is Some(v) {
-    object["join_by_request"] = @json.to_json(v)
+    object["join_by_request"] = v.to_json()
   }
   if self.description is Some(v) {
-    object["description"] = @json.to_json(v)
+    object["description"] = v.to_json()
   }
   if self.invite_link is Some(v) {
-    object["invite_link"] = @json.to_json(v)
+    object["invite_link"] = v.to_json()
   }
   if self.pinned_message is Some(v) {
-    object["pinned_message"] = @json.to_json(v)
+    object["pinned_message"] = v.to_json()
   }
   if self.permissions is Some(v) {
-    object["permissions"] = @json.to_json(v)
+    object["permissions"] = v.to_json()
   }
   if self.can_send_paid_media is Some(v) {
-    object["can_send_paid_media"] = @json.to_json(v)
+    object["can_send_paid_media"] = v.to_json()
   }
   if self.slow_mode_delay is Some(v) {
-    object["slow_mode_delay"] = @json.to_json(v)
+    object["slow_mode_delay"] = v.to_json()
   }
   if self.unrestrict_boost_count is Some(v) {
-    object["unrestrict_boost_count"] = @json.to_json(v)
+    object["unrestrict_boost_count"] = v.to_json()
   }
   if self.message_auto_delete_time is Some(v) {
-    object["message_auto_delete_time"] = @json.to_json(v)
+    object["message_auto_delete_time"] = v.to_json()
   }
   if self.has_aggressive_anti_spam_enabled is Some(v) {
-    object["has_aggressive_anti_spam_enabled"] = @json.to_json(v)
+    object["has_aggressive_anti_spam_enabled"] = v.to_json()
   }
   if self.has_hidden_members is Some(v) {
-    object["has_hidden_members"] = @json.to_json(v)
+    object["has_hidden_members"] = v.to_json()
   }
   if self.has_protected_content is Some(v) {
-    object["has_protected_content"] = @json.to_json(v)
+    object["has_protected_content"] = v.to_json()
   }
   if self.has_visible_history is Some(v) {
-    object["has_visible_history"] = @json.to_json(v)
+    object["has_visible_history"] = v.to_json()
   }
   if self.sticker_set_name is Some(v) {
-    object["sticker_set_name"] = @json.to_json(v)
+    object["sticker_set_name"] = v.to_json()
   }
   if self.can_set_sticker_set is Some(v) {
-    object["can_set_sticker_set"] = @json.to_json(v)
+    object["can_set_sticker_set"] = v.to_json()
   }
   if self.custom_emoji_sticker_set_name is Some(v) {
-    object["custom_emoji_sticker_set_name"] = @json.to_json(v)
+    object["custom_emoji_sticker_set_name"] = v.to_json()
   }
   if self.linked_chat_id is Some(v) {
-    object["linked_chat_id"] = @json.to_json(v)
+    object["linked_chat_id"] = int64_to_json(v)
   }
   if self.location is Some(v) {
-    object["location"] = @json.to_json(v)
+    object["location"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatFullInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatFullInfo")
+    raise @json.JsonDecodeError((path, "Expected object for ChatFullInfo"))
   }
-  let id : Int64 = @json.from_json(object["id"], path~)
+  let id : Int64 = int64_from_json(object["id"], path)
   let type_ : String = @json.from_json(object["type"], path~)
   let accent_color_id : Int = @json.from_json(object["accent_color_id"], path~)
   let max_reaction_count : Int = @json.from_json(
@@ -694,7 +693,7 @@ pub impl @json.FromJson for ChatFullInfo with from_json(json, path) {
     None
   }
   let linked_chat_id : Int64? = if object.get("linked_chat_id") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }

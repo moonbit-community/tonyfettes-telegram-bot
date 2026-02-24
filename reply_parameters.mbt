@@ -6,20 +6,22 @@ pub(all) enum ChatId {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for ChatId with to_json(self) {
+pub impl ToJson for ChatId with to_json(self) {
   match self {
-    Id(id) => @json.to_json(id)
-    Username(username) => @json.to_json(username)
+    Id(id) => int64_to_json(id)
+    Username(username) => username.to_json()
   }
 }
 
 ///|
 pub impl @json.FromJson for ChatId with from_json(json, path) {
   match json {
-    Number(n) => Id(n.to_int64())
+    Number(n, ..) => Id(n.to_int64())
     String(s) => Username(s)
     _ =>
-      raise @json.JsonDecodeError(path~, "Expected number or string for ChatId")
+      raise @json.JsonDecodeError(
+        (path, "Expected number or string for ChatId"),
+      )
   }
 }
 
@@ -58,35 +60,33 @@ pub fn ReplyParameters::new(
 }
 
 ///|
-pub impl @json.ToJson for ReplyParameters with to_json(self) {
-  let object : Map[String, Json] = {
-    "message_id": @json.to_json(self.message_id),
-  }
+pub impl ToJson for ReplyParameters with to_json(self) {
+  let object : Map[String, Json] = { "message_id": self.message_id.to_json() }
   if self.chat_id is Some(v) {
-    object["chat_id"] = @json.to_json(v)
+    object["chat_id"] = v.to_json()
   }
   if self.allow_sending_without_reply is Some(v) {
-    object["allow_sending_without_reply"] = @json.to_json(v)
+    object["allow_sending_without_reply"] = v.to_json()
   }
   if self.quote is Some(v) {
-    object["quote"] = @json.to_json(v)
+    object["quote"] = v.to_json()
   }
   if self.quote_parse_mode is Some(v) {
-    object["quote_parse_mode"] = @json.to_json(v)
+    object["quote_parse_mode"] = v.to_json()
   }
   if self.quote_entities is Some(v) {
-    object["quote_entities"] = @json.to_json(v)
+    object["quote_entities"] = v.to_json()
   }
   if self.quote_position is Some(v) {
-    object["quote_position"] = @json.to_json(v)
+    object["quote_position"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ReplyParameters with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ReplyParameters")
+    raise @json.JsonDecodeError((path, "Expected object for ReplyParameters"))
   }
   let message_id : Int = @json.from_json(object["message_id"], path~)
   let chat_id : ChatId? = if object.get("chat_id") is Some(v) {
@@ -151,20 +151,19 @@ pub fn MessageOriginPlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for MessageOriginPlaceholder with to_json(self) {
+pub impl ToJson for MessageOriginPlaceholder with to_json(self) {
   let object : Map[String, Json] = {
-    "type": @json.to_json(self.type_),
-    "date": @json.to_json(self.date),
+    "type": self.type_.to_json(),
+    "date": self.date.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for MessageOriginPlaceholder with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for MessageOriginPlaceholder",
+      (path, "Expected object for MessageOriginPlaceholder"),
     )
   }
   let type_ : String = @json.from_json(object["type"], path~)
@@ -187,20 +186,19 @@ pub fn LinkPreviewPlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for LinkPreviewPlaceholder with to_json(self) {
+pub impl ToJson for LinkPreviewPlaceholder with to_json(self) {
   let object : Map[String, Json] = {}
   if self.is_disabled is Some(v) {
-    object["is_disabled"] = @json.to_json(v)
+    object["is_disabled"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for LinkPreviewPlaceholder with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for LinkPreviewPlaceholder",
+      (path, "Expected object for LinkPreviewPlaceholder"),
     )
   }
   let is_disabled : Bool? = if object.get("is_disabled") is Some(v) {
@@ -228,18 +226,18 @@ pub fn GamePlaceholder::new(
 }
 
 ///|
-pub impl @json.ToJson for GamePlaceholder with to_json(self) {
+pub impl ToJson for GamePlaceholder with to_json(self) {
   let object : Map[String, Json] = {
-    "title": @json.to_json(self.title),
-    "description": @json.to_json(self.description),
+    "title": self.title.to_json(),
+    "description": self.description.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for GamePlaceholder with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for GamePlaceholder")
+    raise @json.JsonDecodeError((path, "Expected object for GamePlaceholder"))
   }
   let title : String = @json.from_json(object["title"], path~)
   let description : String = @json.from_json(object["description"], path~)
@@ -332,84 +330,84 @@ pub fn ExternalReplyInfo::new(
 }
 
 ///|
-pub impl @json.ToJson for ExternalReplyInfo with to_json(self) {
-  let object : Map[String, Json] = { "origin": @json.to_json(self.origin) }
+pub impl ToJson for ExternalReplyInfo with to_json(self) {
+  let object : Map[String, Json] = { "origin": self.origin.to_json() }
   if self.chat is Some(v) {
-    object["chat"] = @json.to_json(v)
+    object["chat"] = v.to_json()
   }
   if self.message_id is Some(v) {
-    object["message_id"] = @json.to_json(v)
+    object["message_id"] = v.to_json()
   }
   if self.link_preview_options is Some(v) {
-    object["link_preview_options"] = @json.to_json(v)
+    object["link_preview_options"] = v.to_json()
   }
   if self.animation is Some(v) {
-    object["animation"] = @json.to_json(v)
+    object["animation"] = v.to_json()
   }
   if self.audio is Some(v) {
-    object["audio"] = @json.to_json(v)
+    object["audio"] = v.to_json()
   }
   if self.document is Some(v) {
-    object["document"] = @json.to_json(v)
+    object["document"] = v.to_json()
   }
   if self.paid_media is Some(v) {
-    object["paid_media"] = @json.to_json(v)
+    object["paid_media"] = v.to_json()
   }
   if self.photo is Some(v) {
-    object["photo"] = @json.to_json(v)
+    object["photo"] = v.to_json()
   }
   if self.sticker is Some(v) {
-    object["sticker"] = @json.to_json(v)
+    object["sticker"] = v.to_json()
   }
   if self.story is Some(v) {
-    object["story"] = @json.to_json(v)
+    object["story"] = v.to_json()
   }
   if self.video is Some(v) {
-    object["video"] = @json.to_json(v)
+    object["video"] = v.to_json()
   }
   if self.video_note is Some(v) {
-    object["video_note"] = @json.to_json(v)
+    object["video_note"] = v.to_json()
   }
   if self.voice is Some(v) {
-    object["voice"] = @json.to_json(v)
+    object["voice"] = v.to_json()
   }
   if self.has_media_spoiler is Some(v) {
-    object["has_media_spoiler"] = @json.to_json(v)
+    object["has_media_spoiler"] = v.to_json()
   }
   if self.contact is Some(v) {
-    object["contact"] = @json.to_json(v)
+    object["contact"] = v.to_json()
   }
   if self.dice is Some(v) {
-    object["dice"] = @json.to_json(v)
+    object["dice"] = v.to_json()
   }
   if self.game is Some(v) {
-    object["game"] = @json.to_json(v)
+    object["game"] = v.to_json()
   }
   if self.giveaway is Some(v) {
-    object["giveaway"] = @json.to_json(v)
+    object["giveaway"] = v.to_json()
   }
   if self.giveaway_winners is Some(v) {
-    object["giveaway_winners"] = @json.to_json(v)
+    object["giveaway_winners"] = v.to_json()
   }
   if self.invoice is Some(v) {
-    object["invoice"] = @json.to_json(v)
+    object["invoice"] = v.to_json()
   }
   if self.location is Some(v) {
-    object["location"] = @json.to_json(v)
+    object["location"] = v.to_json()
   }
   if self.poll is Some(v) {
-    object["poll"] = @json.to_json(v)
+    object["poll"] = v.to_json()
   }
   if self.venue is Some(v) {
-    object["venue"] = @json.to_json(v)
+    object["venue"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ExternalReplyInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ExternalReplyInfo")
+    raise @json.JsonDecodeError((path, "Expected object for ExternalReplyInfo"))
   }
   let origin : MessageOriginPlaceholder = @json.from_json(
     object["origin"],

@@ -4,7 +4,7 @@ test "ChatMember Owner JSON round-trip" {
   let chat_member : ChatMember = Owner(
     ChatMemberOwner::new(user~, is_anonymous=true, custom_title="Founder"),
   )
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Owner(owner) else { fail("Expected Owner variant") }
   inspect(owner.user.id, content="123")
@@ -34,7 +34,7 @@ test "ChatMember Administrator JSON round-trip" {
       can_pin_messages=true,
     ),
   )
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Administrator(admin) else {
     fail("Expected Administrator variant")
@@ -50,7 +50,7 @@ test "ChatMember Administrator JSON round-trip" {
 test "ChatMember Member JSON round-trip" {
   let user = User::new(id=789L, is_bot=false, first_name="Member")
   let chat_member : ChatMember = Member(ChatMemberMember::new(user~))
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Member(m) else { fail("Expected Member variant") }
   inspect(m.user.id, content="789")
@@ -63,7 +63,7 @@ test "ChatMember Member with until_date JSON round-trip" {
   let chat_member : ChatMember = Member(
     ChatMemberMember::new(user~, until_date=1700000000),
   )
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Member(m) else { fail("Expected Member variant") }
   inspect(m.until_date, content="Some(1700000000)")
@@ -93,7 +93,7 @@ test "ChatMember Restricted JSON round-trip" {
       until_date=0,
     ),
   )
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Restricted(r) else { fail("Expected Restricted variant") }
   inspect(r.user.id, content="222")
@@ -107,7 +107,7 @@ test "ChatMember Restricted JSON round-trip" {
 test "ChatMember Left JSON round-trip" {
   let user = User::new(id=333L, is_bot=false, first_name="LeftUser")
   let chat_member : ChatMember = Left(ChatMemberLeft::new(user~))
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Left(l) else { fail("Expected Left variant") }
   inspect(l.user.id, content="333")
@@ -119,7 +119,7 @@ test "ChatMember Banned JSON round-trip" {
   let chat_member : ChatMember = Banned(
     ChatMemberBanned::new(user~, until_date=1800000000),
   )
-  let json = @json.to_json(chat_member)
+  let json = chat_member.to_json()
   let parsed : ChatMember = @json.from_json(json)
   guard parsed is Banned(b) else { fail("Expected Banned variant") }
   inspect(b.user.id, content="444")
@@ -134,7 +134,7 @@ test "ChatPermissions JSON round-trip" {
     can_send_videos=true,
     can_change_info=false,
   )
-  let json = @json.to_json(perms)
+  let json = perms.to_json()
   let parsed : ChatPermissions = @json.from_json(json)
   inspect(parsed.can_send_messages, content="Some(true)")
   inspect(parsed.can_send_photos, content="Some(true)")
@@ -145,7 +145,7 @@ test "ChatPermissions JSON round-trip" {
 ///|
 test "ChatPermissions empty JSON round-trip" {
   let perms = ChatPermissions::new()
-  let json = @json.to_json(perms)
+  let json = perms.to_json()
   let parsed : ChatPermissions = @json.from_json(json)
   inspect(parsed.can_send_messages, content="None")
   inspect(parsed.can_manage_topics, content="None")
@@ -168,7 +168,7 @@ test "ChatAdministratorRights JSON round-trip" {
     can_post_messages=true,
     can_pin_messages=true,
   )
-  let json = @json.to_json(rights)
+  let json = rights.to_json()
   let parsed : ChatAdministratorRights = @json.from_json(json)
   inspect(parsed.is_anonymous, content="false")
   inspect(parsed.can_manage_chat, content="true")

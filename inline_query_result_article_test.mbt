@@ -7,7 +7,7 @@ test "LinkPreviewOptions JSON round-trip" {
     prefer_large_media=true,
     show_above_text=false,
   )
-  let json = @json.to_json(options)
+  let json = options.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="Some(true)")
   inspect(parsed.url, content="Some(\"https://example.com\")")
@@ -19,7 +19,7 @@ test "LinkPreviewOptions JSON round-trip" {
 ///|
 test "LinkPreviewOptions JSON minimal" {
   let options = LinkPreviewOptions::new()
-  let json = @json.to_json(options)
+  let json = options.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="None")
   inspect(parsed.url, content="None")
@@ -32,7 +32,7 @@ test "InputTextMessageContent JSON round-trip" {
     parse_mode="HTML",
     link_preview_options=LinkPreviewOptions::new(is_disabled=true),
   )
-  let json = @json.to_json(content)
+  let json = content.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Hello, World!")
   inspect(parsed.parse_mode, content="Some(\"HTML\")")
@@ -46,7 +46,7 @@ test "InputTextMessageContent JSON round-trip" {
 ///|
 test "InputTextMessageContent JSON minimal" {
   let content = InputTextMessageContent::new(message_text="Simple message")
-  let json = @json.to_json(content)
+  let json = content.to_json()
   let parsed : InputTextMessageContent = @json.from_json(json)
   inspect(parsed.message_text, content="Simple message")
   inspect(parsed.parse_mode, content="None")
@@ -67,7 +67,7 @@ test "InlineQueryResultArticle JSON round-trip" {
     thumbnail_width=100,
     thumbnail_height=100,
   )
-  let json = @json.to_json(article)
+  let json = article.to_json()
   let parsed : InlineQueryResultArticle = @json.from_json(json)
   inspect(parsed.type_, content="article")
   inspect(parsed.id, content="article_1")
@@ -91,7 +91,7 @@ test "InlineQueryResultArticle JSON minimal" {
     title="Minimal Article",
     input_message_content=InputTextMessageContent::new(message_text="Content"),
   )
-  let json = @json.to_json(article)
+  let json = article.to_json()
   let parsed : InlineQueryResultArticle = @json.from_json(json)
   inspect(parsed.type_, content="article")
   inspect(parsed.id, content="article_2")
@@ -112,7 +112,7 @@ test "InlineQueryResultArticle with reply_markup" {
       [InlineKeyboardButton::new(text="Click", url="https://example.com")],
     ]),
   )
-  let json = @json.to_json(article)
+  let json = article.to_json()
   let parsed : InlineQueryResultArticle = @json.from_json(json)
   guard parsed.reply_markup is Some(markup) else {
     fail("Expected reply_markup")
@@ -133,7 +133,7 @@ test "InlineQueryResultContact JSON round-trip" {
     thumbnail_width=50,
     thumbnail_height=50,
   )
-  let json = @json.to_json(contact)
+  let json = contact.to_json()
   let parsed : InlineQueryResultContact = @json.from_json(json)
   inspect(parsed.type_, content="contact")
   inspect(parsed.id, content="contact_1")
@@ -157,7 +157,7 @@ test "InlineQueryResultContact JSON minimal" {
     phone_number="+9876543210",
     first_name="Jane",
   )
-  let json = @json.to_json(contact)
+  let json = contact.to_json()
   let parsed : InlineQueryResultContact = @json.from_json(json)
   inspect(parsed.type_, content="contact")
   inspect(parsed.id, content="contact_2")
@@ -183,7 +183,7 @@ test "InlineQueryResultLocation JSON round-trip" {
     thumbnail_width=200,
     thumbnail_height=200,
   )
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : InlineQueryResultLocation = @json.from_json(json)
   inspect(parsed.type_, content="location")
   inspect(parsed.id, content="location_1")
@@ -205,7 +205,7 @@ test "InlineQueryResultLocation JSON minimal" {
     longitude=2.2945,
     title="Eiffel Tower",
   )
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : InlineQueryResultLocation = @json.from_json(json)
   inspect(parsed.type_, content="location")
   inspect(parsed.id, content="location_2")
@@ -232,7 +232,7 @@ test "InlineQueryResultVenue JSON round-trip" {
     thumbnail_width=150,
     thumbnail_height=150,
   )
-  let json = @json.to_json(venue)
+  let json = venue.to_json()
   let parsed : InlineQueryResultVenue = @json.from_json(json)
   inspect(parsed.type_, content="venue")
   inspect(parsed.id, content="venue_1")
@@ -262,7 +262,7 @@ test "InlineQueryResultVenue JSON minimal" {
     title="Eiffel Tower",
     address="Champ de Mars, Paris",
   )
-  let json = @json.to_json(venue)
+  let json = venue.to_json()
   let parsed : InlineQueryResultVenue = @json.from_json(json)
   inspect(parsed.type_, content="venue")
   inspect(parsed.id, content="venue_2")
@@ -289,7 +289,7 @@ test "InlineQueryResultVenue with reply_markup and input_message_content" {
       parse_mode="HTML",
     ),
   )
-  let json = @json.to_json(venue)
+  let json = venue.to_json()
   let parsed : InlineQueryResultVenue = @json.from_json(json)
   inspect(parsed.title, content="Big Ben")
   guard parsed.reply_markup is Some(markup) else {

@@ -2,7 +2,7 @@
 test "ChatType JSON round-trip" {
   let types : Array[ChatType] = [Private, Group, Supergroup, Channel]
   for ct in types {
-    let json = @json.to_json(ct)
+    let json = ct.to_json()
     let parsed : ChatType = @json.from_json(json)
     inspect(ct == parsed, content="true")
   }
@@ -17,7 +17,7 @@ test "Chat JSON round-trip" {
     first_name="Test",
     last_name="User",
   )
-  let json = @json.to_json(chat)
+  let json = chat.to_json()
   let parsed : Chat = @json.from_json(json)
   inspect(parsed.id, content="456")
   inspect(parsed.type_, content="Private")

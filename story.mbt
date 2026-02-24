@@ -12,18 +12,18 @@ pub fn Story::new(chat~ : Chat, id~ : Int) -> Story {
 }
 
 ///|
-pub impl @json.ToJson for Story with to_json(self) {
+pub impl ToJson for Story with to_json(self) {
   let object : Map[String, Json] = {
-    "chat": @json.to_json(self.chat),
-    "id": @json.to_json(self.id),
+    "chat": self.chat.to_json(),
+    "id": self.id.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Story with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Story")
+    raise @json.JsonDecodeError((path, "Expected object for Story"))
   }
   let chat : Chat = @json.from_json(object["chat"], path~)
   let id : Int = @json.from_json(object["id"], path~)

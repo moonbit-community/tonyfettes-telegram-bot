@@ -25,7 +25,7 @@ test "Video JSON round-trip" {
     mime_type="video/mp4",
     file_size=15000000L,
   )
-  let json = @json.to_json(video)
+  let json = video.to_json()
   let parsed : Video = @json.from_json(json)
   inspect(parsed.file_id, content="BAACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATvideo")
@@ -47,7 +47,7 @@ test "Video JSON round-trip without optionals" {
     height=1080,
     duration=120,
   )
-  let json = @json.to_json(video)
+  let json = video.to_json()
   let parsed : Video = @json.from_json(json)
   inspect(parsed.file_id, content="BAACAgIAAxkBAAI")
   inspect(parsed.thumbnail, content="None")

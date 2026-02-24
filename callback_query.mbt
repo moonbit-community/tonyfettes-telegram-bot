@@ -24,28 +24,28 @@ pub fn CallbackQuery::new(
 }
 
 ///|
-pub impl @json.ToJson for CallbackQuery with to_json(self) {
+pub impl ToJson for CallbackQuery with to_json(self) {
   let object : Map[String, Json] = {
-    "id": @json.to_json(self.id),
-    "from": @json.to_json(self.from),
-    "chat_instance": @json.to_json(self.chat_instance),
+    "id": self.id.to_json(),
+    "from": self.from.to_json(),
+    "chat_instance": self.chat_instance.to_json(),
   }
   if self.message is Some(v) {
-    object["message"] = @json.to_json(v)
+    object["message"] = v.to_json()
   }
   if self.inline_message_id is Some(v) {
-    object["inline_message_id"] = @json.to_json(v)
+    object["inline_message_id"] = v.to_json()
   }
   if self.data is Some(v) {
-    object["data"] = @json.to_json(v)
+    object["data"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for CallbackQuery with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for CallbackQuery")
+    raise @json.JsonDecodeError((path, "Expected object for CallbackQuery"))
   }
   let id : String = @json.from_json(object["id"], path~)
   let from : User = @json.from_json(object["from"], path~)

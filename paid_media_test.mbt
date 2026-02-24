@@ -2,7 +2,7 @@
 test "PaidMediaPreview JSON round-trip" {
   let preview = PaidMediaPreview::new(width=640, height=480, duration=30)
   let media : PaidMedia = Preview(preview)
-  let json = @json.to_json(media)
+  let json = media.to_json()
   let parsed : PaidMedia = @json.from_json(json)
   guard parsed is Preview(p) else { fail("Expected Preview variant") }
   inspect(p.width, content="Some(640)")
@@ -14,7 +14,7 @@ test "PaidMediaPreview JSON round-trip" {
 test "PaidMediaPreview empty JSON round-trip" {
   let preview = PaidMediaPreview::new()
   let media : PaidMedia = Preview(preview)
-  let json = @json.to_json(media)
+  let json = media.to_json()
   let parsed : PaidMedia = @json.from_json(json)
   guard parsed is Preview(p) else { fail("Expected Preview variant") }
   inspect(p.width, content="None")
@@ -32,7 +32,7 @@ test "PaidMediaPhoto JSON round-trip" {
   )
   let photo = PaidMediaPhoto::new(photo=[photo_size])
   let media : PaidMedia = Photo(photo)
-  let json = @json.to_json(media)
+  let json = media.to_json()
   let parsed : PaidMedia = @json.from_json(json)
   guard parsed is Photo(p) else { fail("Expected Photo variant") }
   inspect(p.photo.length(), content="1")
@@ -51,7 +51,7 @@ test "PaidMediaVideo JSON round-trip" {
   )
   let video_media = PaidMediaVideo::new(video~)
   let media : PaidMedia = Video(video_media)
-  let json = @json.to_json(media)
+  let json = media.to_json()
   let parsed : PaidMedia = @json.from_json(json)
   guard parsed is Video(v) else { fail("Expected Video variant") }
   inspect(v.video.file_id, content="video456")
@@ -74,7 +74,7 @@ test "PaidMediaInfo JSON round-trip" {
     Preview(preview),
     Video(PaidMediaVideo::new(video~)),
   ])
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : PaidMediaInfo = @json.from_json(json)
   inspect(parsed.star_count, content="100")
   inspect(parsed.paid_media.length(), content="2")
@@ -96,7 +96,7 @@ test "PhotoSize JSON round-trip" {
     width=100,
     height=200,
   )
-  let json = @json.to_json(photo)
+  let json = photo.to_json()
   let parsed : PhotoSize = @json.from_json(json)
   inspect(parsed.file_id, content="file123")
   inspect(parsed.file_unique_id, content="unique123")
@@ -113,7 +113,7 @@ test "Video JSON round-trip" {
     height=1080,
     duration=300,
   )
-  let json = @json.to_json(video)
+  let json = video.to_json()
   let parsed : Video = @json.from_json(json)
   inspect(parsed.file_id, content="vidfile")
   inspect(parsed.file_unique_id, content="vidunique")

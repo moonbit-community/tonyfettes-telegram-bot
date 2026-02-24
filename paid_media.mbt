@@ -50,34 +50,34 @@ pub fn PaidMediaVideo::new(video~ : Video) -> PaidMediaVideo {
 }
 
 ///|
-pub impl @json.ToJson for PaidMedia with to_json(self) {
+pub impl ToJson for PaidMedia with to_json(self) {
   match self {
     Preview(v) => {
-      let object : Map[String, Json] = { "type": @json.to_json("preview") }
+      let object : Map[String, Json] = { "type": "preview".to_json() }
       if v.width is Some(w) {
-        object["width"] = @json.to_json(w)
+        object["width"] = w.to_json()
       }
       if v.height is Some(h) {
-        object["height"] = @json.to_json(h)
+        object["height"] = h.to_json()
       }
       if v.duration is Some(d) {
-        object["duration"] = @json.to_json(d)
+        object["duration"] = d.to_json()
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Photo(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("photo"),
-        "photo": @json.to_json(v.photo),
+        "type": "photo".to_json(),
+        "photo": v.photo.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
     Video(v) => {
       let object : Map[String, Json] = {
-        "type": @json.to_json("video"),
-        "video": @json.to_json(v.video),
+        "type": "video".to_json(),
+        "video": v.video.to_json(),
       }
-      @json.to_json(object)
+      object.to_json()
     }
   }
 }
@@ -85,10 +85,10 @@ pub impl @json.ToJson for PaidMedia with to_json(self) {
 ///|
 pub impl @json.FromJson for PaidMedia with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for PaidMedia")
+    raise @json.JsonDecodeError((path, "Expected object for PaidMedia"))
   }
   guard object["type"] is String(type_) else {
-    raise @json.JsonDecodeError(path~, "Expected type field for PaidMedia")
+    raise @json.JsonDecodeError((path, "Expected type field for PaidMedia"))
   }
   match type_ {
     "preview" => {
@@ -111,7 +111,7 @@ pub impl @json.FromJson for PaidMedia with from_json(json, path) {
     }
     "photo" => Photo({ photo: @json.from_json(object["photo"], path~) })
     "video" => Video({ video: @json.from_json(object["video"], path~) })
-    _ => raise @json.JsonDecodeError(path~, "Unknown PaidMedia type")
+    _ => raise @json.JsonDecodeError((path, "Unknown PaidMedia type"))
   }
 }
 
@@ -132,18 +132,18 @@ pub fn PaidMediaInfo::new(
 }
 
 ///|
-pub impl @json.ToJson for PaidMediaInfo with to_json(self) {
+pub impl ToJson for PaidMediaInfo with to_json(self) {
   let object : Map[String, Json] = {
-    "star_count": @json.to_json(self.star_count),
-    "paid_media": @json.to_json(self.paid_media),
+    "star_count": self.star_count.to_json(),
+    "paid_media": self.paid_media.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for PaidMediaInfo with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for PaidMediaInfo")
+    raise @json.JsonDecodeError((path, "Expected object for PaidMediaInfo"))
   }
   let star_count : Int = @json.from_json(object["star_count"], path~)
   let paid_media : Array[PaidMedia] = @json.from_json(

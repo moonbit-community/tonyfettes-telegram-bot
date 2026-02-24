@@ -6,7 +6,7 @@ test "ForumTopic JSON round-trip" {
     icon_color=0x6FB9F0,
     icon_custom_emoji_id="5368324170671202286",
   )
-  let json = @json.to_json(topic)
+  let json = topic.to_json()
   let parsed : ForumTopic = @json.from_json(json)
   inspect(parsed.message_thread_id, content="12345")
   inspect(parsed.name, content="General Discussion")
@@ -21,7 +21,7 @@ test "ForumTopic JSON round-trip without optional fields" {
     name="Announcements",
     icon_color=0xFFD67E,
   )
-  let json = @json.to_json(topic)
+  let json = topic.to_json()
   let parsed : ForumTopic = @json.from_json(json)
   inspect(parsed.message_thread_id, content="67890")
   inspect(parsed.name, content="Announcements")
@@ -36,7 +36,7 @@ test "ForumTopicCreated JSON round-trip" {
     icon_color=0x6FB9F0,
     icon_custom_emoji_id="5368324170671202286",
   )
-  let json = @json.to_json(created)
+  let json = created.to_json()
   let parsed : ForumTopicCreated = @json.from_json(json)
   inspect(parsed.name, content="New Topic")
   inspect(parsed.icon_color, content="7322096")
@@ -49,7 +49,7 @@ test "ForumTopicCreated JSON round-trip without optional fields" {
     name="Another Topic",
     icon_color=0xFFD67E,
   )
-  let json = @json.to_json(created)
+  let json = created.to_json()
   let parsed : ForumTopicCreated = @json.from_json(json)
   inspect(parsed.name, content="Another Topic")
   inspect(parsed.icon_color, content="16766590")
@@ -62,7 +62,7 @@ test "ForumTopicEdited JSON round-trip with all fields" {
     name="Edited Topic Name",
     icon_custom_emoji_id="5368324170671202286",
   )
-  let json = @json.to_json(edited)
+  let json = edited.to_json()
   let parsed : ForumTopicEdited = @json.from_json(json)
   inspect(parsed.name, content="Some(\"Edited Topic Name\")")
   inspect(parsed.icon_custom_emoji_id, content="Some(\"5368324170671202286\")")
@@ -71,7 +71,7 @@ test "ForumTopicEdited JSON round-trip with all fields" {
 ///|
 test "ForumTopicEdited JSON round-trip with only name" {
   let edited = ForumTopicEdited::new(name="Just Name Changed")
-  let json = @json.to_json(edited)
+  let json = edited.to_json()
   let parsed : ForumTopicEdited = @json.from_json(json)
   inspect(parsed.name, content="Some(\"Just Name Changed\")")
   inspect(parsed.icon_custom_emoji_id, content="None")
@@ -80,7 +80,7 @@ test "ForumTopicEdited JSON round-trip with only name" {
 ///|
 test "ForumTopicEdited JSON round-trip with only icon" {
   let edited = ForumTopicEdited::new(icon_custom_emoji_id="5368324170671202286")
-  let json = @json.to_json(edited)
+  let json = edited.to_json()
   let parsed : ForumTopicEdited = @json.from_json(json)
   inspect(parsed.name, content="None")
   inspect(parsed.icon_custom_emoji_id, content="Some(\"5368324170671202286\")")
@@ -89,7 +89,7 @@ test "ForumTopicEdited JSON round-trip with only icon" {
 ///|
 test "ForumTopicEdited JSON round-trip with no fields" {
   let edited = ForumTopicEdited::new()
-  let json = @json.to_json(edited)
+  let json = edited.to_json()
   let parsed : ForumTopicEdited = @json.from_json(json)
   inspect(parsed.name, content="None")
   inspect(parsed.icon_custom_emoji_id, content="None")

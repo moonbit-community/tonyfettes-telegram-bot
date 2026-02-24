@@ -21,27 +21,27 @@ pub fn Contact::new(
 }
 
 ///|
-pub impl @json.ToJson for Contact with to_json(self) {
+pub impl ToJson for Contact with to_json(self) {
   let object : Map[String, Json] = {
-    "phone_number": @json.to_json(self.phone_number),
-    "first_name": @json.to_json(self.first_name),
+    "phone_number": self.phone_number.to_json(),
+    "first_name": self.first_name.to_json(),
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
   if self.user_id is Some(v) {
-    object["user_id"] = @json.to_json(v)
+    object["user_id"] = int64_to_json(v)
   }
   if self.vcard is Some(v) {
-    object["vcard"] = @json.to_json(v)
+    object["vcard"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Contact with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Contact")
+    raise @json.JsonDecodeError((path, "Expected object for Contact"))
   }
   let phone_number : String = @json.from_json(object["phone_number"], path~)
   let first_name : String = @json.from_json(object["first_name"], path~)
@@ -51,7 +51,7 @@ pub impl @json.FromJson for Contact with from_json(json, path) {
     None
   }
   let user_id : Int64? = if object.get("user_id") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }

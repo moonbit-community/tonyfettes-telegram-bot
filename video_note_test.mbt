@@ -14,7 +14,7 @@ test "VideoNote JSON round-trip" {
     thumbnail~,
     file_size=500000L,
   )
-  let json = @json.to_json(video_note)
+  let json = video_note.to_json()
   let parsed : VideoNote = @json.from_json(json)
   inspect(parsed.file_id, content="DQACAgIAAxkBAAI")
   inspect(parsed.file_unique_id, content="AQADAgATvnote")
@@ -31,7 +31,7 @@ test "VideoNote JSON round-trip without optionals" {
     length=240,
     duration=30,
   )
-  let json = @json.to_json(video_note)
+  let json = video_note.to_json()
   let parsed : VideoNote = @json.from_json(json)
   inspect(parsed.file_id, content="DQACAgIAAxkBAAI")
   inspect(parsed.thumbnail, content="None")

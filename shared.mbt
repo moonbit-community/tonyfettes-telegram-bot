@@ -22,29 +22,29 @@ pub fn SharedUser::new(
 }
 
 ///|
-pub impl @json.ToJson for SharedUser with to_json(self) {
-  let object : Map[String, Json] = { "user_id": @json.to_json(self.user_id) }
+pub impl ToJson for SharedUser with to_json(self) {
+  let object : Map[String, Json] = { "user_id": int64_to_json(self.user_id) }
   if self.first_name is Some(v) {
-    object["first_name"] = @json.to_json(v)
+    object["first_name"] = v.to_json()
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
   if self.username is Some(v) {
-    object["username"] = @json.to_json(v)
+    object["username"] = v.to_json()
   }
   if self.photo is Some(v) {
-    object["photo"] = @json.to_json(v)
+    object["photo"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for SharedUser with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for SharedUser")
+    raise @json.JsonDecodeError((path, "Expected object for SharedUser"))
   }
-  let user_id : Int64 = @json.from_json(object["user_id"], path~)
+  let user_id : Int64 = int64_from_json(object["user_id"], path)
   let first_name : String? = if object.get("first_name") is Some(v) {
     Some(@json.from_json(v, path~))
   } else {
@@ -86,18 +86,18 @@ pub fn UsersShared::new(
 }
 
 ///|
-pub impl @json.ToJson for UsersShared with to_json(self) {
+pub impl ToJson for UsersShared with to_json(self) {
   let object : Map[String, Json] = {
-    "request_id": @json.to_json(self.request_id),
-    "users": @json.to_json(self.users),
+    "request_id": self.request_id.to_json(),
+    "users": self.users.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for UsersShared with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for UsersShared")
+    raise @json.JsonDecodeError((path, "Expected object for UsersShared"))
   }
   let request_id : Int = @json.from_json(object["request_id"], path~)
   let users : Array[SharedUser] = @json.from_json(object["users"], path~)
@@ -128,30 +128,30 @@ pub fn ChatShared::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatShared with to_json(self) {
+pub impl ToJson for ChatShared with to_json(self) {
   let object : Map[String, Json] = {
-    "request_id": @json.to_json(self.request_id),
-    "chat_id": @json.to_json(self.chat_id),
+    "request_id": self.request_id.to_json(),
+    "chat_id": int64_to_json(self.chat_id),
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.username is Some(v) {
-    object["username"] = @json.to_json(v)
+    object["username"] = v.to_json()
   }
   if self.photo is Some(v) {
-    object["photo"] = @json.to_json(v)
+    object["photo"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatShared with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatShared")
+    raise @json.JsonDecodeError((path, "Expected object for ChatShared"))
   }
   let request_id : Int = @json.from_json(object["request_id"], path~)
-  let chat_id : Int64 = @json.from_json(object["chat_id"], path~)
+  let chat_id : Int64 = int64_from_json(object["chat_id"], path)
   let title : String? = if object.get("title") is Some(v) {
     Some(@json.from_json(v, path~))
   } else {

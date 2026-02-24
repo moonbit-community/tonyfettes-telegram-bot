@@ -8,7 +8,7 @@ test "Venue JSON round-trip" {
     foursquare_id="4b5a0c13f964a520e5cf28e3",
     google_place_id="ChIJaXQRs6lZwokRY6EFpJnhNNE",
   )
-  let json = @json.to_json(venue)
+  let json = venue.to_json()
   let parsed : Venue = @json.from_json(json)
   inspect(parsed.title, content="Empire State Building")
   inspect(parsed.address, content="350 Fifth Avenue, New York, NY")
@@ -29,7 +29,7 @@ test "Venue JSON minimal" {
     title="Eiffel Tower",
     address="Champ de Mars, Paris",
   )
-  let json = @json.to_json(venue)
+  let json = venue.to_json()
   let parsed : Venue = @json.from_json(json)
   inspect(parsed.title, content="Eiffel Tower")
   inspect(parsed.location.latitude, content="48.8584")

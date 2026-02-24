@@ -10,7 +10,7 @@ test "InlineQuery JSON round-trip" {
     chat_type="private",
     location~,
   )
-  let json = @json.to_json(inline_query)
+  let json = inline_query.to_json()
   let parsed : InlineQuery = @json.from_json(json)
   inspect(parsed.id, content="query123")
   inspect(parsed.from.id, content="123")
@@ -29,7 +29,7 @@ test "InlineQuery JSON round-trip minimal" {
     query="",
     offset="10",
   )
-  let json = @json.to_json(inline_query)
+  let json = inline_query.to_json()
   let parsed : InlineQuery = @json.from_json(json)
   inspect(parsed.id, content="query456")
   inspect(parsed.chat_type, content="None")
@@ -47,7 +47,7 @@ test "ChosenInlineResult JSON round-trip" {
     location~,
     inline_message_id="msg123",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : ChosenInlineResult = @json.from_json(json)
   inspect(parsed.result_id, content="result123")
   inspect(parsed.from.id, content="789")
@@ -64,7 +64,7 @@ test "ChosenInlineResult JSON round-trip minimal" {
     from=user,
     query="simple query",
   )
-  let json = @json.to_json(result)
+  let json = result.to_json()
   let parsed : ChosenInlineResult = @json.from_json(json)
   inspect(parsed.result_id, content="result456")
   inspect(parsed.location, content="None")
@@ -79,7 +79,7 @@ test "InlineQueryResultsButton JSON round-trip" {
     web_app~,
     start_parameter="start123",
   )
-  let json = @json.to_json(button)
+  let json = button.to_json()
   let parsed : InlineQueryResultsButton = @json.from_json(json)
   inspect(parsed.text, content="Open App")
   inspect(
@@ -92,7 +92,7 @@ test "InlineQueryResultsButton JSON round-trip" {
 ///|
 test "InlineQueryResultsButton JSON round-trip minimal" {
   let button = InlineQueryResultsButton::new(text="Click Me")
-  let json = @json.to_json(button)
+  let json = button.to_json()
   let parsed : InlineQueryResultsButton = @json.from_json(json)
   inspect(parsed.text, content="Click Me")
   inspect(parsed.web_app, content="None")

@@ -39,37 +39,37 @@ pub fn Audio::new(
 }
 
 ///|
-pub impl @json.ToJson for Audio with to_json(self) {
+pub impl ToJson for Audio with to_json(self) {
   let object : Map[String, Json] = {
-    "file_id": @json.to_json(self.file_id),
-    "file_unique_id": @json.to_json(self.file_unique_id),
-    "duration": @json.to_json(self.duration),
+    "file_id": self.file_id.to_json(),
+    "file_unique_id": self.file_unique_id.to_json(),
+    "duration": self.duration.to_json(),
   }
   if self.performer is Some(v) {
-    object["performer"] = @json.to_json(v)
+    object["performer"] = v.to_json()
   }
   if self.title is Some(v) {
-    object["title"] = @json.to_json(v)
+    object["title"] = v.to_json()
   }
   if self.file_name is Some(v) {
-    object["file_name"] = @json.to_json(v)
+    object["file_name"] = v.to_json()
   }
   if self.mime_type is Some(v) {
-    object["mime_type"] = @json.to_json(v)
+    object["mime_type"] = v.to_json()
   }
   if self.file_size is Some(v) {
-    object["file_size"] = @json.to_json(v)
+    object["file_size"] = int64_to_json(v)
   }
   if self.thumbnail is Some(v) {
-    object["thumbnail"] = @json.to_json(v)
+    object["thumbnail"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for Audio with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for Audio")
+    raise @json.JsonDecodeError((path, "Expected object for Audio"))
   }
   let file_id : String = @json.from_json(object["file_id"], path~)
   let file_unique_id : String = @json.from_json(object["file_unique_id"], path~)
@@ -95,7 +95,7 @@ pub impl @json.FromJson for Audio with from_json(json, path) {
     None
   }
   let file_size : Int64? = if object.get("file_size") is Some(v) {
-    Some(@json.from_json(v, path~))
+    Some(int64_from_json(v, path))
   } else {
     None
   }

@@ -9,7 +9,7 @@ test "Update JSON round-trip" {
       text="Test message",
     ),
   )
-  let json = @json.to_json(update)
+  let json = update.to_json()
   let parsed : Update = @json.from_json(json)
   inspect(parsed.update_id, content="100")
   inspect(parsed.message is None, content="false")
@@ -26,7 +26,7 @@ test "Update with callback_query JSON round-trip" {
       data="button_action",
     ),
   )
-  let json = @json.to_json(update)
+  let json = update.to_json()
   let parsed : Update = @json.from_json(json)
   inspect(parsed.update_id, content="101")
   inspect(parsed.message, content="None")

@@ -6,7 +6,7 @@ test "StickerPlaceholder JSON round-trip" {
     width=512,
     height=512,
   )
-  let json = @json.to_json(sticker)
+  let json = sticker.to_json()
   let parsed : StickerPlaceholder = @json.from_json(json)
   inspect(parsed.file_id, content="abc123")
   inspect(parsed.file_unique_id, content="unique456")
@@ -29,7 +29,7 @@ test "Gift JSON round-trip with optional fields" {
     total_count=1000,
     remaining_count=500,
   )
-  let json = @json.to_json(gift)
+  let json = gift.to_json()
   let parsed : Gift = @json.from_json(json)
   inspect(parsed.id, content="gift001")
   inspect(parsed.star_count, content="100")
@@ -46,7 +46,7 @@ test "Gift JSON round-trip without optional fields" {
     height=128,
   )
   let gift = Gift::new(id="gift002", sticker~, star_count=50)
-  let json = @json.to_json(gift)
+  let json = gift.to_json()
   let parsed : Gift = @json.from_json(json)
   inspect(parsed.id, content="gift002")
   inspect(parsed.star_count, content="50")
@@ -65,7 +65,7 @@ test "Gifts JSON round-trip" {
   let gift1 = Gift::new(id="gift003", sticker~, star_count=25)
   let gift2 = Gift::new(id="gift004", sticker~, star_count=75, total_count=500)
   let gifts = Gifts::new(gifts=[gift1, gift2])
-  let json = @json.to_json(gifts)
+  let json = gifts.to_json()
   let parsed : Gifts = @json.from_json(json)
   inspect(parsed.gifts.length(), content="2")
   inspect(parsed.gifts[0].id, content="gift003")
@@ -80,7 +80,7 @@ test "AcceptedGiftTypes JSON round-trip" {
     unique_gifts=true,
     premium_subscription=false,
   )
-  let json = @json.to_json(types)
+  let json = types.to_json()
   let parsed : AcceptedGiftTypes = @json.from_json(json)
   inspect(parsed.unlimited_gifts, content="true")
   inspect(parsed.limited_gifts, content="false")
@@ -98,7 +98,7 @@ test "UniqueGiftColors JSON round-trip" {
     button_color=5555555,
     button_text_color=11111111,
   )
-  let json = @json.to_json(colors)
+  let json = colors.to_json()
   let parsed : UniqueGiftColors = @json.from_json(json)
   inspect(parsed.background_icon_color, content="16711680")
   inspect(parsed.text_color, content="16777215")
@@ -111,7 +111,7 @@ test "UniqueGiftColors JSON round-trip" {
 ///|
 test "GiftBackground JSON round-trip with fill" {
   let bg = GiftBackground::new(type_="fill", fill_color=255)
-  let json = @json.to_json(bg)
+  let json = bg.to_json()
   let parsed : GiftBackground = @json.from_json(json)
   inspect(parsed.type_, content="fill")
   inspect(parsed.fill_color, content="Some(255)")
@@ -126,7 +126,7 @@ test "GiftBackground JSON round-trip with gradient" {
     gradient_top_color=100,
     gradient_bottom_color=200,
   )
-  let json = @json.to_json(bg)
+  let json = bg.to_json()
   let parsed : GiftBackground = @json.from_json(json)
   inspect(parsed.type_, content="gradient")
   inspect(parsed.fill_color, content="None")
@@ -143,7 +143,7 @@ test "UniqueGiftInfo JSON round-trip" {
     origin="resale",
     is_from_blockchain=true,
   )
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : UniqueGiftInfo = @json.from_json(json)
   inspect(parsed.gift_id, content="gift123")
   inspect(parsed.next_transfer_date, content="Some(1703980800)")
@@ -160,7 +160,7 @@ test "UniqueGiftInfo JSON round-trip" {
 ///|
 test "UniqueGiftInfo JSON round-trip minimal" {
   let info = UniqueGiftInfo::new(gift_id="gift456")
-  let json = @json.to_json(info)
+  let json = info.to_json()
   let parsed : UniqueGiftInfo = @json.from_json(json)
   inspect(parsed.gift_id, content="gift456")
   inspect(parsed.next_transfer_date, content="None")
@@ -172,7 +172,7 @@ test "UniqueGiftInfo JSON round-trip minimal" {
 ///|
 test "StarBalance JSON round-trip" {
   let balance = StarBalance::new(balance=10000)
-  let json = @json.to_json(balance)
+  let json = balance.to_json()
   let parsed : StarBalance = @json.from_json(json)
   inspect(parsed.balance, content="10000")
 }
@@ -218,7 +218,7 @@ test "Gift with all new fields JSON round-trip" {
     is_premium=false,
     has_colors=true,
   )
-  let json = @json.to_json(gift)
+  let json = gift.to_json()
   let parsed : Gift = @json.from_json(json)
   inspect(parsed.id, content="gift_full")
   inspect(parsed.star_count, content="150")

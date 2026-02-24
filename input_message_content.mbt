@@ -19,28 +19,27 @@ pub fn InputTextMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for InputTextMessageContent with to_json(self) {
+pub impl ToJson for InputTextMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "message_text": @json.to_json(self.message_text),
+    "message_text": self.message_text.to_json(),
   }
   if self.parse_mode is Some(v) {
-    object["parse_mode"] = @json.to_json(v)
+    object["parse_mode"] = v.to_json()
   }
   if self.entities is Some(v) {
-    object["entities"] = @json.to_json(v)
+    object["entities"] = v.to_json()
   }
   if self.link_preview_options is Some(v) {
-    object["link_preview_options"] = @json.to_json(v)
+    object["link_preview_options"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InputTextMessageContent with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputTextMessageContent",
+      (path, "Expected object for InputTextMessageContent"),
     )
   }
   let message_text : String = @json.from_json(object["message_text"], path~)
@@ -97,24 +96,24 @@ pub fn InputLocationMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for InputLocationMessageContent with to_json(self) {
+pub impl ToJson for InputLocationMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "latitude": @json.to_json(self.latitude),
-    "longitude": @json.to_json(self.longitude),
+    "latitude": self.latitude.to_json(),
+    "longitude": self.longitude.to_json(),
   }
   if self.horizontal_accuracy is Some(v) {
-    object["horizontal_accuracy"] = @json.to_json(v)
+    object["horizontal_accuracy"] = v.to_json()
   }
   if self.live_period is Some(v) {
-    object["live_period"] = @json.to_json(v)
+    object["live_period"] = v.to_json()
   }
   if self.heading is Some(v) {
-    object["heading"] = @json.to_json(v)
+    object["heading"] = v.to_json()
   }
   if self.proximity_alert_radius is Some(v) {
-    object["proximity_alert_radius"] = @json.to_json(v)
+    object["proximity_alert_radius"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -124,8 +123,7 @@ pub impl @json.FromJson for InputLocationMessageContent with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputLocationMessageContent",
+      (path, "Expected object for InputLocationMessageContent"),
     )
   }
   let latitude : Double = @json.from_json(object["latitude"], path~)
@@ -200,34 +198,33 @@ pub fn InputVenueMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for InputVenueMessageContent with to_json(self) {
+pub impl ToJson for InputVenueMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "latitude": @json.to_json(self.latitude),
-    "longitude": @json.to_json(self.longitude),
-    "title": @json.to_json(self.title),
-    "address": @json.to_json(self.address),
+    "latitude": self.latitude.to_json(),
+    "longitude": self.longitude.to_json(),
+    "title": self.title.to_json(),
+    "address": self.address.to_json(),
   }
   if self.foursquare_id is Some(v) {
-    object["foursquare_id"] = @json.to_json(v)
+    object["foursquare_id"] = v.to_json()
   }
   if self.foursquare_type is Some(v) {
-    object["foursquare_type"] = @json.to_json(v)
+    object["foursquare_type"] = v.to_json()
   }
   if self.google_place_id is Some(v) {
-    object["google_place_id"] = @json.to_json(v)
+    object["google_place_id"] = v.to_json()
   }
   if self.google_place_type is Some(v) {
-    object["google_place_type"] = @json.to_json(v)
+    object["google_place_type"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for InputVenueMessageContent with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputVenueMessageContent",
+      (path, "Expected object for InputVenueMessageContent"),
     )
   }
   let latitude : Double = @json.from_json(object["latitude"], path~)
@@ -288,18 +285,18 @@ pub fn InputContactMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for InputContactMessageContent with to_json(self) {
+pub impl ToJson for InputContactMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "phone_number": @json.to_json(self.phone_number),
-    "first_name": @json.to_json(self.first_name),
+    "phone_number": self.phone_number.to_json(),
+    "first_name": self.first_name.to_json(),
   }
   if self.last_name is Some(v) {
-    object["last_name"] = @json.to_json(v)
+    object["last_name"] = v.to_json()
   }
   if self.vcard is Some(v) {
-    object["vcard"] = @json.to_json(v)
+    object["vcard"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -309,8 +306,7 @@ pub impl @json.FromJson for InputContactMessageContent with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputContactMessageContent",
+      (path, "Expected object for InputContactMessageContent"),
     )
   }
   let phone_number : String = @json.from_json(object["phone_number"], path~)
@@ -402,60 +398,60 @@ pub fn InputInvoiceMessageContent::new(
 }
 
 ///|
-pub impl @json.ToJson for InputInvoiceMessageContent with to_json(self) {
+pub impl ToJson for InputInvoiceMessageContent with to_json(self) {
   let object : Map[String, Json] = {
-    "title": @json.to_json(self.title),
-    "description": @json.to_json(self.description),
-    "payload": @json.to_json(self.payload),
-    "currency": @json.to_json(self.currency),
-    "prices": @json.to_json(self.prices),
+    "title": self.title.to_json(),
+    "description": self.description.to_json(),
+    "payload": self.payload.to_json(),
+    "currency": self.currency.to_json(),
+    "prices": self.prices.to_json(),
   }
   if self.provider_token is Some(v) {
-    object["provider_token"] = @json.to_json(v)
+    object["provider_token"] = v.to_json()
   }
   if self.max_tip_amount is Some(v) {
-    object["max_tip_amount"] = @json.to_json(v)
+    object["max_tip_amount"] = v.to_json()
   }
   if self.suggested_tip_amounts is Some(v) {
-    object["suggested_tip_amounts"] = @json.to_json(v)
+    object["suggested_tip_amounts"] = v.to_json()
   }
   if self.provider_data is Some(v) {
-    object["provider_data"] = @json.to_json(v)
+    object["provider_data"] = v.to_json()
   }
   if self.photo_url is Some(v) {
-    object["photo_url"] = @json.to_json(v)
+    object["photo_url"] = v.to_json()
   }
   if self.photo_size is Some(v) {
-    object["photo_size"] = @json.to_json(v)
+    object["photo_size"] = v.to_json()
   }
   if self.photo_width is Some(v) {
-    object["photo_width"] = @json.to_json(v)
+    object["photo_width"] = v.to_json()
   }
   if self.photo_height is Some(v) {
-    object["photo_height"] = @json.to_json(v)
+    object["photo_height"] = v.to_json()
   }
   if self.need_name is Some(v) {
-    object["need_name"] = @json.to_json(v)
+    object["need_name"] = v.to_json()
   }
   if self.need_phone_number is Some(v) {
-    object["need_phone_number"] = @json.to_json(v)
+    object["need_phone_number"] = v.to_json()
   }
   if self.need_email is Some(v) {
-    object["need_email"] = @json.to_json(v)
+    object["need_email"] = v.to_json()
   }
   if self.need_shipping_address is Some(v) {
-    object["need_shipping_address"] = @json.to_json(v)
+    object["need_shipping_address"] = v.to_json()
   }
   if self.send_phone_number_to_provider is Some(v) {
-    object["send_phone_number_to_provider"] = @json.to_json(v)
+    object["send_phone_number_to_provider"] = v.to_json()
   }
   if self.send_email_to_provider is Some(v) {
-    object["send_email_to_provider"] = @json.to_json(v)
+    object["send_email_to_provider"] = v.to_json()
   }
   if self.is_flexible is Some(v) {
-    object["is_flexible"] = @json.to_json(v)
+    object["is_flexible"] = v.to_json()
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
@@ -465,8 +461,7 @@ pub impl @json.FromJson for InputInvoiceMessageContent with from_json(
 ) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputInvoiceMessageContent",
+      (path, "Expected object for InputInvoiceMessageContent"),
     )
   }
   let title : String = @json.from_json(object["title"], path~)
@@ -592,13 +587,13 @@ pub(all) enum InputMessageContent {
 } derive(Show, Eq)
 
 ///|
-pub impl @json.ToJson for InputMessageContent with to_json(self) {
+pub impl ToJson for InputMessageContent with to_json(self) {
   match self {
-    Text(v) => @json.to_json(v)
-    Location(v) => @json.to_json(v)
-    Venue(v) => @json.to_json(v)
-    Contact(v) => @json.to_json(v)
-    Invoice(v) => @json.to_json(v)
+    Text(v) => v.to_json()
+    Location(v) => v.to_json()
+    Venue(v) => v.to_json()
+    Contact(v) => v.to_json()
+    Invoice(v) => v.to_json()
   }
 }
 
@@ -606,8 +601,7 @@ pub impl @json.ToJson for InputMessageContent with to_json(self) {
 pub impl @json.FromJson for InputMessageContent with from_json(json, path) {
   guard json is Object(object) else {
     raise @json.JsonDecodeError(
-      path~,
-      "Expected object for InputMessageContent",
+      (path, "Expected object for InputMessageContent"),
     )
   }
   // Determine type based on fields present
@@ -633,8 +627,7 @@ pub impl @json.FromJson for InputMessageContent with from_json(json, path) {
     Location(@json.from_json(json, path~))
   } else {
     raise @json.JsonDecodeError(
-      path~,
-      "Cannot determine InputMessageContent type from fields",
+      (path, "Cannot determine InputMessageContent type from fields"),
     )
   }
 }

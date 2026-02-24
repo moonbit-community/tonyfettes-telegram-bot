@@ -1,7 +1,7 @@
 ///|
 test "PollOption JSON round-trip" {
   let option = PollOption::new(text="Option A", voter_count=10)
-  let json = @json.to_json(option)
+  let json = option.to_json()
   let parsed : PollOption = @json.from_json(json)
   inspect(parsed.text, content="Option A")
   inspect(parsed.voter_count, content="10")
@@ -18,7 +18,7 @@ test "PollOption with text_entities JSON round-trip" {
     text_entities=entities,
     voter_count=5,
   )
-  let json = @json.to_json(option)
+  let json = option.to_json()
   let parsed : PollOption = @json.from_json(json)
   inspect(parsed.text, content="Option B")
   inspect(parsed.voter_count, content="5")
@@ -32,7 +32,7 @@ test "PollOption with text_entities JSON round-trip" {
 ///|
 test "InputPollOption JSON round-trip" {
   let option = InputPollOption::new(text="Input Option")
-  let json = @json.to_json(option)
+  let json = option.to_json()
   let parsed : InputPollOption = @json.from_json(json)
   inspect(parsed.text, content="Input Option")
   inspect(parsed.text_parse_mode, content="None")
@@ -49,7 +49,7 @@ test "InputPollOption with all fields JSON round-trip" {
     text_parse_mode="HTML",
     text_entities=entities,
   )
-  let json = @json.to_json(option)
+  let json = option.to_json()
   let parsed : InputPollOption = @json.from_json(json)
   inspect(parsed.text, content="Styled Option")
   inspect(parsed.text_parse_mode, content="Some(\"HTML\")")
@@ -75,7 +75,7 @@ test "Poll JSON round-trip (regular poll)" {
     type_="regular",
     allows_multiple_answers=false,
   )
-  let json = @json.to_json(poll)
+  let json = poll.to_json()
   let parsed : Poll = @json.from_json(json)
   inspect(parsed.id, content="poll123")
   inspect(parsed.question, content="Do you like MoonBit?")
@@ -114,7 +114,7 @@ test "Poll JSON round-trip (quiz poll with all fields)" {
     open_period=300,
     close_date=1700000000,
   )
-  let json = @json.to_json(poll)
+  let json = poll.to_json()
   let parsed : Poll = @json.from_json(json)
   inspect(parsed.id, content="quiz456")
   inspect(parsed.type_, content="quiz")
@@ -144,7 +144,7 @@ test "Poll type field serializes as 'type'" {
     type_="quiz",
     allows_multiple_answers=false,
   )
-  let json = @json.to_json(poll)
+  let json = poll.to_json()
   guard json is Object(object) else { fail("Expected object") }
   guard object.get("type") is Some(String(type_val)) else {
     fail("Expected 'type' field in JSON")
@@ -157,7 +157,7 @@ test "Poll type field serializes as 'type'" {
 ///|
 test "PollAnswer JSON round-trip (minimal)" {
   let answer = PollAnswer::new(poll_id="poll789", option_ids=[0, 1])
-  let json = @json.to_json(answer)
+  let json = answer.to_json()
   let parsed : PollAnswer = @json.from_json(json)
   inspect(parsed.poll_id, content="poll789")
   inspect(parsed.option_ids, content="[0, 1]")
@@ -174,7 +174,7 @@ test "PollAnswer JSON round-trip (with user)" {
     last_name="Doe",
   )
   let answer = PollAnswer::new(poll_id="poll999", user~, option_ids=[2])
-  let json = @json.to_json(answer)
+  let json = answer.to_json()
   let parsed : PollAnswer = @json.from_json(json)
   inspect(parsed.poll_id, content="poll999")
   inspect(parsed.option_ids, content="[2]")
@@ -193,7 +193,7 @@ test "PollAnswer JSON round-trip (with voter_chat)" {
   let answer = PollAnswer::new(poll_id="poll000", voter_chat=chat, option_ids=[
     0,
   ])
-  let json = @json.to_json(answer)
+  let json = answer.to_json()
   let parsed : PollAnswer = @json.from_json(json)
   inspect(parsed.poll_id, content="poll000")
   guard parsed.voter_chat is Some(c) else {

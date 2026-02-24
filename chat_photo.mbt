@@ -19,20 +19,20 @@ pub fn ChatPhoto::new(
 }
 
 ///|
-pub impl @json.ToJson for ChatPhoto with to_json(self) {
+pub impl ToJson for ChatPhoto with to_json(self) {
   let object : Map[String, Json] = {
-    "small_file_id": @json.to_json(self.small_file_id),
-    "small_file_unique_id": @json.to_json(self.small_file_unique_id),
-    "big_file_id": @json.to_json(self.big_file_id),
-    "big_file_unique_id": @json.to_json(self.big_file_unique_id),
+    "small_file_id": self.small_file_id.to_json(),
+    "small_file_unique_id": self.small_file_unique_id.to_json(),
+    "big_file_id": self.big_file_id.to_json(),
+    "big_file_unique_id": self.big_file_unique_id.to_json(),
   }
-  @json.to_json(object)
+  object.to_json()
 }
 
 ///|
 pub impl @json.FromJson for ChatPhoto with from_json(json, path) {
   guard json is Object(object) else {
-    raise @json.JsonDecodeError(path~, "Expected object for ChatPhoto")
+    raise @json.JsonDecodeError((path, "Expected object for ChatPhoto"))
   }
   let small_file_id : String = @json.from_json(object["small_file_id"], path~)
   let small_file_unique_id : String = @json.from_json(

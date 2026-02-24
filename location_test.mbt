@@ -6,7 +6,7 @@ test "Location JSON round-trip" {
     horizontal_accuracy=100.0,
     heading=180,
   )
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : Location = @json.from_json(json)
   inspect(parsed.latitude, content="40.7128")
   inspect(parsed.longitude, content="-74.006")
@@ -19,7 +19,7 @@ test "Location JSON round-trip" {
 ///|
 test "Location JSON minimal" {
   let location = Location::new(latitude=51.5074, longitude=-0.1278)
-  let json = @json.to_json(location)
+  let json = location.to_json()
   let parsed : Location = @json.from_json(json)
   inspect(parsed.latitude, content="51.5074")
   inspect(parsed.longitude, content="-0.1278")

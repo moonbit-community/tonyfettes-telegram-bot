@@ -7,7 +7,7 @@ test "LinkPreviewOptions JSON round-trip" {
     prefer_large_media=true,
     show_above_text=true,
   )
-  let json = @json.to_json(opts)
+  let json = opts.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="Some(true)")
   inspect(parsed.url, content="Some(\"https://example.com\")")
@@ -19,7 +19,7 @@ test "LinkPreviewOptions JSON round-trip" {
 ///|
 test "LinkPreviewOptions JSON round-trip empty" {
   let opts = LinkPreviewOptions::new()
-  let json = @json.to_json(opts)
+  let json = opts.to_json()
   let parsed : LinkPreviewOptions = @json.from_json(json)
   inspect(parsed.is_disabled, content="None")
   inspect(parsed.url, content="None")
@@ -39,7 +39,7 @@ test "TextQuote JSON round-trip" {
     position=10,
     is_manual=true,
   )
-  let json = @json.to_json(quote)
+  let json = quote.to_json()
   let parsed : TextQuote = @json.from_json(json)
   inspect(parsed.text, content="Hello, world!")
   inspect(parsed.position, content="10")
@@ -55,7 +55,7 @@ test "TextQuote JSON round-trip" {
 ///|
 test "TextQuote JSON round-trip minimal" {
   let quote = TextQuote::new(text="Simple quote", position=5)
-  let json = @json.to_json(quote)
+  let json = quote.to_json()
   let parsed : TextQuote = @json.from_json(json)
   inspect(parsed.text, content="Simple quote")
   inspect(parsed.position, content="5")
