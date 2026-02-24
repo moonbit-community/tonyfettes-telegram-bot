@@ -1,6 +1,6 @@
 ///|
 /// Represents the scope of bot commands, covering a specific chat.
-pub(all) struct BotCommandScopeChat {
+pub struct BotCommandScopeChat {
   chat_id : Int64
 } derive(Show, Eq)
 
@@ -12,7 +12,7 @@ pub fn BotCommandScopeChat::new(chat_id~ : Int64) -> BotCommandScopeChat {
 
 ///|
 /// Represents the scope of bot commands, covering all administrators of a specific chat.
-pub(all) struct BotCommandScopeChatAdministrators {
+pub struct BotCommandScopeChatAdministrators {
   chat_id : Int64
 } derive(Show, Eq)
 
@@ -26,7 +26,7 @@ pub fn BotCommandScopeChatAdministrators::new(
 
 ///|
 /// Represents the scope of bot commands, covering a specific member of a group or supergroup chat.
-pub(all) struct BotCommandScopeChatMember {
+pub struct BotCommandScopeChatMember {
   chat_id : Int64
   user_id : Int64
 } derive(Show, Eq)

@@ -294,21 +294,21 @@ pub impl Show for BotCommandScope
 pub impl ToJson for BotCommandScope
 pub impl @json.FromJson for BotCommandScope
 
-pub(all) struct BotCommandScopeChat {
+pub struct BotCommandScopeChat {
   chat_id : Int64
 }
 pub fn BotCommandScopeChat::new(chat_id~ : Int64) -> Self
 pub impl Eq for BotCommandScopeChat
 pub impl Show for BotCommandScopeChat
 
-pub(all) struct BotCommandScopeChatAdministrators {
+pub struct BotCommandScopeChatAdministrators {
   chat_id : Int64
 }
 pub fn BotCommandScopeChatAdministrators::new(chat_id~ : Int64) -> Self
 pub impl Eq for BotCommandScopeChatAdministrators
 pub impl Show for BotCommandScopeChatAdministrators
 
-pub(all) struct BotCommandScopeChatMember {
+pub struct BotCommandScopeChatMember {
   chat_id : Int64
   user_id : Int64
 }
