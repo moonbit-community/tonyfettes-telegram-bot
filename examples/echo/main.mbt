@@ -8,17 +8,15 @@ async fn main {
   let mut offset = 0
   while true {
     let updates = bot.get_updates(offset~, timeout=30) catch {
-      _ => {
-        println("Error getting updates")
+      error => {
+        println("Error getting updates: \{error}")
         continue
       }
     }
     for update in updates {
       offset = update.update_id + 1
       if update.message is Some(msg) && msg.text is Some(text) {
-        try {
-          let _ = bot.send_message(chat_id=msg.chat.id, text~)
-        } catch {
+        try bot.send_message(chat_id=msg.chat.id, text~) |> ignore() catch {
           error => println("Error sending message: \{error}")
         }
       }
