@@ -1,4 +1,6 @@
 ///|
+/// This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport
+/// files are in JPEG format when decrypted and don't exceed 10MB.
 pub struct PassportFile {
   file_id : String
   file_unique_id : String
@@ -7,6 +9,7 @@ pub struct PassportFile {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportFile].
 pub fn PassportFile::new(
   file_id~ : String,
   file_unique_id~ : String,
@@ -40,6 +43,7 @@ pub impl @json.FromJson for PassportFile with from_json(json, path) {
 }
 
 ///|
+/// Describes data required for decrypting and authenticating EncryptedPassportElement.
 pub struct EncryptedCredentials {
   data : String
   hash : String
@@ -47,6 +51,7 @@ pub struct EncryptedCredentials {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [EncryptedCredentials].
 pub fn EncryptedCredentials::new(
   data~ : String,
   hash~ : String,
@@ -80,6 +85,7 @@ pub impl @json.FromJson for EncryptedCredentials with from_json(json, path) {
 }
 
 ///|
+/// Describes documents or other Telegram Passport elements shared with the bot by the user.
 pub struct EncryptedPassportElement {
   type_ : String
   data : String?
@@ -94,6 +100,7 @@ pub struct EncryptedPassportElement {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [EncryptedPassportElement].
 pub fn EncryptedPassportElement::new(
   type_~ : String,
   hash~ : String,
@@ -219,12 +226,14 @@ pub impl @json.FromJson for EncryptedPassportElement with from_json(json, path) 
 }
 
 ///|
+/// Describes Telegram Passport data shared with the bot by the user.
 pub struct PassportData {
   data : Array[EncryptedPassportElement]
   credentials : EncryptedCredentials
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportData].
 pub fn PassportData::new(
   data~ : Array[EncryptedPassportElement],
   credentials~ : EncryptedCredentials,

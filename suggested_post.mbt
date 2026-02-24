@@ -1,5 +1,5 @@
 ///|
-/// Parameters for suggested posts
+/// Describes the parameters of a suggested post.
 pub struct SuggestedPostParameters {
   text : String?
   link_preview_options : LinkPreviewOptions?
@@ -7,6 +7,7 @@ pub struct SuggestedPostParameters {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostParameters].
 pub fn SuggestedPostParameters::new(
   text? : String,
   link_preview_options? : LinkPreviewOptions,
@@ -60,7 +61,7 @@ pub impl @json.FromJson for SuggestedPostParameters with from_json(json, path) {
 }
 
 ///|
-/// Information about a suggested post
+/// Describes a suggested post in a channel direct messages chat.
 pub struct SuggestedPostInfo {
   suggested_post_parameters : SuggestedPostParameters?
   is_approved : Bool
@@ -69,6 +70,7 @@ pub struct SuggestedPostInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostInfo].
 pub fn SuggestedPostInfo::new(
   suggested_post_parameters? : SuggestedPostParameters,
   is_approved~ : Bool,
@@ -111,12 +113,13 @@ pub impl @json.FromJson for SuggestedPostInfo with from_json(json, path) {
 }
 
 ///|
-/// Price of a suggested post
+/// Describes the price of a suggested post.
 pub struct SuggestedPostPrice {
   star_count : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostPrice].
 pub fn SuggestedPostPrice::new(star_count~ : Int) -> SuggestedPostPrice {
   { star_count, }
 }
@@ -139,13 +142,14 @@ pub impl @json.FromJson for SuggestedPostPrice with from_json(json, path) {
 }
 
 ///|
-/// Service message: A suggested post was approved
+/// Describes a service message about the approval of a suggested post.
 pub struct SuggestedPostApproved {
   user : User
   suggested_post_info : SuggestedPostInfo
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostApproved].
 pub fn SuggestedPostApproved::new(
   user~ : User,
   suggested_post_info~ : SuggestedPostInfo,
@@ -179,13 +183,14 @@ pub impl @json.FromJson for SuggestedPostApproved with from_json(json, path) {
 }
 
 ///|
-/// Service message: A suggested post was declined
+/// Describes a service message about the rejection of a suggested post.
 pub struct SuggestedPostDeclined {
   user : User
   suggested_post_info : SuggestedPostInfo
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostDeclined].
 pub fn SuggestedPostDeclined::new(
   user~ : User,
   suggested_post_info~ : SuggestedPostInfo,
@@ -219,13 +224,14 @@ pub impl @json.FromJson for SuggestedPostDeclined with from_json(json, path) {
 }
 
 ///|
-/// Service message: A suggested post was paid
+/// Describes a service message about a successful payment for a suggested post.
 pub struct SuggestedPostPaid {
   user : User
   suggested_post_info : SuggestedPostInfo
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostPaid].
 pub fn SuggestedPostPaid::new(
   user~ : User,
   suggested_post_info~ : SuggestedPostInfo,
@@ -256,13 +262,14 @@ pub impl @json.FromJson for SuggestedPostPaid with from_json(json, path) {
 }
 
 ///|
-/// Service message: Suggested post approval failed
+/// Describes a service message about the failed approval of a suggested post.
 pub struct SuggestedPostApprovalFailed {
   user : User
   suggested_post_info : SuggestedPostInfo
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuggestedPostApprovalFailed].
 pub fn SuggestedPostApprovalFailed::new(
   user~ : User,
   suggested_post_info~ : SuggestedPostInfo,

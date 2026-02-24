@@ -1,4 +1,6 @@
 ///|
+/// This object represents an incoming callback query from a callback button
+/// in an inline keyboard.
 pub struct CallbackQuery {
   id : String
   from : User
@@ -9,6 +11,7 @@ pub struct CallbackQuery {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [CallbackQuery].
 pub fn CallbackQuery::new(
   id~ : String,
   from~ : User,

@@ -1,4 +1,5 @@
 ///|
+/// This object represents a Telegram user or bot.
 pub struct User {
   id : Int64
   is_bot : Bool
@@ -9,6 +10,7 @@ pub struct User {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [User].
 pub fn User::new(
   id~ : Int64,
   is_bot~ : Bool,

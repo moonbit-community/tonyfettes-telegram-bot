@@ -1,10 +1,12 @@
 ///|
+/// Represents a Telegram Bot API client.
 pub struct Bot {
   token : String
   base_url : String
 }
 
 ///|
+/// Creates a new Bot.
 pub fn Bot::new(token~ : String, base_url? : String) -> Bot {
   { token, base_url: base_url.unwrap_or("https://api.telegram.org") }
 }

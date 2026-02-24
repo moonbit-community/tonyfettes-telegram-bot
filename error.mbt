@@ -1,4 +1,6 @@
 ///|
+/// Error type for Telegram Bot API operations, covering HTTP, API, UTF-8,
+/// JSON, and parse failures.
 pub(all) suberror TelegramError {
   HttpError(code~ : Int, body~ : String)
   ApiError(code~ : Int, description~ : String)
@@ -10,7 +12,10 @@ pub(all) suberror TelegramError {
 }
 
 ///|
-pub impl Show for TelegramError with output(self : TelegramError, logger : &Logger) -> Unit {
+pub impl Show for TelegramError with output(
+  self : TelegramError,
+  logger : &Logger,
+) -> Unit {
   match self {
     TelegramError::HttpError(code~, body~) =>
       logger.write_string("HttpError(code=\{code}, body=\{body})")
@@ -23,10 +28,10 @@ pub impl Show for TelegramError with output(self : TelegramError, logger : &Logg
     TelegramError::InvalidJson(error) =>
       logger.write_string("InvalidJson(error=\{@debug.to_string(error)})")
     TelegramError::InvalidResponse(json) =>
-      logger.write_string("InvalidResponse(json=\{@json.stringify(json)})")
+      logger.write_string("InvalidResponse(json=\{json.stringify()})")
     TelegramError::InvalidResult(json, error) =>
       logger.write_string(
-        "InvalidResult(json=\{@json.stringify(json)}, error=\{error})",
+        "InvalidResult(json=\{json.stringify()}, error=\{error})",
       )
     TelegramError::ParseError(message~) =>
       logger.write_string("ParseError(message=\{message})")

@@ -1,4 +1,6 @@
 ///|
+/// This object describes paid media. Currently, it can be one of
+/// PaidMediaPreview, PaidMediaPhoto, or PaidMediaVideo.
 pub(all) enum PaidMedia {
   Preview(PaidMediaPreview)
   Photo(PaidMediaPhoto)
@@ -6,6 +8,7 @@ pub(all) enum PaidMedia {
 } derive(Show, Eq)
 
 ///|
+/// The paid media isn't available before the payment.
 pub struct PaidMediaPreview {
   width : Int?
   height : Int?
@@ -13,6 +16,7 @@ pub struct PaidMediaPreview {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PaidMediaPreview].
 pub fn PaidMediaPreview::new(
   width? : Int,
   height? : Int,
@@ -22,21 +26,25 @@ pub fn PaidMediaPreview::new(
 }
 
 ///|
+/// The paid media is a photo.
 pub struct PaidMediaPhoto {
   photo : Array[PhotoSize]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PaidMediaPhoto].
 pub fn PaidMediaPhoto::new(photo~ : Array[PhotoSize]) -> PaidMediaPhoto {
   { photo, }
 }
 
 ///|
+/// The paid media is a video.
 pub struct PaidMediaVideo {
   video : Video
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PaidMediaVideo].
 pub fn PaidMediaVideo::new(video~ : Video) -> PaidMediaVideo {
   { video, }
 }
@@ -108,12 +116,14 @@ pub impl @json.FromJson for PaidMedia with from_json(json, path) {
 }
 
 ///|
+/// Describes the paid media added to a message.
 pub struct PaidMediaInfo {
   star_count : Int
   paid_media : Array[PaidMedia]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PaidMediaInfo].
 pub fn PaidMediaInfo::new(
   star_count~ : Int,
   paid_media~ : Array[PaidMedia],

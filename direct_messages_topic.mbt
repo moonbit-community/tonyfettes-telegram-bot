@@ -1,4 +1,5 @@
 ///|
+/// This object represents a direct messages topic.
 pub struct DirectMessagesTopic {
   id : Int
   name : String
@@ -6,6 +7,7 @@ pub struct DirectMessagesTopic {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [DirectMessagesTopic].
 pub fn DirectMessagesTopic::new(
   id~ : Int,
   name~ : String,

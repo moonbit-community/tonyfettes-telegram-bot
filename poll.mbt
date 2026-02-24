@@ -1,4 +1,5 @@
 ///|
+/// Contains information about one answer option in a poll.
 pub struct PollOption {
   text : String
   text_entities : Array[MessageEntity]?
@@ -6,6 +7,7 @@ pub struct PollOption {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PollOption].
 pub fn PollOption::new(
   text~ : String,
   text_entities? : Array[MessageEntity],
@@ -43,6 +45,7 @@ pub impl @json.FromJson for PollOption with from_json(json, path) {
 }
 
 ///|
+/// Contains information about one answer option in a poll to be sent.
 pub struct InputPollOption {
   text : String
   text_parse_mode : String?
@@ -50,6 +53,7 @@ pub struct InputPollOption {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputPollOption].
 pub fn InputPollOption::new(
   text~ : String,
   text_parse_mode? : String,
@@ -91,6 +95,7 @@ pub impl @json.FromJson for InputPollOption with from_json(json, path) {
 }
 
 ///|
+/// Contains information about a poll.
 pub struct Poll {
   id : String
   question : String
@@ -109,6 +114,7 @@ pub struct Poll {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Poll].
 pub fn Poll::new(
   id~ : String,
   question~ : String,
@@ -250,6 +256,7 @@ pub impl @json.FromJson for Poll with from_json(json, path) {
 }
 
 ///|
+/// Represents an answer of a user in a non-anonymous poll.
 pub struct PollAnswer {
   poll_id : String
   voter_chat : Chat?
@@ -258,6 +265,7 @@ pub struct PollAnswer {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PollAnswer].
 pub fn PollAnswer::new(
   poll_id~ : String,
   voter_chat? : Chat,

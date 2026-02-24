@@ -1,9 +1,11 @@
 ///|
+/// This object represents a unique message identifier.
 pub struct MessageId {
   message_id : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageId].
 pub fn MessageId::new(message_id~ : Int) -> MessageId {
   { message_id, }
 }

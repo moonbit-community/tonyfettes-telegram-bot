@@ -1,4 +1,5 @@
 ///|
+/// Represents a venue.
 pub struct Venue {
   location : Location
   title : String
@@ -10,6 +11,7 @@ pub struct Venue {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Venue].
 pub fn Venue::new(
   location~ : Location,
   title~ : String,

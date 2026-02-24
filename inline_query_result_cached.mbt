@@ -1,9 +1,11 @@
 ///|
+/// Simplified input message content for cached inline query results.
 pub struct CachedInputMessageContent {
   message_text : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [CachedInputMessageContent].
 pub fn CachedInputMessageContent::new(
   message_text~ : String,
 ) -> CachedInputMessageContent {
@@ -31,6 +33,7 @@ pub impl @json.FromJson for CachedInputMessageContent with from_json(json, path)
 }
 
 ///|
+/// Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
 pub struct InlineQueryResultCachedPhoto {
   type_ : String
   id : String
@@ -46,6 +49,7 @@ pub struct InlineQueryResultCachedPhoto {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedPhoto].
 pub fn InlineQueryResultCachedPhoto::new(
   id~ : String,
   photo_file_id~ : String,
@@ -187,6 +191,7 @@ pub impl @json.FromJson for InlineQueryResultCachedPhoto with from_json(
 }
 
 ///|
+/// Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 pub struct InlineQueryResultCachedGif {
   type_ : String
   id : String
@@ -201,6 +206,7 @@ pub struct InlineQueryResultCachedGif {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedGif].
 pub fn InlineQueryResultCachedGif::new(
   id~ : String,
   gif_file_id~ : String,
@@ -331,6 +337,7 @@ pub impl @json.FromJson for InlineQueryResultCachedGif with from_json(
 }
 
 ///|
+/// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 pub struct InlineQueryResultCachedMpeg4Gif {
   type_ : String
   id : String
@@ -345,6 +352,7 @@ pub struct InlineQueryResultCachedMpeg4Gif {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedMpeg4Gif].
 pub fn InlineQueryResultCachedMpeg4Gif::new(
   id~ : String,
   mpeg4_file_id~ : String,
@@ -475,6 +483,7 @@ pub impl @json.FromJson for InlineQueryResultCachedMpeg4Gif with from_json(
 }
 
 ///|
+/// Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.
 pub struct InlineQueryResultCachedSticker {
   type_ : String
   id : String
@@ -484,6 +493,7 @@ pub struct InlineQueryResultCachedSticker {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedSticker].
 pub fn InlineQueryResultCachedSticker::new(
   id~ : String,
   sticker_file_id~ : String,
@@ -544,6 +554,7 @@ pub impl @json.FromJson for InlineQueryResultCachedSticker with from_json(
 }
 
 ///|
+/// Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.
 pub struct InlineQueryResultCachedDocument {
   type_ : String
   id : String
@@ -558,6 +569,7 @@ pub struct InlineQueryResultCachedDocument {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedDocument].
 pub fn InlineQueryResultCachedDocument::new(
   id~ : String,
   title~ : String,
@@ -682,6 +694,7 @@ pub impl @json.FromJson for InlineQueryResultCachedDocument with from_json(
 }
 
 ///|
+/// Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
 pub struct InlineQueryResultCachedVideo {
   type_ : String
   id : String
@@ -697,6 +710,7 @@ pub struct InlineQueryResultCachedVideo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedVideo].
 pub fn InlineQueryResultCachedVideo::new(
   id~ : String,
   video_file_id~ : String,
@@ -832,6 +846,7 @@ pub impl @json.FromJson for InlineQueryResultCachedVideo with from_json(
 }
 
 ///|
+/// Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
 pub struct InlineQueryResultCachedVoice {
   type_ : String
   id : String
@@ -845,6 +860,7 @@ pub struct InlineQueryResultCachedVoice {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedVoice].
 pub fn InlineQueryResultCachedVoice::new(
   id~ : String,
   voice_file_id~ : String,
@@ -955,6 +971,7 @@ pub impl @json.FromJson for InlineQueryResultCachedVoice with from_json(
 }
 
 ///|
+/// Represents a link to an MP3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
 pub struct InlineQueryResultCachedAudio {
   type_ : String
   id : String
@@ -967,6 +984,7 @@ pub struct InlineQueryResultCachedAudio {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultCachedAudio].
 pub fn InlineQueryResultCachedAudio::new(
   id~ : String,
   audio_file_id~ : String,

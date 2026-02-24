@@ -1,4 +1,6 @@
 ///|
+/// This object represents an incoming update.
+/// At most one of the optional parameters can be present in any given update.
 pub struct Update {
   update_id : Int
   message : Message?
@@ -7,6 +9,7 @@ pub struct Update {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Update].
 pub fn Update::new(
   update_id~ : Int,
   message? : Message,

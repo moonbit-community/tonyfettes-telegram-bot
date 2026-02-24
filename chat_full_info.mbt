@@ -1,5 +1,5 @@
 ///|
-/// Represents a birthdate
+/// Describes the birthdate of a user.
 pub struct Birthdate {
   day : Int
   month : Int
@@ -7,6 +7,7 @@ pub struct Birthdate {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Birthdate].
 pub fn Birthdate::new(day~ : Int, month~ : Int, year? : Int) -> Birthdate {
   { day, month, year }
 }
@@ -39,13 +40,14 @@ pub impl @json.FromJson for Birthdate with from_json(json, path) {
 }
 
 ///|
-/// Represents a location to which a chat is connected
+/// Represents a location to which a chat is connected.
 pub struct ChatLocation {
   location : Location
   address : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatLocation].
 pub fn ChatLocation::new(
   location~ : Location,
   address~ : String,
@@ -73,12 +75,13 @@ pub impl @json.FromJson for ChatLocation with from_json(json, path) {
 }
 
 ///|
-/// Represents a reaction based on an emoji
+/// The reaction is based on an emoji.
 pub struct ReactionTypeEmoji {
   emoji : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ReactionTypeEmoji].
 pub fn ReactionTypeEmoji::new(emoji~ : String) -> ReactionTypeEmoji {
   { emoji, }
 }
@@ -102,12 +105,13 @@ pub impl @json.FromJson for ReactionTypeEmoji with from_json(json, path) {
 }
 
 ///|
-/// Represents a reaction based on a custom emoji
+/// The reaction is based on a custom emoji.
 pub struct ReactionTypeCustomEmoji {
   custom_emoji_id : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ReactionTypeCustomEmoji].
 pub fn ReactionTypeCustomEmoji::new(
   custom_emoji_id~ : String,
 ) -> ReactionTypeCustomEmoji {
@@ -139,7 +143,8 @@ pub impl @json.FromJson for ReactionTypeCustomEmoji with from_json(json, path) {
 }
 
 ///|
-/// Represents a reaction type
+/// Describes the type of a reaction. Currently, it can be one of
+/// ReactionTypeEmoji or ReactionTypeCustomEmoji.
 pub(all) enum ReactionType {
   Emoji(ReactionTypeEmoji)
   CustomEmoji(ReactionTypeCustomEmoji)
@@ -169,7 +174,7 @@ pub impl @json.FromJson for ReactionType with from_json(json, path) {
 }
 
 ///|
-/// Contains full information about a chat
+/// This object contains full information about a chat.
 pub struct ChatFullInfo {
   id : Int64
   type_ : String
@@ -218,6 +223,7 @@ pub struct ChatFullInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatFullInfo].
 pub fn ChatFullInfo::new(
   id~ : Int64,
   type_~ : String,

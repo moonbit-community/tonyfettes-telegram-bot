@@ -1,4 +1,5 @@
 ///|
+/// Represents a link to an article or web page.
 pub struct InlineQueryResultArticle {
   type_ : String
   id : String
@@ -14,6 +15,7 @@ pub struct InlineQueryResultArticle {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultArticle].
 pub fn InlineQueryResultArticle::new(
   id~ : String,
   title~ : String,
@@ -141,6 +143,7 @@ pub impl @json.FromJson for InlineQueryResultArticle with from_json(json, path) 
 }
 
 ///|
+/// Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
 pub struct InlineQueryResultContact {
   type_ : String
   id : String
@@ -156,6 +159,7 @@ pub struct InlineQueryResultContact {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultContact].
 pub fn InlineQueryResultContact::new(
   id~ : String,
   phone_number~ : String,
@@ -283,6 +287,7 @@ pub impl @json.FromJson for InlineQueryResultContact with from_json(json, path) 
 }
 
 ///|
+/// Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
 pub struct InlineQueryResultLocation {
   type_ : String
   id : String
@@ -301,6 +306,7 @@ pub struct InlineQueryResultLocation {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultLocation].
 pub fn InlineQueryResultLocation::new(
   id~ : String,
   latitude~ : Double,
@@ -457,6 +463,7 @@ pub impl @json.FromJson for InlineQueryResultLocation with from_json(json, path)
 }
 
 ///|
+/// Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.
 pub struct InlineQueryResultVenue {
   type_ : String
   id : String
@@ -476,6 +483,7 @@ pub struct InlineQueryResultVenue {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultVenue].
 pub fn InlineQueryResultVenue::new(
   id~ : String,
   latitude~ : Double,

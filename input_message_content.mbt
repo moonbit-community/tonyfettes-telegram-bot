@@ -1,4 +1,5 @@
 ///|
+/// Represents the content of a text message to be sent as the result of an inline query.
 pub struct InputTextMessageContent {
   message_text : String
   parse_mode : String?
@@ -7,6 +8,7 @@ pub struct InputTextMessageContent {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputTextMessageContent].
 pub fn InputTextMessageContent::new(
   message_text~ : String,
   parse_mode? : String,
@@ -64,6 +66,7 @@ pub impl @json.FromJson for InputTextMessageContent with from_json(json, path) {
 }
 
 ///|
+/// Represents the content of a location message to be sent as the result of an inline query.
 pub struct InputLocationMessageContent {
   latitude : Double
   longitude : Double
@@ -74,6 +77,7 @@ pub struct InputLocationMessageContent {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputLocationMessageContent].
 pub fn InputLocationMessageContent::new(
   latitude~ : Double,
   longitude~ : Double,
@@ -159,6 +163,7 @@ pub impl @json.FromJson for InputLocationMessageContent with from_json(
 }
 
 ///|
+/// Represents the content of a venue message to be sent as the result of an inline query.
 pub struct InputVenueMessageContent {
   latitude : Double
   longitude : Double
@@ -171,6 +176,7 @@ pub struct InputVenueMessageContent {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputVenueMessageContent].
 pub fn InputVenueMessageContent::new(
   latitude~ : Double,
   longitude~ : Double,
@@ -262,6 +268,7 @@ pub impl @json.FromJson for InputVenueMessageContent with from_json(json, path) 
 }
 
 ///|
+/// Represents the content of a contact message to be sent as the result of an inline query.
 pub struct InputContactMessageContent {
   phone_number : String
   first_name : String
@@ -270,6 +277,7 @@ pub struct InputContactMessageContent {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputContactMessageContent].
 pub fn InputContactMessageContent::new(
   phone_number~ : String,
   first_name~ : String,
@@ -321,6 +329,7 @@ pub impl @json.FromJson for InputContactMessageContent with from_json(
 }
 
 ///|
+/// Represents the content of an invoice message to be sent as the result of an inline query.
 pub struct InputInvoiceMessageContent {
   title : String
   description : String
@@ -345,6 +354,7 @@ pub struct InputInvoiceMessageContent {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputInvoiceMessageContent].
 pub fn InputInvoiceMessageContent::new(
   title~ : String,
   description~ : String,
@@ -572,6 +582,7 @@ pub impl @json.FromJson for InputInvoiceMessageContent with from_json(
 }
 
 ///|
+/// Represents the content of a message to be sent as a result of an inline query.
 pub(all) enum InputMessageContent {
   Text(InputTextMessageContent)
   Location(InputLocationMessageContent)

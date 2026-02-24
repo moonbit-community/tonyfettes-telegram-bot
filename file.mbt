@@ -1,4 +1,5 @@
 ///|
+/// Represents a file ready to be downloaded.
 pub struct File {
   file_id : String
   file_unique_id : String
@@ -7,6 +8,7 @@ pub struct File {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [File].
 pub fn File::new(
   file_id~ : String,
   file_unique_id~ : String,

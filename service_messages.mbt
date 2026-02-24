@@ -1,7 +1,10 @@
 ///|
+/// Represents a service message about a forum topic closed in the chat.
+/// Currently holds no information.
 pub struct ForumTopicClosed {} derive(Show, Eq)
 
 ///|
+/// Creates a new [ForumTopicClosed].
 pub fn ForumTopicClosed::new() -> ForumTopicClosed {
   ForumTopicClosed::{  }
 }
@@ -21,9 +24,12 @@ pub impl @json.FromJson for ForumTopicClosed with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about a forum topic reopened in the chat.
+/// Currently holds no information.
 pub struct ForumTopicReopened {} derive(Show, Eq)
 
 ///|
+/// Creates a new [ForumTopicReopened].
 pub fn ForumTopicReopened::new() -> ForumTopicReopened {
   ForumTopicReopened::{  }
 }
@@ -43,9 +49,12 @@ pub impl @json.FromJson for ForumTopicReopened with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about General forum topic hidden in the chat.
+/// Currently holds no information.
 pub struct GeneralForumTopicHidden {} derive(Show, Eq)
 
 ///|
+/// Creates a new [GeneralForumTopicHidden].
 pub fn GeneralForumTopicHidden::new() -> GeneralForumTopicHidden {
   GeneralForumTopicHidden::{  }
 }
@@ -68,9 +77,12 @@ pub impl @json.FromJson for GeneralForumTopicHidden with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about General forum topic unhidden in the chat.
+/// Currently holds no information.
 pub struct GeneralForumTopicUnhidden {} derive(Show, Eq)
 
 ///|
+/// Creates a new [GeneralForumTopicUnhidden].
 pub fn GeneralForumTopicUnhidden::new() -> GeneralForumTopicUnhidden {
   GeneralForumTopicUnhidden::{  }
 }
@@ -93,9 +105,12 @@ pub impl @json.FromJson for GeneralForumTopicUnhidden with from_json(json, path)
 }
 
 ///|
+/// Represents a service message about a video chat started in the chat.
+/// Currently holds no information.
 pub struct VideoChatStarted {} derive(Show, Eq)
 
 ///|
+/// Creates a new [VideoChatStarted].
 pub fn VideoChatStarted::new() -> VideoChatStarted {
   VideoChatStarted::{  }
 }
@@ -115,11 +130,13 @@ pub impl @json.FromJson for VideoChatStarted with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about a video chat ended in the chat.
 pub struct VideoChatEnded {
   duration : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [VideoChatEnded].
 pub fn VideoChatEnded::new(duration~ : Int) -> VideoChatEnded {
   { duration, }
 }
@@ -140,11 +157,13 @@ pub impl @json.FromJson for VideoChatEnded with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about a video chat scheduled in the chat.
 pub struct VideoChatScheduled {
   start_date : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [VideoChatScheduled].
 pub fn VideoChatScheduled::new(start_date~ : Int) -> VideoChatScheduled {
   { start_date, }
 }
@@ -167,11 +186,13 @@ pub impl @json.FromJson for VideoChatScheduled with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about new members invited to a video chat.
 pub struct VideoChatParticipantsInvited {
   users : Array[User]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [VideoChatParticipantsInvited].
 pub fn VideoChatParticipantsInvited::new(
   users~ : Array[User],
 ) -> VideoChatParticipantsInvited {
@@ -200,11 +221,13 @@ pub impl @json.FromJson for VideoChatParticipantsInvited with from_json(
 }
 
 ///|
+/// Represents a service message about a change in auto-delete timer settings.
 pub struct MessageAutoDeleteTimerChanged {
   message_auto_delete_time : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageAutoDeleteTimerChanged].
 pub fn MessageAutoDeleteTimerChanged::new(
   message_auto_delete_time~ : Int,
 ) -> MessageAutoDeleteTimerChanged {
@@ -238,11 +261,13 @@ pub impl @json.FromJson for MessageAutoDeleteTimerChanged with from_json(
 }
 
 ///|
+/// Represents a service message about a user boosting a chat.
 pub struct ChatBoostAdded {
   boost_count : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatBoostAdded].
 pub fn ChatBoostAdded::new(boost_count~ : Int) -> ChatBoostAdded {
   { boost_count, }
 }
@@ -265,6 +290,8 @@ pub impl @json.FromJson for ChatBoostAdded with from_json(json, path) {
 }
 
 ///|
+/// Represents the content of a service message, sent whenever a user in the
+/// chat triggers a proximity alert set by another user.
 pub struct ProximityAlertTriggered {
   traveler : User
   watcher : User
@@ -272,6 +299,7 @@ pub struct ProximityAlertTriggered {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ProximityAlertTriggered].
 pub fn ProximityAlertTriggered::new(
   traveler~ : User,
   watcher~ : User,
@@ -305,6 +333,9 @@ pub impl @json.FromJson for ProximityAlertTriggered with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about a user allowing a bot to write messages
+/// after adding it to the attachment menu, launching a Web App from a link, or
+/// accepting an explicit request from a Web App.
 pub struct WriteAccessAllowed {
   from_request : Bool?
   web_app_name : String?
@@ -312,6 +343,7 @@ pub struct WriteAccessAllowed {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [WriteAccessAllowed].
 pub fn WriteAccessAllowed::new(
   from_request? : Bool,
   web_app_name? : String,
@@ -360,12 +392,14 @@ pub impl @json.FromJson for WriteAccessAllowed with from_json(json, path) {
 }
 
 ///|
+/// Describes data sent from a Web App to the bot.
 pub struct WebAppData {
   data : String
   button_text : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [WebAppData].
 pub fn WebAppData::new(data~ : String, button_text~ : String) -> WebAppData {
   { data, button_text }
 }

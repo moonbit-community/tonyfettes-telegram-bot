@@ -1,9 +1,11 @@
 ///|
+/// Represents a service message about the creation of a scheduled giveaway.
 pub struct GiveawayCreated {
   prize_star_count : Int?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GiveawayCreated].
 pub fn GiveawayCreated::new(prize_star_count? : Int) -> GiveawayCreated {
   { prize_star_count, }
 }
@@ -31,6 +33,7 @@ pub impl @json.FromJson for GiveawayCreated with from_json(json, path) {
 }
 
 ///|
+/// Represents a message about a scheduled giveaway.
 pub struct Giveaway {
   chats : Array[Chat]
   winners_selection_date : Int
@@ -44,6 +47,7 @@ pub struct Giveaway {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Giveaway].
 pub fn Giveaway::new(
   chats~ : Array[Chat],
   winners_selection_date~ : Int,
@@ -156,6 +160,7 @@ pub impl @json.FromJson for Giveaway with from_json(json, path) {
 }
 
 ///|
+/// Represents a message about the completion of a giveaway with public winners.
 pub struct GiveawayWinners {
   chat : Chat
   giveaway_message_id : Int
@@ -172,6 +177,7 @@ pub struct GiveawayWinners {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GiveawayWinners].
 pub fn GiveawayWinners::new(
   chat~ : Chat,
   giveaway_message_id~ : Int,
@@ -309,6 +315,8 @@ pub impl @json.FromJson for GiveawayWinners with from_json(json, path) {
 }
 
 ///|
+/// Represents a service message about the completion of a giveaway without
+/// public winners.
 pub struct GiveawayCompleted {
   winner_count : Int
   unclaimed_prize_count : Int?
@@ -317,6 +325,7 @@ pub struct GiveawayCompleted {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GiveawayCompleted].
 pub fn GiveawayCompleted::new(
   winner_count~ : Int,
   unclaimed_prize_count? : Int,

@@ -1,4 +1,5 @@
 ///|
+/// Represents a chat member that owns the chat and has all administrator privileges.
 pub struct ChatMemberOwner {
   user : User
   is_anonymous : Bool
@@ -6,6 +7,7 @@ pub struct ChatMemberOwner {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberOwner].
 pub fn ChatMemberOwner::new(
   user~ : User,
   is_anonymous~ : Bool,
@@ -15,6 +17,7 @@ pub fn ChatMemberOwner::new(
 }
 
 ///|
+/// Represents a chat member that has some additional privileges.
 pub struct ChatMemberAdministrator {
   user : User
   can_be_edited : Bool
@@ -37,6 +40,7 @@ pub struct ChatMemberAdministrator {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberAdministrator].
 pub fn ChatMemberAdministrator::new(
   user~ : User,
   can_be_edited~ : Bool,
@@ -80,12 +84,14 @@ pub fn ChatMemberAdministrator::new(
 }
 
 ///|
+/// Represents a chat member that has no additional privileges or restrictions.
 pub struct ChatMemberMember {
   user : User
   until_date : Int?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberMember].
 pub fn ChatMemberMember::new(
   user~ : User,
   until_date? : Int,
@@ -94,6 +100,7 @@ pub fn ChatMemberMember::new(
 }
 
 ///|
+/// Represents a chat member that is under certain restrictions in the chat. Supergroups only.
 pub struct ChatMemberRestricted {
   user : User
   is_member : Bool
@@ -115,6 +122,7 @@ pub struct ChatMemberRestricted {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberRestricted].
 pub fn ChatMemberRestricted::new(
   user~ : User,
   is_member~ : Bool,
@@ -156,22 +164,27 @@ pub fn ChatMemberRestricted::new(
 }
 
 ///|
+/// Represents a chat member that isn't currently a member of the chat but may join it themselves.
 pub struct ChatMemberLeft {
   user : User
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberLeft].
 pub fn ChatMemberLeft::new(user~ : User) -> ChatMemberLeft {
   { user, }
 }
 
 ///|
+/// Represents a chat member that was banned in the chat and can't return to the
+/// chat or view chat messages.
 pub struct ChatMemberBanned {
   user : User
   until_date : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatMemberBanned].
 pub fn ChatMemberBanned::new(
   user~ : User,
   until_date~ : Int,
@@ -180,6 +193,7 @@ pub fn ChatMemberBanned::new(
 }
 
 ///|
+/// This object contains information about one member of a chat.
 pub(all) enum ChatMember {
   Owner(ChatMemberOwner)
   Administrator(ChatMemberAdministrator)
@@ -509,6 +523,7 @@ pub impl @json.FromJson for ChatMember with from_json(json, path) {
 }
 
 ///|
+/// Describes actions that a non-administrator user is allowed to take in a chat.
 pub struct ChatPermissions {
   can_send_messages : Bool?
   can_send_audios : Bool?
@@ -527,6 +542,7 @@ pub struct ChatPermissions {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatPermissions].
 pub fn ChatPermissions::new(
   can_send_messages? : Bool,
   can_send_audios? : Bool,
@@ -710,6 +726,7 @@ pub impl @json.FromJson for ChatPermissions with from_json(json, path) {
 }
 
 ///|
+/// Represents the rights of an administrator in a chat.
 pub struct ChatAdministratorRights {
   is_anonymous : Bool
   can_manage_chat : Bool
@@ -729,6 +746,7 @@ pub struct ChatAdministratorRights {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatAdministratorRights].
 pub fn ChatAdministratorRights::new(
   is_anonymous~ : Bool,
   can_manage_chat~ : Bool,

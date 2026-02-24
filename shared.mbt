@@ -1,4 +1,6 @@
 ///|
+/// This object contains information about a user that was shared with the bot
+/// using a KeyboardButtonRequestUsers button.
 pub struct SharedUser {
   user_id : Int64
   first_name : String?
@@ -8,6 +10,7 @@ pub struct SharedUser {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SharedUser].
 pub fn SharedUser::new(
   user_id~ : Int64,
   first_name? : String,
@@ -66,12 +69,15 @@ pub impl @json.FromJson for SharedUser with from_json(json, path) {
 }
 
 ///|
+/// This object contains information about the users whose identifiers were
+/// shared with the bot using a KeyboardButtonRequestUsers button.
 pub struct UsersShared {
   request_id : Int
   users : Array[SharedUser]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [UsersShared].
 pub fn UsersShared::new(
   request_id~ : Int,
   users~ : Array[SharedUser],
@@ -99,6 +105,8 @@ pub impl @json.FromJson for UsersShared with from_json(json, path) {
 }
 
 ///|
+/// This object contains information about a chat that was shared with the bot
+/// using a KeyboardButtonRequestChat button.
 pub struct ChatShared {
   request_id : Int
   chat_id : Int64
@@ -108,6 +116,7 @@ pub struct ChatShared {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatShared].
 pub fn ChatShared::new(
   request_id~ : Int,
   chat_id~ : Int64,

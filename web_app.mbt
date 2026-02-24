@@ -1,9 +1,11 @@
 ///|
+/// Describes a Web App.
 pub struct WebAppInfo {
   url : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [WebAppInfo].
 pub fn WebAppInfo::new(url~ : String) -> WebAppInfo {
   { url, }
 }
@@ -24,11 +26,13 @@ pub impl @json.FromJson for WebAppInfo with from_json(json, path) {
 }
 
 ///|
+/// Describes an inline message sent by a Web App on behalf of a user.
 pub struct SentWebAppMessage {
   inline_message_id : String?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SentWebAppMessage].
 pub fn SentWebAppMessage::new(inline_message_id? : String) -> SentWebAppMessage {
   { inline_message_id, }
 }

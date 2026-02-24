@@ -1,10 +1,12 @@
 ///|
+/// Represents a story.
 pub struct Story {
   chat : Chat
   id : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Story].
 pub fn Story::new(chat~ : Chat, id~ : Int) -> Story {
   { chat, id }
 }

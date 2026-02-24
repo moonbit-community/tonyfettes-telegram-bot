@@ -1,4 +1,5 @@
 ///|
+/// Represents a video message (available in Telegram apps as of v.4.0).
 pub struct VideoNote {
   file_id : String
   file_unique_id : String
@@ -9,6 +10,7 @@ pub struct VideoNote {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [VideoNote].
 pub fn VideoNote::new(
   file_id~ : String,
   file_unique_id~ : String,

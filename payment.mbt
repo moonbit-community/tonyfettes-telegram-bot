@@ -1,4 +1,5 @@
 ///|
+/// This object contains basic information about an invoice.
 pub struct Invoice {
   title : String
   description : String
@@ -8,6 +9,7 @@ pub struct Invoice {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Invoice].
 pub fn Invoice::new(
   title~ : String,
   description~ : String,
@@ -47,12 +49,14 @@ pub impl @json.FromJson for Invoice with from_json(json, path) {
 }
 
 ///|
+/// This object represents a portion of the price for goods or services.
 pub struct LabeledPrice {
   label : String
   amount : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [LabeledPrice].
 pub fn LabeledPrice::new(label~ : String, amount~ : Int) -> LabeledPrice {
   { label, amount }
 }
@@ -77,6 +81,7 @@ pub impl @json.FromJson for LabeledPrice with from_json(json, path) {
 }
 
 ///|
+/// This object represents a shipping address.
 pub struct ShippingAddress {
   country_code : String
   state : String
@@ -87,6 +92,7 @@ pub struct ShippingAddress {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ShippingAddress].
 pub fn ShippingAddress::new(
   country_code~ : String,
   state~ : String,
@@ -126,6 +132,7 @@ pub impl @json.FromJson for ShippingAddress with from_json(json, path) {
 }
 
 ///|
+/// This object represents information about an order.
 pub struct OrderInfo {
   name : String?
   phone_number : String?
@@ -134,6 +141,7 @@ pub struct OrderInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [OrderInfo].
 pub fn OrderInfo::new(
   name? : String,
   phone_number? : String,
@@ -191,6 +199,7 @@ pub impl @json.FromJson for OrderInfo with from_json(json, path) {
 }
 
 ///|
+/// This object represents one shipping option.
 pub struct ShippingOption {
   id : String
   title : String
@@ -198,6 +207,7 @@ pub struct ShippingOption {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ShippingOption].
 pub fn ShippingOption::new(
   id~ : String,
   title~ : String,
@@ -228,6 +238,7 @@ pub impl @json.FromJson for ShippingOption with from_json(json, path) {
 }
 
 ///|
+/// This object contains basic information about a successful payment.
 pub struct SuccessfulPayment {
   currency : String
   total_amount : Int
@@ -239,6 +250,7 @@ pub struct SuccessfulPayment {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SuccessfulPayment].
 pub fn SuccessfulPayment::new(
   currency~ : String,
   total_amount~ : Int,
@@ -319,6 +331,7 @@ pub impl @json.FromJson for SuccessfulPayment with from_json(json, path) {
 }
 
 ///|
+/// This object contains basic information about a refunded payment.
 pub struct RefundedPayment {
   currency : String
   total_amount : Int
@@ -328,6 +341,7 @@ pub struct RefundedPayment {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [RefundedPayment].
 pub fn RefundedPayment::new(
   currency~ : String,
   total_amount~ : Int,

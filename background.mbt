@@ -1,11 +1,12 @@
 ///|
-/// Placeholder for Document until it's implemented
+/// Placeholder for a document object with basic file information.
 pub struct DocumentPlaceholder {
   file_id : String
   file_unique_id : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [DocumentPlaceholder].
 pub fn DocumentPlaceholder::new(
   file_id~ : String,
   file_unique_id~ : String,
@@ -36,16 +37,19 @@ pub impl @json.FromJson for DocumentPlaceholder with from_json(json, path) {
 }
 
 ///|
+/// The background is filled using the selected color.
 pub struct BackgroundFillSolid {
   color : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundFillSolid].
 pub fn BackgroundFillSolid::new(color~ : Int) -> BackgroundFillSolid {
   { color, }
 }
 
 ///|
+/// The background is a gradient fill.
 pub struct BackgroundFillGradient {
   top_color : Int
   bottom_color : Int
@@ -53,6 +57,7 @@ pub struct BackgroundFillGradient {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundFillGradient].
 pub fn BackgroundFillGradient::new(
   top_color~ : Int,
   bottom_color~ : Int,
@@ -62,11 +67,13 @@ pub fn BackgroundFillGradient::new(
 }
 
 ///|
+/// The background is a freeform gradient that rotates after every message in the chat.
 pub struct BackgroundFillFreeformGradient {
   colors : Array[Int]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundFillFreeformGradient].
 pub fn BackgroundFillFreeformGradient::new(
   colors~ : Array[Int],
 ) -> BackgroundFillFreeformGradient {
@@ -74,6 +81,7 @@ pub fn BackgroundFillFreeformGradient::new(
 }
 
 ///|
+/// This object describes the way a background is filled based on the selected colors.
 pub(all) enum BackgroundFill {
   Solid(BackgroundFillSolid)
   Gradient(BackgroundFillGradient)
@@ -144,12 +152,14 @@ pub impl @json.FromJson for BackgroundFill with from_json(json, path) {
 }
 
 ///|
+/// The background is automatically filled based on the selected colors.
 pub struct BackgroundTypeFill {
   fill : BackgroundFill
   dark_theme_dimming : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundTypeFill].
 pub fn BackgroundTypeFill::new(
   fill~ : BackgroundFill,
   dark_theme_dimming~ : Int,
@@ -158,6 +168,7 @@ pub fn BackgroundTypeFill::new(
 }
 
 ///|
+/// The background is a wallpaper in the JPEG format.
 pub struct BackgroundTypeWallpaper {
   document : DocumentPlaceholder
   dark_theme_dimming : Int
@@ -166,6 +177,7 @@ pub struct BackgroundTypeWallpaper {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundTypeWallpaper].
 pub fn BackgroundTypeWallpaper::new(
   document~ : DocumentPlaceholder,
   dark_theme_dimming~ : Int,
@@ -176,6 +188,8 @@ pub fn BackgroundTypeWallpaper::new(
 }
 
 ///|
+/// The background is a PNG or TGV pattern to be combined with the background fill
+/// chosen by the user.
 pub struct BackgroundTypePattern {
   document : DocumentPlaceholder
   fill : BackgroundFill
@@ -185,6 +199,7 @@ pub struct BackgroundTypePattern {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundTypePattern].
 pub fn BackgroundTypePattern::new(
   document~ : DocumentPlaceholder,
   fill~ : BackgroundFill,
@@ -196,11 +211,13 @@ pub fn BackgroundTypePattern::new(
 }
 
 ///|
+/// The background is taken directly from a built-in chat theme.
 pub struct BackgroundTypeChatTheme {
   theme_name : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BackgroundTypeChatTheme].
 pub fn BackgroundTypeChatTheme::new(
   theme_name~ : String,
 ) -> BackgroundTypeChatTheme {
@@ -208,6 +225,7 @@ pub fn BackgroundTypeChatTheme::new(
 }
 
 ///|
+/// This object describes the type of a background.
 pub(all) enum BackgroundType {
   Fill(BackgroundTypeFill)
   Wallpaper(BackgroundTypeWallpaper)
@@ -335,11 +353,13 @@ pub impl @json.FromJson for BackgroundType with from_json(json, path) {
 }
 
 ///|
+/// This object represents a chat background.
 pub struct ChatBackground {
   type_ : BackgroundType
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatBackground].
 pub fn ChatBackground::new(type_~ : BackgroundType) -> ChatBackground {
   { type_, }
 }

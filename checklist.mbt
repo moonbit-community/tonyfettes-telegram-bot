@@ -1,4 +1,5 @@
 ///|
+/// Describes a task in a checklist.
 pub struct ChecklistTask {
   id : Int
   text : String
@@ -6,6 +7,7 @@ pub struct ChecklistTask {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChecklistTask].
 pub fn ChecklistTask::new(
   id~ : Int,
   text~ : String,
@@ -36,12 +38,14 @@ pub impl @json.FromJson for ChecklistTask with from_json(json, path) {
 }
 
 ///|
+/// Describes a checklist.
 pub struct Checklist {
   header : String
   tasks : Array[ChecklistTask]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Checklist].
 pub fn Checklist::new(
   header~ : String,
   tasks~ : Array[ChecklistTask],
@@ -69,11 +73,13 @@ pub impl @json.FromJson for Checklist with from_json(json, path) {
 }
 
 ///|
+/// Describes a task to add to a checklist.
 pub struct InputChecklistTask {
   text : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputChecklistTask].
 pub fn InputChecklistTask::new(text~ : String) -> InputChecklistTask {
   { text, }
 }
@@ -94,12 +100,14 @@ pub impl @json.FromJson for InputChecklistTask with from_json(json, path) {
 }
 
 ///|
+/// Describes a checklist to create.
 pub struct InputChecklist {
   header : String
   tasks : Array[InputChecklistTask]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputChecklist].
 pub fn InputChecklist::new(
   header~ : String,
   tasks~ : Array[InputChecklistTask],
@@ -130,9 +138,11 @@ pub impl @json.FromJson for InputChecklist with from_json(json, path) {
 }
 
 ///|
+/// Describes a service message about checklist tasks marked as done or not done.
 pub struct ChecklistTasksDone {} derive(Show, Eq)
 
 ///|
+/// Creates a new [ChecklistTasksDone].
 pub fn ChecklistTasksDone::new() -> ChecklistTasksDone {
   ChecklistTasksDone::{  }
 }
@@ -152,9 +162,11 @@ pub impl @json.FromJson for ChecklistTasksDone with from_json(json, path) {
 }
 
 ///|
+/// Describes a service message about tasks added to a checklist.
 pub struct ChecklistTasksAdded {} derive(Show, Eq)
 
 ///|
+/// Creates a new [ChecklistTasksAdded].
 pub fn ChecklistTasksAdded::new() -> ChecklistTasksAdded {
   ChecklistTasksAdded::{  }
 }

@@ -1,4 +1,5 @@
 ///|
+/// Represents a point on the map.
 pub struct Location {
   latitude : Double
   longitude : Double
@@ -9,6 +10,7 @@ pub struct Location {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Location].
 pub fn Location::new(
   latitude~ : Double,
   longitude~ : Double,

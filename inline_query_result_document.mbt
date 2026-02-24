@@ -1,9 +1,11 @@
 ///|
+/// Placeholder for the InputMessageContent type.
 pub struct InputMessageContentPlaceholder {
   message_text : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputMessageContentPlaceholder].
 pub fn InputMessageContentPlaceholder::new(
   message_text~ : String,
 ) -> InputMessageContentPlaceholder {
@@ -34,6 +36,7 @@ pub impl @json.FromJson for InputMessageContentPlaceholder with from_json(
 }
 
 ///|
+/// Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
 pub struct InlineQueryResultAudio {
   type_ : String
   id : String
@@ -49,6 +52,7 @@ pub struct InlineQueryResultAudio {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultAudio].
 pub fn InlineQueryResultAudio::new(
   id~ : String,
   audio_url~ : String,
@@ -178,6 +182,7 @@ pub impl @json.FromJson for InlineQueryResultAudio with from_json(json, path) {
 }
 
 ///|
+/// Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
 pub struct InlineQueryResultVoice {
   type_ : String
   id : String
@@ -192,6 +197,7 @@ pub struct InlineQueryResultVoice {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultVoice].
 pub fn InlineQueryResultVoice::new(
   id~ : String,
   voice_url~ : String,
@@ -310,6 +316,7 @@ pub impl @json.FromJson for InlineQueryResultVoice with from_json(json, path) {
 }
 
 ///|
+/// Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.
 pub struct InlineQueryResultDocument {
   type_ : String
   id : String
@@ -328,6 +335,7 @@ pub struct InlineQueryResultDocument {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultDocument].
 pub fn InlineQueryResultDocument::new(
   id~ : String,
   title~ : String,

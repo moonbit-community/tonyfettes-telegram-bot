@@ -1,4 +1,5 @@
 ///|
+/// Represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
 pub struct InlineQuery {
   id : String
   from : User
@@ -9,6 +10,7 @@ pub struct InlineQuery {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQuery].
 pub fn InlineQuery::new(
   id~ : String,
   from~ : User,
@@ -60,6 +62,7 @@ pub impl @json.FromJson for InlineQuery with from_json(json, path) {
 }
 
 ///|
+/// Represents a result of an inline query that was chosen by the user and sent to their chat partner.
 pub struct ChosenInlineResult {
   result_id : String
   from : User
@@ -69,6 +72,7 @@ pub struct ChosenInlineResult {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChosenInlineResult].
 pub fn ChosenInlineResult::new(
   result_id~ : String,
   from~ : User,
@@ -118,6 +122,7 @@ pub impl @json.FromJson for ChosenInlineResult with from_json(json, path) {
 }
 
 ///|
+/// Represents a button to be shown above inline query results. You must use exactly one of the optional fields.
 pub struct InlineQueryResultsButton {
   text : String
   web_app : WebAppInfo?
@@ -125,6 +130,7 @@ pub struct InlineQueryResultsButton {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultsButton].
 pub fn InlineQueryResultsButton::new(
   text~ : String,
   web_app? : WebAppInfo,

@@ -1,10 +1,12 @@
 ///|
+/// Placeholder for a file reference.
 pub struct FilePlaceholder {
   file_id : String
   file_unique_id : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [FilePlaceholder].
 pub fn FilePlaceholder::new(
   file_id~ : String,
   file_unique_id~ : String,
@@ -32,6 +34,7 @@ pub impl @json.FromJson for FilePlaceholder with from_json(json, path) {
 }
 
 ///|
+/// Describes the position on faces where a mask should be placed by default.
 pub struct MaskPosition {
   point : String
   x_shift : Double
@@ -40,6 +43,7 @@ pub struct MaskPosition {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MaskPosition].
 pub fn MaskPosition::new(
   point~ : String,
   x_shift~ : Double,
@@ -73,6 +77,7 @@ pub impl @json.FromJson for MaskPosition with from_json(json, path) {
 }
 
 ///|
+/// Represents a sticker.
 pub struct Sticker {
   file_id : String
   file_unique_id : String
@@ -92,6 +97,7 @@ pub struct Sticker {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Sticker].
 pub fn Sticker::new(
   file_id~ : String,
   file_unique_id~ : String,
@@ -239,6 +245,7 @@ pub impl @json.FromJson for Sticker with from_json(json, path) {
 }
 
 ///|
+/// Represents a sticker set.
 pub struct StickerSet {
   name : String
   title : String
@@ -248,6 +255,7 @@ pub struct StickerSet {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [StickerSet].
 pub fn StickerSet::new(
   name~ : String,
   title~ : String,
@@ -290,6 +298,7 @@ pub impl @json.FromJson for StickerSet with from_json(json, path) {
 }
 
 ///|
+/// Describes a sticker to be added to a sticker set.
 pub struct InputSticker {
   sticker : String
   format : String
@@ -299,6 +308,7 @@ pub struct InputSticker {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InputSticker].
 pub fn InputSticker::new(
   sticker~ : String,
   format~ : String,

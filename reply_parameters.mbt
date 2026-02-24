@@ -1,5 +1,5 @@
 ///|
-/// ChatId can be either an integer ID or a string username
+/// Unique identifier for the target chat or username of the target channel.
 pub(all) enum ChatId {
   Id(Int64)
   Username(String)
@@ -24,6 +24,7 @@ pub impl @json.FromJson for ChatId with from_json(json, path) {
 }
 
 ///|
+/// Describes reply parameters for the message that is being sent.
 pub struct ReplyParameters {
   message_id : Int
   chat_id : ChatId?
@@ -35,6 +36,7 @@ pub struct ReplyParameters {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ReplyParameters].
 pub fn ReplyParameters::new(
   message_id~ : Int,
   chat_id? : ChatId,
@@ -133,13 +135,14 @@ pub impl @json.FromJson for ReplyParameters with from_json(json, path) {
 }
 
 ///|
-/// Placeholder for MessageOrigin in ExternalReplyInfo context
+/// Placeholder for the MessageOrigin type.
 pub struct MessageOriginPlaceholder {
   type_ : String
   date : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageOriginPlaceholder].
 pub fn MessageOriginPlaceholder::new(
   type_~ : String,
   date~ : Int,
@@ -170,12 +173,13 @@ pub impl @json.FromJson for MessageOriginPlaceholder with from_json(json, path) 
 }
 
 ///|
-/// Placeholder for LinkPreviewOptions
+/// Placeholder for the LinkPreviewOptions type.
 pub struct LinkPreviewPlaceholder {
   is_disabled : Bool?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [LinkPreviewPlaceholder].
 pub fn LinkPreviewPlaceholder::new(
   is_disabled? : Bool,
 ) -> LinkPreviewPlaceholder {
@@ -208,13 +212,14 @@ pub impl @json.FromJson for LinkPreviewPlaceholder with from_json(json, path) {
 }
 
 ///|
-/// Placeholder for Game type
+/// Placeholder for the Game type.
 pub struct GamePlaceholder {
   title : String
   description : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GamePlaceholder].
 pub fn GamePlaceholder::new(
   title~ : String,
   description~ : String,
@@ -242,6 +247,7 @@ pub impl @json.FromJson for GamePlaceholder with from_json(json, path) {
 }
 
 ///|
+/// This object contains information about a message that is being replied to, which may come from another chat or forum topic.
 pub struct ExternalReplyInfo {
   origin : MessageOriginPlaceholder
   chat : Chat?
@@ -270,6 +276,7 @@ pub struct ExternalReplyInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ExternalReplyInfo].
 pub fn ExternalReplyInfo::new(
   origin~ : MessageOriginPlaceholder,
   chat? : Chat,

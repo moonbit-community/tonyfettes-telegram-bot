@@ -1,4 +1,5 @@
 ///|
+/// Type of chat, can be either 'private', 'group', 'supergroup' or 'channel'.
 pub(all) enum ChatType {
   Private
   Group
@@ -31,6 +32,7 @@ pub impl @json.FromJson for ChatType with from_json(json, path) {
 }
 
 ///|
+/// This object represents a chat.
 pub struct Chat {
   id : Int64
   type_ : ChatType
@@ -41,6 +43,7 @@ pub struct Chat {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Chat].
 pub fn Chat::new(
   id~ : Int64,
   type_~ : ChatType,

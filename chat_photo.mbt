@@ -1,4 +1,5 @@
 ///|
+/// This object represents a chat photo.
 pub struct ChatPhoto {
   small_file_id : String
   small_file_unique_id : String
@@ -7,6 +8,7 @@ pub struct ChatPhoto {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ChatPhoto].
 pub fn ChatPhoto::new(
   small_file_id~ : String,
   small_file_unique_id~ : String,

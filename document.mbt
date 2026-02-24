@@ -1,4 +1,5 @@
 ///|
+/// Represents a general file (as opposed to photos, voice messages and audio files).
 pub struct Document {
   file_id : String
   file_unique_id : String
@@ -9,6 +10,7 @@ pub struct Document {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Document].
 pub fn Document::new(
   file_id~ : String,
   file_unique_id~ : String,

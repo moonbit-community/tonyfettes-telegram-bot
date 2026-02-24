@@ -1,4 +1,5 @@
 ///|
+/// Placeholder for a sticker object with basic file information.
 pub struct StickerPlaceholder {
   file_id : String
   file_unique_id : String
@@ -7,6 +8,7 @@ pub struct StickerPlaceholder {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [StickerPlaceholder].
 pub fn StickerPlaceholder::new(
   file_id~ : String,
   file_unique_id~ : String,
@@ -40,6 +42,8 @@ pub impl @json.FromJson for StickerPlaceholder with from_json(json, path) {
 }
 
 ///|
+/// Describes the colors of a unique gift that determine the color scheme
+/// for the user's name, replies to messages, and link previews.
 pub struct UniqueGiftColors {
   background_icon_color : Int
   text_color : Int
@@ -50,6 +54,7 @@ pub struct UniqueGiftColors {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [UniqueGiftColors].
 pub fn UniqueGiftColors::new(
   background_icon_color~ : Int,
   text_color~ : Int,
@@ -109,6 +114,7 @@ pub impl @json.FromJson for UniqueGiftColors with from_json(json, path) {
 }
 
 ///|
+/// Describes the background of a unique gift.
 pub struct GiftBackground {
   type_ : String
   fill_color : Int?
@@ -117,6 +123,7 @@ pub struct GiftBackground {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GiftBackground].
 pub fn GiftBackground::new(
   type_~ : String,
   fill_color? : Int,
@@ -167,6 +174,7 @@ pub impl @json.FromJson for GiftBackground with from_json(json, path) {
 }
 
 ///|
+/// This object represents a gift that can be sent by the bot.
 pub struct Gift {
   id : String
   sticker : StickerPlaceholder
@@ -184,6 +192,7 @@ pub struct Gift {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Gift].
 pub fn Gift::new(
   id~ : String,
   sticker~ : StickerPlaceholder,
@@ -336,11 +345,13 @@ pub impl @json.FromJson for Gift with from_json(json, path) {
 }
 
 ///|
+/// This object represents a list of gifts.
 pub struct Gifts {
   gifts : Array[Gift]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Gifts].
 pub fn Gifts::new(gifts~ : Array[Gift]) -> Gifts {
   { gifts, }
 }
@@ -363,6 +374,7 @@ pub impl @json.FromJson for Gifts with from_json(json, path) {
 }
 
 ///|
+/// Describes the types of gifts that can be sent or received by a user or chat.
 pub struct AcceptedGiftTypes {
   unlimited_gifts : Bool
   limited_gifts : Bool
@@ -371,6 +383,7 @@ pub struct AcceptedGiftTypes {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [AcceptedGiftTypes].
 pub fn AcceptedGiftTypes::new(
   unlimited_gifts~ : Bool,
   limited_gifts~ : Bool,
@@ -407,6 +420,7 @@ pub impl @json.FromJson for AcceptedGiftTypes with from_json(json, path) {
 }
 
 ///|
+/// Describes a service message about a unique gift that was sent or received.
 pub struct UniqueGiftInfo {
   next_transfer_date : Int?
   last_resale_amount : Int?
@@ -416,6 +430,7 @@ pub struct UniqueGiftInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [UniqueGiftInfo].
 pub fn UniqueGiftInfo::new(
   gift_id~ : String,
   next_transfer_date? : Int,
@@ -487,11 +502,13 @@ pub impl @json.FromJson for UniqueGiftInfo with from_json(json, path) {
 }
 
 ///|
+/// Describes the current Telegram Star balance of a business account.
 pub struct StarBalance {
   balance : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [StarBalance].
 pub fn StarBalance::new(balance~ : Int) -> StarBalance {
   { balance, }
 }

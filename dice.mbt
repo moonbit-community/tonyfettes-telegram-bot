@@ -1,10 +1,12 @@
 ///|
+/// Represents an animated emoji that displays a random value.
 pub struct Dice {
   emoji : String
   value : Int
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Dice].
 pub fn Dice::new(emoji~ : String, value~ : Int) -> Dice {
   { emoji, value }
 }

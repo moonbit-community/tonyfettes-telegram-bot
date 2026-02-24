@@ -6,6 +6,7 @@ pub struct BusinessOpeningHoursInterval {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessOpeningHoursInterval].
 pub fn BusinessOpeningHoursInterval::new(
   opening_minute~ : Int,
   closing_minute~ : Int,
@@ -46,6 +47,7 @@ pub struct BusinessOpeningHours {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessOpeningHours].
 pub fn BusinessOpeningHours::new(
   time_zone_name~ : String,
   opening_hours~ : Array[BusinessOpeningHoursInterval],
@@ -86,6 +88,7 @@ pub struct BusinessLocation {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessLocation].
 pub fn BusinessLocation::new(
   address~ : String,
   location? : Location,
@@ -125,6 +128,7 @@ pub struct BusinessIntro {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessIntro].
 pub fn BusinessIntro::new(
   title? : String,
   message? : String,
@@ -183,6 +187,7 @@ pub struct BusinessConnection {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessConnection].
 pub fn BusinessConnection::new(
   id~ : String,
   user~ : User,
@@ -222,7 +227,7 @@ pub impl @json.FromJson for BusinessConnection with from_json(json, path) {
 }
 
 ///|
-/// Received when messages are deleted from a connected business account.
+/// This object is received when messages are deleted from a connected business account.
 pub struct BusinessMessagesDeleted {
   business_connection_id : String
   chat : Chat
@@ -230,6 +235,7 @@ pub struct BusinessMessagesDeleted {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BusinessMessagesDeleted].
 pub fn BusinessMessagesDeleted::new(
   business_connection_id~ : String,
   chat~ : Chat,

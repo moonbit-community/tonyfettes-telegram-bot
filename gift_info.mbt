@@ -1,10 +1,12 @@
 ///|
+/// Describes a service message about a regular gift that was sent or received.
 pub struct GiftInfo {
   gift : Gift
   from : User?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [GiftInfo].
 pub fn GiftInfo::new(gift~ : Gift, from? : User) -> GiftInfo {
   { gift, from }
 }

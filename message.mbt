@@ -1,4 +1,6 @@
 ///|
+/// This object represents one special entity in a text message.
+/// For example, hashtags, usernames, URLs, etc.
 pub struct MessageEntity {
   type_ : String
   offset : Int
@@ -9,6 +11,7 @@ pub struct MessageEntity {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageEntity].
 pub fn MessageEntity::new(
   type_~ : String,
   offset~ : Int,
@@ -66,6 +69,7 @@ pub impl @json.FromJson for MessageEntity with from_json(json, path) {
 }
 
 ///|
+/// This object represents a message.
 pub struct Message {
   message_id : Int
   from : User?
@@ -83,6 +87,7 @@ pub struct Message {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Message].
 pub fn Message::new(
   message_id~ : Int,
   from? : User,

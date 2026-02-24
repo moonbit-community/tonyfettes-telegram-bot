@@ -1,4 +1,5 @@
 ///|
+/// Represents a video file.
 pub struct Video {
   file_id : String
   file_unique_id : String
@@ -14,6 +15,7 @@ pub struct Video {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Video].
 pub fn Video::new(
   file_id~ : String,
   file_unique_id~ : String,

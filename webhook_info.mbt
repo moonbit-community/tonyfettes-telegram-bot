@@ -1,4 +1,5 @@
 ///|
+/// Describes the current status of a webhook.
 pub struct WebhookInfo {
   url : String
   has_custom_certificate : Bool
@@ -12,6 +13,7 @@ pub struct WebhookInfo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [WebhookInfo].
 pub fn WebhookInfo::new(
   url~ : String,
   has_custom_certificate~ : Bool,

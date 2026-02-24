@@ -1,4 +1,5 @@
 ///|
+/// Represents one size of a photo or a file/sticker thumbnail.
 pub struct PhotoSize {
   file_id : String
   file_unique_id : String
@@ -8,6 +9,7 @@ pub struct PhotoSize {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PhotoSize].
 pub fn PhotoSize::new(
   file_id~ : String,
   file_unique_id~ : String,

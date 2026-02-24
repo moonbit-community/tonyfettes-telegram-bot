@@ -1,4 +1,5 @@
 ///|
+/// Represents an audio file to be treated as music by the Telegram clients.
 pub struct Audio {
   file_id : String
   file_unique_id : String
@@ -12,6 +13,7 @@ pub struct Audio {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Audio].
 pub fn Audio::new(
   file_id~ : String,
   file_unique_id~ : String,

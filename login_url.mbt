@@ -1,4 +1,5 @@
 ///|
+/// This object represents a parameter of the inline keyboard button used to automatically authorize a user.
 pub struct LoginUrl {
   url : String
   forward_text : String?
@@ -7,6 +8,7 @@ pub struct LoginUrl {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [LoginUrl].
 pub fn LoginUrl::new(
   url~ : String,
   forward_text? : String,
@@ -57,6 +59,7 @@ pub impl @json.FromJson for LoginUrl with from_json(json, path) {
 }
 
 ///|
+/// This object represents an inline button that switches the current user to inline mode in a chosen chat, with an optional default inline query.
 pub struct SwitchInlineQueryChosenChat {
   query : String?
   allow_user_chats : Bool?
@@ -66,6 +69,7 @@ pub struct SwitchInlineQueryChosenChat {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [SwitchInlineQueryChosenChat].
 pub fn SwitchInlineQueryChosenChat::new(
   query? : String,
   allow_user_chats? : Bool,
@@ -150,9 +154,11 @@ pub impl @json.FromJson for SwitchInlineQueryChosenChat with from_json(
 }
 
 ///|
+/// A placeholder, currently holds no information. Use BotFather to set up your game.
 pub struct CallbackGame {} derive(Show, Eq)
 
 ///|
+/// Creates a new [CallbackGame].
 pub fn CallbackGame::new() -> CallbackGame {
   CallbackGame::{  }
 }

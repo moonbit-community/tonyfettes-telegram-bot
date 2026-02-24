@@ -1,10 +1,12 @@
 ///|
+/// The message was originally sent by a known user.
 pub struct MessageOriginUser {
   date : Int
   sender_user : User
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageOriginUser].
 pub fn MessageOriginUser::new(
   date~ : Int,
   sender_user~ : User,
@@ -13,12 +15,14 @@ pub fn MessageOriginUser::new(
 }
 
 ///|
+/// The message was originally sent by an unknown user.
 pub struct MessageOriginHiddenUser {
   date : Int
   sender_user_name : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageOriginHiddenUser].
 pub fn MessageOriginHiddenUser::new(
   date~ : Int,
   sender_user_name~ : String,
@@ -27,6 +31,7 @@ pub fn MessageOriginHiddenUser::new(
 }
 
 ///|
+/// The message was originally sent on behalf of a chat to a group chat.
 pub struct MessageOriginChat {
   date : Int
   sender_chat : Chat
@@ -34,6 +39,7 @@ pub struct MessageOriginChat {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageOriginChat].
 pub fn MessageOriginChat::new(
   date~ : Int,
   sender_chat~ : Chat,
@@ -43,6 +49,7 @@ pub fn MessageOriginChat::new(
 }
 
 ///|
+/// The message was originally sent to a channel chat.
 pub struct MessageOriginChannel {
   date : Int
   chat : Chat
@@ -51,6 +58,7 @@ pub struct MessageOriginChannel {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [MessageOriginChannel].
 pub fn MessageOriginChannel::new(
   date~ : Int,
   chat~ : Chat,
@@ -61,6 +69,7 @@ pub fn MessageOriginChannel::new(
 }
 
 ///|
+/// Placeholder for the MessageOrigin type.
 pub(all) enum MessageOrigin {
   User(MessageOriginUser)
   HiddenUser(MessageOriginHiddenUser)

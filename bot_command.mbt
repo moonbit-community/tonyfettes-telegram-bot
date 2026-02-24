@@ -1,10 +1,12 @@
 ///|
+/// This object represents a bot command.
 pub struct BotCommand {
   command : String
   description : String
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [BotCommand].
 pub fn BotCommand::new(command~ : String, description~ : String) -> BotCommand {
   { command, description }
 }

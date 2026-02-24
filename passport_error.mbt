@@ -1,4 +1,5 @@
 ///|
+/// Represents an issue in one of the data fields that was provided by the user.
 pub struct PassportElementErrorDataField {
   type_ : String
   field_name : String
@@ -7,6 +8,7 @@ pub struct PassportElementErrorDataField {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorDataField].
 pub fn PassportElementErrorDataField::new(
   type_~ : String,
   field_name~ : String,
@@ -17,6 +19,7 @@ pub fn PassportElementErrorDataField::new(
 }
 
 ///|
+/// Represents an issue with the front side of a document.
 pub struct PassportElementErrorFrontSide {
   type_ : String
   file_hash : String
@@ -24,6 +27,7 @@ pub struct PassportElementErrorFrontSide {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorFrontSide].
 pub fn PassportElementErrorFrontSide::new(
   type_~ : String,
   file_hash~ : String,
@@ -33,6 +37,7 @@ pub fn PassportElementErrorFrontSide::new(
 }
 
 ///|
+/// Represents an issue with the reverse side of a document.
 pub struct PassportElementErrorReverseSide {
   type_ : String
   file_hash : String
@@ -40,6 +45,7 @@ pub struct PassportElementErrorReverseSide {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorReverseSide].
 pub fn PassportElementErrorReverseSide::new(
   type_~ : String,
   file_hash~ : String,
@@ -49,6 +55,7 @@ pub fn PassportElementErrorReverseSide::new(
 }
 
 ///|
+/// Represents an issue with the selfie with a document.
 pub struct PassportElementErrorSelfie {
   type_ : String
   file_hash : String
@@ -56,6 +63,7 @@ pub struct PassportElementErrorSelfie {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorSelfie].
 pub fn PassportElementErrorSelfie::new(
   type_~ : String,
   file_hash~ : String,
@@ -65,6 +73,7 @@ pub fn PassportElementErrorSelfie::new(
 }
 
 ///|
+/// Represents an issue with a document scan.
 pub struct PassportElementErrorFile {
   type_ : String
   file_hash : String
@@ -72,6 +81,7 @@ pub struct PassportElementErrorFile {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorFile].
 pub fn PassportElementErrorFile::new(
   type_~ : String,
   file_hash~ : String,
@@ -81,6 +91,7 @@ pub fn PassportElementErrorFile::new(
 }
 
 ///|
+/// Represents an issue with a list of scans.
 pub struct PassportElementErrorFiles {
   type_ : String
   file_hashes : Array[String]
@@ -88,6 +99,7 @@ pub struct PassportElementErrorFiles {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorFiles].
 pub fn PassportElementErrorFiles::new(
   type_~ : String,
   file_hashes~ : Array[String],
@@ -97,6 +109,7 @@ pub fn PassportElementErrorFiles::new(
 }
 
 ///|
+/// Represents an issue with one of the files that constitute the translation of a document.
 pub struct PassportElementErrorTranslationFile {
   type_ : String
   file_hash : String
@@ -104,6 +117,7 @@ pub struct PassportElementErrorTranslationFile {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorTranslationFile].
 pub fn PassportElementErrorTranslationFile::new(
   type_~ : String,
   file_hash~ : String,
@@ -113,6 +127,7 @@ pub fn PassportElementErrorTranslationFile::new(
 }
 
 ///|
+/// Represents an issue with the translated version of a document.
 pub struct PassportElementErrorTranslationFiles {
   type_ : String
   file_hashes : Array[String]
@@ -120,6 +135,7 @@ pub struct PassportElementErrorTranslationFiles {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorTranslationFiles].
 pub fn PassportElementErrorTranslationFiles::new(
   type_~ : String,
   file_hashes~ : Array[String],
@@ -129,6 +145,7 @@ pub fn PassportElementErrorTranslationFiles::new(
 }
 
 ///|
+/// Represents an issue in an unspecified place.
 pub struct PassportElementErrorUnspecified {
   type_ : String
   element_hash : String
@@ -136,6 +153,7 @@ pub struct PassportElementErrorUnspecified {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [PassportElementErrorUnspecified].
 pub fn PassportElementErrorUnspecified::new(
   type_~ : String,
   element_hash~ : String,
@@ -145,6 +163,8 @@ pub fn PassportElementErrorUnspecified::new(
 }
 
 ///|
+/// This object represents an error in the Telegram Passport element which was submitted
+/// that should be resolved by the user.
 pub(all) enum PassportElementError {
   DataField(PassportElementErrorDataField)
   FrontSide(PassportElementErrorFrontSide)

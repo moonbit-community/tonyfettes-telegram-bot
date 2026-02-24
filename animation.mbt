@@ -1,4 +1,5 @@
 ///|
+/// Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
 pub struct Animation {
   file_id : String
   file_unique_id : String
@@ -12,6 +13,7 @@ pub struct Animation {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Animation].
 pub fn Animation::new(
   file_id~ : String,
   file_unique_id~ : String,

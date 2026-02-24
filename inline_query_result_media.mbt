@@ -1,4 +1,5 @@
 ///|
+/// Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
 pub struct InlineQueryResultPhoto {
   type_ : String
   id : String
@@ -17,6 +18,7 @@ pub struct InlineQueryResultPhoto {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultPhoto].
 pub fn InlineQueryResultPhoto::new(
   id~ : String,
   photo_url~ : String,
@@ -182,6 +184,7 @@ pub impl @json.FromJson for InlineQueryResultPhoto with from_json(json, path) {
 }
 
 ///|
+/// Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 pub struct InlineQueryResultGif {
   type_ : String
   id : String
@@ -201,6 +204,7 @@ pub struct InlineQueryResultGif {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultGif].
 pub fn InlineQueryResultGif::new(
   id~ : String,
   gif_url~ : String,
@@ -378,6 +382,7 @@ pub impl @json.FromJson for InlineQueryResultGif with from_json(json, path) {
 }
 
 ///|
+/// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 pub struct InlineQueryResultMpeg4Gif {
   type_ : String
   id : String
@@ -397,6 +402,7 @@ pub struct InlineQueryResultMpeg4Gif {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultMpeg4Gif].
 pub fn InlineQueryResultMpeg4Gif::new(
   id~ : String,
   mpeg4_url~ : String,
@@ -574,6 +580,7 @@ pub impl @json.FromJson for InlineQueryResultMpeg4Gif with from_json(json, path)
 }
 
 ///|
+/// Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
 pub struct InlineQueryResultVideo {
   type_ : String
   id : String
@@ -594,6 +601,7 @@ pub struct InlineQueryResultVideo {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineQueryResultVideo].
 pub fn InlineQueryResultVideo::new(
   id~ : String,
   video_url~ : String,

@@ -1,4 +1,5 @@
 ///|
+/// This object represents one button of an inline keyboard.
 pub struct InlineKeyboardButton {
   text : String
   url : String?
@@ -6,6 +7,7 @@ pub struct InlineKeyboardButton {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineKeyboardButton].
 pub fn InlineKeyboardButton::new(
   text~ : String,
   url? : String,
@@ -49,11 +51,13 @@ pub impl @json.FromJson for InlineKeyboardButton with from_json(json, path) {
 }
 
 ///|
+/// This object represents an inline keyboard that appears right next to the message it belongs to.
 pub struct InlineKeyboardMarkup {
   inline_keyboard : Array[Array[InlineKeyboardButton]]
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [InlineKeyboardMarkup].
 pub fn InlineKeyboardMarkup::new(
   inline_keyboard~ : Array[Array[InlineKeyboardButton]],
 ) -> InlineKeyboardMarkup {

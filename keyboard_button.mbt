@@ -1,9 +1,11 @@
 ///|
+/// This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed.
 pub struct KeyboardButtonPollType {
   type_ : String?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [KeyboardButtonPollType].
 pub fn KeyboardButtonPollType::new(type_? : String) -> KeyboardButtonPollType {
   { type_, }
 }
@@ -34,6 +36,7 @@ pub impl @json.FromJson for KeyboardButtonPollType with from_json(json, path) {
 }
 
 ///|
+/// This object defines the criteria used to request suitable users.
 pub struct KeyboardButtonRequestUsers {
   request_id : Int
   user_is_bot : Bool?
@@ -45,6 +48,7 @@ pub struct KeyboardButtonRequestUsers {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [KeyboardButtonRequestUsers].
 pub fn KeyboardButtonRequestUsers::new(
   request_id~ : Int,
   user_is_bot? : Bool,
@@ -145,6 +149,7 @@ pub impl @json.FromJson for KeyboardButtonRequestUsers with from_json(
 }
 
 ///|
+/// This object defines the criteria used to request a suitable chat.
 pub struct KeyboardButtonRequestChat {
   request_id : Int
   chat_is_channel : Bool
@@ -158,6 +163,7 @@ pub struct KeyboardButtonRequestChat {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [KeyboardButtonRequestChat].
 pub fn KeyboardButtonRequestChat::new(
   request_id~ : Int,
   chat_is_channel~ : Bool,
@@ -271,6 +277,7 @@ pub impl @json.FromJson for KeyboardButtonRequestChat with from_json(json, path)
 }
 
 ///|
+/// This object represents one button of the reply keyboard.
 pub struct KeyboardButton {
   text : String
   request_users : KeyboardButtonRequestUsers?
@@ -282,6 +289,7 @@ pub struct KeyboardButton {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [KeyboardButton].
 pub fn KeyboardButton::new(
   text~ : String,
   request_users? : KeyboardButtonRequestUsers,

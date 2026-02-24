@@ -1,4 +1,5 @@
 ///|
+/// Represents a phone contact.
 pub struct Contact {
   phone_number : String
   first_name : String
@@ -8,6 +9,7 @@ pub struct Contact {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Contact].
 pub fn Contact::new(
   phone_number~ : String,
   first_name~ : String,

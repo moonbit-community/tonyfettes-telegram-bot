@@ -1,4 +1,5 @@
 ///|
+/// This object represents a custom keyboard with reply options.
 pub struct ReplyKeyboardMarkup {
   keyboard : Array[Array[KeyboardButton]]
   is_persistent : Bool?
@@ -9,6 +10,7 @@ pub struct ReplyKeyboardMarkup {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ReplyKeyboardMarkup].
 pub fn ReplyKeyboardMarkup::new(
   keyboard~ : Array[Array[KeyboardButton]],
   is_persistent? : Bool,
@@ -101,12 +103,14 @@ pub impl @json.FromJson for ReplyKeyboardMarkup with from_json(json, path) {
 }
 
 ///|
+/// Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard.
 pub struct ReplyKeyboardRemove {
   remove_keyboard : Bool
   selective : Bool?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ReplyKeyboardRemove].
 pub fn ReplyKeyboardRemove::new(
   remove_keyboard~ : Bool,
   selective? : Bool,
@@ -143,6 +147,7 @@ pub impl @json.FromJson for ReplyKeyboardRemove with from_json(json, path) {
 }
 
 ///|
+/// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply').
 pub struct ForceReply {
   force_reply : Bool
   input_field_placeholder : String?
@@ -150,6 +155,7 @@ pub struct ForceReply {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ForceReply].
 pub fn ForceReply::new(
   force_reply~ : Bool,
   input_field_placeholder? : String,

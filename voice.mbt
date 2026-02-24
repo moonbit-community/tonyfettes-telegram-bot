@@ -1,4 +1,5 @@
 ///|
+/// Represents a voice note.
 pub struct Voice {
   file_id : String
   file_unique_id : String
@@ -8,6 +9,7 @@ pub struct Voice {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [Voice].
 pub fn Voice::new(
   file_id~ : String,
   file_unique_id~ : String,

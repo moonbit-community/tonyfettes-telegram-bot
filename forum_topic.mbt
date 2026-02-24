@@ -1,4 +1,5 @@
 ///|
+/// This object represents a forum topic.
 pub struct ForumTopic {
   message_thread_id : Int
   name : String
@@ -7,6 +8,7 @@ pub struct ForumTopic {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ForumTopic].
 pub fn ForumTopic::new(
   message_thread_id~ : Int,
   name~ : String,
@@ -50,6 +52,7 @@ pub impl @json.FromJson for ForumTopic with from_json(json, path) {
 }
 
 ///|
+/// This object represents a service message about a new forum topic created in the chat.
 pub struct ForumTopicCreated {
   name : String
   icon_color : Int
@@ -57,6 +60,7 @@ pub struct ForumTopicCreated {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ForumTopicCreated].
 pub fn ForumTopicCreated::new(
   name~ : String,
   icon_color~ : Int,
@@ -94,12 +98,14 @@ pub impl @json.FromJson for ForumTopicCreated with from_json(json, path) {
 }
 
 ///|
+/// This object represents a service message about an edited forum topic.
 pub struct ForumTopicEdited {
   name : String?
   icon_custom_emoji_id : String?
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [ForumTopicEdited].
 pub fn ForumTopicEdited::new(
   name? : String,
   icon_custom_emoji_id? : String,

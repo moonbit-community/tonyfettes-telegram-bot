@@ -1,4 +1,5 @@
 ///|
+/// Describes the options used for link preview generation.
 pub struct LinkPreviewOptions {
   is_disabled : Bool?
   url : String?
@@ -8,6 +9,7 @@ pub struct LinkPreviewOptions {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [LinkPreviewOptions].
 pub fn LinkPreviewOptions::new(
   is_disabled? : Bool,
   url? : String,
@@ -75,6 +77,7 @@ pub impl @json.FromJson for LinkPreviewOptions with from_json(json, path) {
 }
 
 ///|
+/// This object contains information about the quoted part of a message that is replied to by the given message.
 pub struct TextQuote {
   text : String
   entities : Array[MessageEntity]?
@@ -83,6 +86,7 @@ pub struct TextQuote {
 } derive(Show, Eq)
 
 ///|
+/// Creates a new [TextQuote].
 pub fn TextQuote::new(
   text~ : String,
   entities? : Array[MessageEntity],
