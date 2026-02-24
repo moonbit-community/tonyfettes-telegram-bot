@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "tonyfettes/telegram/bot"
+package "tonyfettes/telegram-bot"
 
 import {
   "moonbitlang/core/encoding/utf8",
