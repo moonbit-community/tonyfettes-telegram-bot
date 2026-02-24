@@ -41,7 +41,9 @@ test "BotCommandScope Chat JSON round-trip" {
 
 ///|
 test "BotCommandScope ChatAdministrators JSON round-trip" {
-  let object : BotCommandScope = ChatAdministrators(BotCommandScopeChatAdministrators::new(chat_id=456L))
+  let object : BotCommandScope = ChatAdministrators(
+    BotCommandScopeChatAdministrators::new(chat_id=456L),
+  )
   let json = object.to_json()
   let parsed : BotCommandScope = @json.from_json(json)
   guard parsed is ChatAdministrators(v) else {
@@ -52,7 +54,9 @@ test "BotCommandScope ChatAdministrators JSON round-trip" {
 
 ///|
 test "BotCommandScope ChatMember JSON round-trip" {
-  let object : BotCommandScope = ChatMember(BotCommandScopeChatMember::new(chat_id=123L, user_id=456L))
+  let object : BotCommandScope = ChatMember(
+    BotCommandScopeChatMember::new(chat_id=123L, user_id=456L),
+  )
   let json = object.to_json()
   let parsed : BotCommandScope = @json.from_json(json)
   guard parsed is ChatMember(v) else { fail("Expected ChatMember") }
