@@ -1,0 +1,8 @@
+{
+  "is_main": true,
+  "import": [
+    { "path": "tonyfettes/telegram-bot", "alias": "bot" },
+    "moonbitlang/x/sys",
+    "moonbitlang/async"
+  ]
+}
