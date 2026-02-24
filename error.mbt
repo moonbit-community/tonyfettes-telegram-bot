@@ -10,7 +10,7 @@ pub(all) suberror TelegramError {
 }
 
 ///|
-impl Show for TelegramError with output(self : TelegramError, logger : &Logger) -> Unit {
+pub impl Show for TelegramError with output(self : TelegramError, logger : &Logger) -> Unit {
   match self {
     TelegramError::HttpError(code~, body~) =>
       logger.write_string("HttpError(code=\{code}, body=\{body})")
