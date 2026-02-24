@@ -1,0 +1,17 @@
+import {
+  "moonbitlang/async/http",
+  "moonbitlang/async/io",
+  "tonyfettes/json",
+  "moonbitlang/core/debug" @debug,
+  "moonbitlang/core/encoding/utf8" @encoding/utf8,
+}
+
+import {
+  "moonbitlang/async",
+  "moonbitlang/async/socket",
+  "tonyfettes/telegram-bot" @bot,
+} for "test"
+
+options(
+  targets: { "integration_test.mbt": [ "native" ] },
+)
