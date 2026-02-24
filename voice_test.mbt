@@ -33,7 +33,9 @@ test "Voice JSON round-trip without optionals" {
 ///|
 test "Voice from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"AwACAgIAAxkBAAI","file_unique_id":"AQADAgATvoice","duration":15,"mime_type":"audio/ogg","file_size":25000}
+    (
+      #|{"file_id":"AwACAgIAAxkBAAI","file_unique_id":"AQADAgATvoice","duration":15,"mime_type":"audio/ogg","file_size":25000}
+    ),
   )
   let voice : Voice = @json.from_json(json)
   inspect(voice.file_id, content="AwACAgIAAxkBAAI")
@@ -46,7 +48,9 @@ test "Voice from fixed JSON" {
 ///|
 test "Voice from fixed JSON without optionals" {
   let json = @json.parse(
-    #|{"file_id":"AwACAgIAAxkBAAI","file_unique_id":"AQADAgATvoice","duration":30}
+    (
+      #|{"file_id":"AwACAgIAAxkBAAI","file_unique_id":"AQADAgATvoice","duration":30}
+    ),
   )
   let voice : Voice = @json.from_json(json)
   inspect(voice.file_id, content="AwACAgIAAxkBAAI")

@@ -181,7 +181,9 @@ test "ChatAdministratorRights JSON round-trip" {
 ///|
 test "ChatMember::Owner from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"creator","user":{"id":123,"is_bot":false,"first_name":"Admin"},"is_anonymous":false}
+    (
+      #|{"status":"creator","user":{"id":123,"is_bot":false,"first_name":"Admin"},"is_anonymous":false}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Owner(owner) else { fail("Expected Owner") }
@@ -193,7 +195,9 @@ test "ChatMember::Owner from fixed JSON" {
 ///|
 test "ChatMember::Owner from fixed JSON with custom_title" {
   let json = @json.parse(
-    #|{"status":"creator","user":{"id":777,"is_bot":false,"first_name":"Boss"},"is_anonymous":true,"custom_title":"Founder"}
+    (
+      #|{"status":"creator","user":{"id":777,"is_bot":false,"first_name":"Boss"},"is_anonymous":true,"custom_title":"Founder"}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Owner(owner) else { fail("Expected Owner") }
@@ -205,7 +209,9 @@ test "ChatMember::Owner from fixed JSON with custom_title" {
 ///|
 test "ChatMember::Administrator from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"administrator","user":{"id":456,"is_bot":false,"first_name":"Mod"},"can_be_edited":false,"is_anonymous":false,"can_manage_chat":true,"can_delete_messages":true,"can_manage_video_chats":true,"can_restrict_members":true,"can_promote_members":false,"can_change_info":true,"can_invite_users":true,"can_post_stories":false,"can_edit_stories":false,"can_delete_stories":false,"can_pin_messages":true}
+    (
+      #|{"status":"administrator","user":{"id":456,"is_bot":false,"first_name":"Mod"},"can_be_edited":false,"is_anonymous":false,"can_manage_chat":true,"can_delete_messages":true,"can_manage_video_chats":true,"can_restrict_members":true,"can_promote_members":false,"can_change_info":true,"can_invite_users":true,"can_post_stories":false,"can_edit_stories":false,"can_delete_stories":false,"can_pin_messages":true}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Administrator(admin) else { fail("Expected Administrator") }
@@ -220,7 +226,9 @@ test "ChatMember::Administrator from fixed JSON" {
 ///|
 test "ChatMember::Member from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"member","user":{"id":789,"is_bot":false,"first_name":"Regular"}}
+    (
+      #|{"status":"member","user":{"id":789,"is_bot":false,"first_name":"Regular"}}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Member(m) else { fail("Expected Member") }
@@ -231,7 +239,9 @@ test "ChatMember::Member from fixed JSON" {
 ///|
 test "ChatMember::Member from fixed JSON with until_date" {
   let json = @json.parse(
-    #|{"status":"member","user":{"id":999,"is_bot":false,"first_name":"Sub"},"until_date":1800000000}
+    (
+      #|{"status":"member","user":{"id":999,"is_bot":false,"first_name":"Sub"},"until_date":1800000000}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Member(m) else { fail("Expected Member") }
@@ -242,7 +252,9 @@ test "ChatMember::Member from fixed JSON with until_date" {
 ///|
 test "ChatMember::Restricted from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"restricted","user":{"id":100,"is_bot":false,"first_name":"Restricted"},"is_member":true,"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_change_info":false,"can_invite_users":false,"can_pin_messages":false,"can_manage_topics":false,"until_date":0}
+    (
+      #|{"status":"restricted","user":{"id":100,"is_bot":false,"first_name":"Restricted"},"is_member":true,"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_change_info":false,"can_invite_users":false,"can_pin_messages":false,"can_manage_topics":false,"until_date":0}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Restricted(r) else { fail("Expected Restricted") }
@@ -255,7 +267,9 @@ test "ChatMember::Restricted from fixed JSON" {
 ///|
 test "ChatMember::Left from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"left","user":{"id":200,"is_bot":false,"first_name":"Departed"}}
+    (
+      #|{"status":"left","user":{"id":200,"is_bot":false,"first_name":"Departed"}}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Left(l) else { fail("Expected Left") }
@@ -266,7 +280,9 @@ test "ChatMember::Left from fixed JSON" {
 ///|
 test "ChatMember::Banned from fixed JSON" {
   let json = @json.parse(
-    #|{"status":"kicked","user":{"id":300,"is_bot":false,"first_name":"Banned"},"until_date":1700000000}
+    (
+      #|{"status":"kicked","user":{"id":300,"is_bot":false,"first_name":"Banned"},"until_date":1700000000}
+    ),
   )
   let member : ChatMember = @json.from_json(json)
   guard member is Banned(b) else { fail("Expected Banned") }
@@ -277,7 +293,9 @@ test "ChatMember::Banned from fixed JSON" {
 ///|
 test "ChatPermissions from fixed JSON" {
   let json = @json.parse(
-    #|{"can_send_messages":true,"can_send_photos":true,"can_send_videos":false,"can_change_info":false}
+    (
+      #|{"can_send_messages":true,"can_send_photos":true,"can_send_videos":false,"can_change_info":false}
+    ),
   )
   let perms : ChatPermissions = @json.from_json(json)
   inspect(perms.can_send_messages, content="Some(true)")
@@ -290,7 +308,9 @@ test "ChatPermissions from fixed JSON" {
 ///|
 test "ChatAdministratorRights from fixed JSON" {
   let json = @json.parse(
-    #|{"is_anonymous":false,"can_manage_chat":true,"can_delete_messages":true,"can_manage_video_chats":true,"can_restrict_members":false,"can_promote_members":false,"can_change_info":true,"can_invite_users":true,"can_post_stories":true,"can_edit_stories":true,"can_delete_stories":true,"can_post_messages":true,"can_manage_topics":false}
+    (
+      #|{"is_anonymous":false,"can_manage_chat":true,"can_delete_messages":true,"can_manage_video_chats":true,"can_restrict_members":false,"can_promote_members":false,"can_change_info":true,"can_invite_users":true,"can_post_stories":true,"can_edit_stories":true,"can_delete_stories":true,"can_post_messages":true,"can_manage_topics":false}
+    ),
   )
   let rights : ChatAdministratorRights = @json.from_json(json)
   inspect(rights.is_anonymous, content="false")

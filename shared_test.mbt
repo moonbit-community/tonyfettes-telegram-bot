@@ -94,7 +94,9 @@ test "ChatShared minimal JSON round-trip" {
 ///|
 test "SharedUser from fixed JSON" {
   let json = @json.parse(
-    #|{"user_id":12345,"first_name":"John","username":"johndoe"}
+    (
+      #|{"user_id":12345,"first_name":"John","username":"johndoe"}
+    ),
   )
   let user : SharedUser = @json.from_json(json)
   inspect(user.user_id, content="12345")
@@ -107,7 +109,9 @@ test "SharedUser from fixed JSON" {
 ///|
 test "UsersShared from fixed JSON" {
   let json = @json.parse(
-    #|{"request_id":42,"users":[{"user_id":111,"first_name":"Alice"},{"user_id":222,"first_name":"Bob"}]}
+    (
+      #|{"request_id":42,"users":[{"user_id":111,"first_name":"Alice"},{"user_id":222,"first_name":"Bob"}]}
+    ),
   )
   let shared : UsersShared = @json.from_json(json)
   inspect(shared.request_id, content="42")
@@ -121,7 +125,9 @@ test "UsersShared from fixed JSON" {
 ///|
 test "ChatShared from fixed JSON" {
   let json = @json.parse(
-    #|{"request_id":99,"chat_id":123456,"title":"My Group","username":"mygroup"}
+    (
+      #|{"request_id":99,"chat_id":123456,"title":"My Group","username":"mygroup"}
+    ),
   )
   let shared : ChatShared = @json.from_json(json)
   inspect(shared.request_id, content="99")
@@ -134,7 +140,9 @@ test "ChatShared from fixed JSON" {
 ///|
 test "ChatShared from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"request_id":1,"chat_id":789}
+    (
+      #|{"request_id":1,"chat_id":789}
+    ),
   )
   let shared : ChatShared = @json.from_json(json)
   inspect(shared.request_id, content="1")

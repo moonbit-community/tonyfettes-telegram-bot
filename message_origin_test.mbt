@@ -90,7 +90,9 @@ test "MessageOriginChannel without author_signature" {
 ///|
 test "MessageOrigin::User from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"user","date":1700000000,"sender_user":{"id":123,"is_bot":false,"first_name":"Alice"}}
+    (
+      #|{"type":"user","date":1700000000,"sender_user":{"id":123,"is_bot":false,"first_name":"Alice"}}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is User(v) else { fail("Expected MessageOrigin::User") }
@@ -102,7 +104,9 @@ test "MessageOrigin::User from fixed JSON" {
 ///|
 test "MessageOrigin::HiddenUser from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"hidden_user","date":1700000001,"sender_user_name":"SomeAnonymous"}
+    (
+      #|{"type":"hidden_user","date":1700000001,"sender_user_name":"SomeAnonymous"}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is HiddenUser(v) else {
@@ -115,7 +119,9 @@ test "MessageOrigin::HiddenUser from fixed JSON" {
 ///|
 test "MessageOrigin::Chat from fixed JSON with author_signature" {
   let json = @json.parse(
-    #|{"type":"chat","date":1700000002,"sender_chat":{"id":456,"type":"group","title":"MyGroup"},"author_signature":"Editor"}
+    (
+      #|{"type":"chat","date":1700000002,"sender_chat":{"id":456,"type":"group","title":"MyGroup"},"author_signature":"Editor"}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is Chat(v) else { fail("Expected MessageOrigin::Chat") }
@@ -127,7 +133,9 @@ test "MessageOrigin::Chat from fixed JSON with author_signature" {
 ///|
 test "MessageOrigin::Chat from fixed JSON without author_signature" {
   let json = @json.parse(
-    #|{"type":"chat","date":1700000003,"sender_chat":{"id":789,"type":"supergroup","title":"BigGroup"}}
+    (
+      #|{"type":"chat","date":1700000003,"sender_chat":{"id":789,"type":"supergroup","title":"BigGroup"}}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is Chat(v) else { fail("Expected MessageOrigin::Chat") }
@@ -138,7 +146,9 @@ test "MessageOrigin::Chat from fixed JSON without author_signature" {
 ///|
 test "MessageOrigin::Channel from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"channel","date":1700000004,"chat":{"id":1001,"type":"channel","title":"NewsChannel"},"message_id":55,"author_signature":"Reporter"}
+    (
+      #|{"type":"channel","date":1700000004,"chat":{"id":1001,"type":"channel","title":"NewsChannel"},"message_id":55,"author_signature":"Reporter"}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is Channel(v) else { fail("Expected MessageOrigin::Channel") }
@@ -151,7 +161,9 @@ test "MessageOrigin::Channel from fixed JSON" {
 ///|
 test "MessageOrigin::Channel from fixed JSON without author_signature" {
   let json = @json.parse(
-    #|{"type":"channel","date":1700000005,"chat":{"id":2002,"type":"channel","title":"TechNews"},"message_id":99}
+    (
+      #|{"type":"channel","date":1700000005,"chat":{"id":2002,"type":"channel","title":"TechNews"},"message_id":99}
+    ),
   )
   let origin : MessageOrigin = @json.from_json(json)
   guard origin is Channel(v) else { fail("Expected MessageOrigin::Channel") }

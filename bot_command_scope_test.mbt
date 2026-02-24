@@ -82,7 +82,9 @@ test "BotCommandScopeChatMember new constructor" {
 ///|
 test "BotCommandScope::Default from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"default"}
+    (
+      #|{"type":"default"}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is Default else { fail("Expected Default") }
@@ -91,7 +93,9 @@ test "BotCommandScope::Default from fixed JSON" {
 ///|
 test "BotCommandScope::AllPrivateChats from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"all_private_chats"}
+    (
+      #|{"type":"all_private_chats"}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is AllPrivateChats else { fail("Expected AllPrivateChats") }
@@ -100,7 +104,9 @@ test "BotCommandScope::AllPrivateChats from fixed JSON" {
 ///|
 test "BotCommandScope::AllGroupChats from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"all_group_chats"}
+    (
+      #|{"type":"all_group_chats"}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is AllGroupChats else { fail("Expected AllGroupChats") }
@@ -109,7 +115,9 @@ test "BotCommandScope::AllGroupChats from fixed JSON" {
 ///|
 test "BotCommandScope::AllChatAdministrators from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"all_chat_administrators"}
+    (
+      #|{"type":"all_chat_administrators"}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is AllChatAdministrators else {
@@ -120,7 +128,9 @@ test "BotCommandScope::AllChatAdministrators from fixed JSON" {
 ///|
 test "BotCommandScope::Chat from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"chat","chat_id":112233445}
+    (
+      #|{"type":"chat","chat_id":112233445}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is Chat(v) else { fail("Expected Chat") }
@@ -130,7 +140,9 @@ test "BotCommandScope::Chat from fixed JSON" {
 ///|
 test "BotCommandScope::ChatAdministrators from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"chat_administrators","chat_id":998877665}
+    (
+      #|{"type":"chat_administrators","chat_id":998877665}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is ChatAdministrators(v) else {
@@ -142,7 +154,9 @@ test "BotCommandScope::ChatAdministrators from fixed JSON" {
 ///|
 test "BotCommandScope::ChatMember from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"chat_member","chat_id":111222333,"user_id":444555666}
+    (
+      #|{"type":"chat_member","chat_id":111222333,"user_id":444555666}
+    ),
   )
   let scope : BotCommandScope = @json.from_json(json)
   guard scope is ChatMember(v) else { fail("Expected ChatMember") }

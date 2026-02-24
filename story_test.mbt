@@ -25,7 +25,9 @@ test "Story with group chat JSON round-trip" {
 ///|
 test "Story from fixed JSON with private chat" {
   let json = @json.parse(
-    #|{"chat":{"id":123456,"type":"private","first_name":"Alice"},"id":42}
+    (
+      #|{"chat":{"id":123456,"type":"private","first_name":"Alice"},"id":42}
+    ),
   )
   let story : Story = @json.from_json(json)
   inspect(story.id, content="42")
@@ -38,7 +40,9 @@ test "Story from fixed JSON with private chat" {
 ///|
 test "Story from fixed JSON with channel" {
   let json = @json.parse(
-    #|{"chat":{"id":-1001234567890,"type":"channel","title":"My Channel","username":"mychannel"},"id":7}
+    (
+      #|{"chat":{"id":-1001234567890,"type":"channel","title":"My Channel","username":"mychannel"},"id":7}
+    ),
   )
   let story : Story = @json.from_json(json)
   inspect(story.id, content="7")

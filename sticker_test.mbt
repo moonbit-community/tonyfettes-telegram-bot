@@ -217,7 +217,9 @@ test "InputSticker JSON round-trip with optionals" {
 ///|
 test "MaskPosition from fixed JSON" {
   let json = @json.parse(
-    #|{"point":"forehead","x_shift":0.5,"y_shift":-0.3,"scale":1.2}
+    (
+      #|{"point":"forehead","x_shift":0.5,"y_shift":-0.3,"scale":1.2}
+    ),
   )
   let mask : MaskPosition = @json.from_json(json)
   inspect(mask.point, content="forehead")
@@ -229,7 +231,9 @@ test "MaskPosition from fixed JSON" {
 ///|
 test "Sticker from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AgADLAADTr2xSw","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false}
+    (
+      #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AgADLAADTr2xSw","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false}
+    ),
   )
   let sticker : Sticker = @json.from_json(json)
   inspect(sticker.file_id, content="BQACAgIAAxkBAAI")
@@ -247,7 +251,9 @@ test "Sticker from fixed JSON minimal" {
 ///|
 test "Sticker from fixed JSON with optional fields" {
   let json = @json.parse(
-    #|{"file_id":"BQACAgIAAxkBAAJ","file_unique_id":"AgADMAADTr2xSw","type":"mask","width":512,"height":512,"is_animated":true,"is_video":false,"emoji":"U+1F601","set_name":"my_masks","file_size":54321,"mask_position":{"point":"eyes","x_shift":0.0,"y_shift":0.2,"scale":1.0}}
+    (
+      #|{"file_id":"BQACAgIAAxkBAAJ","file_unique_id":"AgADMAADTr2xSw","type":"mask","width":512,"height":512,"is_animated":true,"is_video":false,"emoji":"U+1F601","set_name":"my_masks","file_size":54321,"mask_position":{"point":"eyes","x_shift":0.0,"y_shift":0.2,"scale":1.0}}
+    ),
   )
   let sticker : Sticker = @json.from_json(json)
   inspect(sticker.file_id, content="BQACAgIAAxkBAAJ")
@@ -264,7 +270,9 @@ test "Sticker from fixed JSON with optional fields" {
 ///|
 test "Sticker from fixed JSON custom_emoji with needs_repainting" {
   let json = @json.parse(
-    #|{"file_id":"BQACAgIAAxkBAAK","file_unique_id":"AgADNAADTr2xSw","type":"custom_emoji","width":100,"height":100,"is_animated":true,"is_video":false,"custom_emoji_id":"5368324170671202286","needs_repainting":true}
+    (
+      #|{"file_id":"BQACAgIAAxkBAAK","file_unique_id":"AgADNAADTr2xSw","type":"custom_emoji","width":100,"height":100,"is_animated":true,"is_video":false,"custom_emoji_id":"5368324170671202286","needs_repainting":true}
+    ),
   )
   let sticker : Sticker = @json.from_json(json)
   inspect(sticker.type_, content="custom_emoji")
@@ -276,7 +284,9 @@ test "Sticker from fixed JSON custom_emoji with needs_repainting" {
 ///|
 test "StickerSet from fixed JSON without thumbnail" {
   let json = @json.parse(
-    #|{"name":"some_pack","title":"Some Pack","sticker_type":"regular","stickers":[{"file_id":"s_fid1","file_unique_id":"s_uid1","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false,"emoji":"U+1F600"},{"file_id":"s_fid2","file_unique_id":"s_uid2","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false}]}
+    (
+      #|{"name":"some_pack","title":"Some Pack","sticker_type":"regular","stickers":[{"file_id":"s_fid1","file_unique_id":"s_uid1","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false,"emoji":"U+1F600"},{"file_id":"s_fid2","file_unique_id":"s_uid2","type":"regular","width":512,"height":512,"is_animated":false,"is_video":false}]}
+    ),
   )
   let set : StickerSet = @json.from_json(json)
   inspect(set.name, content="some_pack")
@@ -291,7 +301,9 @@ test "StickerSet from fixed JSON without thumbnail" {
 ///|
 test "StickerSet from fixed JSON with thumbnail" {
   let json = @json.parse(
-    #|{"name":"emoji_pack","title":"Emoji Pack","sticker_type":"custom_emoji","stickers":[{"file_id":"e_fid1","file_unique_id":"e_uid1","type":"custom_emoji","width":100,"height":100,"is_animated":true,"is_video":false}],"thumbnail":{"file_id":"thumb_fid","file_unique_id":"thumb_uid","width":64,"height":64}}
+    (
+      #|{"name":"emoji_pack","title":"Emoji Pack","sticker_type":"custom_emoji","stickers":[{"file_id":"e_fid1","file_unique_id":"e_uid1","type":"custom_emoji","width":100,"height":100,"is_animated":true,"is_video":false}],"thumbnail":{"file_id":"thumb_fid","file_unique_id":"thumb_uid","width":64,"height":64}}
+    ),
   )
   let set : StickerSet = @json.from_json(json)
   inspect(set.name, content="emoji_pack")
@@ -305,7 +317,9 @@ test "StickerSet from fixed JSON with thumbnail" {
 ///|
 test "InputSticker from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"sticker":"CAACAgIAAxkBAAI...","format":"static","emoji_list":["U+1F600","U+1F601"]}
+    (
+      #|{"sticker":"CAACAgIAAxkBAAI...","format":"static","emoji_list":["U+1F600","U+1F601"]}
+    ),
   )
   let input : InputSticker = @json.from_json(json)
   inspect(input.sticker, content="CAACAgIAAxkBAAI...")
@@ -319,7 +333,9 @@ test "InputSticker from fixed JSON minimal" {
 ///|
 test "InputSticker from fixed JSON with mask and keywords" {
   let json = @json.parse(
-    #|{"sticker":"https://example.com/mask.webp","format":"animated","emoji_list":["U+1F92A"],"mask_position":{"point":"chin","x_shift":0.1,"y_shift":0.4,"scale":0.8},"keywords":["silly","fun"]}
+    (
+      #|{"sticker":"https://example.com/mask.webp","format":"animated","emoji_list":["U+1F92A"],"mask_position":{"point":"chin","x_shift":0.1,"y_shift":0.4,"scale":0.8},"keywords":["silly","fun"]}
+    ),
   )
   let input : InputSticker = @json.from_json(json)
   inspect(input.sticker, content="https://example.com/mask.webp")

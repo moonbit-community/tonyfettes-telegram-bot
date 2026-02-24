@@ -66,7 +66,9 @@ test "CallbackGame JSON round-trip" {
 ///|
 test "LoginUrl from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"url":"https://example.com/login","forward_text":"Login to Example","bot_username":"example_bot","request_write_access":true}
+    (
+      #|{"url":"https://example.com/login","forward_text":"Login to Example","bot_username":"example_bot","request_write_access":true}
+    ),
   )
   let login : LoginUrl = @json.from_json(json)
   inspect(login.url, content="https://example.com/login")
@@ -78,7 +80,9 @@ test "LoginUrl from fixed JSON with all fields" {
 ///|
 test "LoginUrl from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"url":"https://auth.example.com"}
+    (
+      #|{"url":"https://auth.example.com"}
+    ),
   )
   let login : LoginUrl = @json.from_json(json)
   inspect(login.url, content="https://auth.example.com")
@@ -90,7 +94,9 @@ test "LoginUrl from fixed JSON minimal" {
 ///|
 test "SwitchInlineQueryChosenChat from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"query":"search","allow_user_chats":true,"allow_bot_chats":false,"allow_group_chats":true,"allow_channel_chats":false}
+    (
+      #|{"query":"search","allow_user_chats":true,"allow_bot_chats":false,"allow_group_chats":true,"allow_channel_chats":false}
+    ),
   )
   let switch_chat : SwitchInlineQueryChosenChat = @json.from_json(json)
   inspect(switch_chat.query, content="Some(\"search\")")
@@ -103,7 +109,9 @@ test "SwitchInlineQueryChosenChat from fixed JSON with all fields" {
 ///|
 test "SwitchInlineQueryChosenChat from fixed JSON empty" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let switch_chat : SwitchInlineQueryChosenChat = @json.from_json(json)
   inspect(switch_chat.query, content="None")
@@ -116,7 +124,9 @@ test "SwitchInlineQueryChosenChat from fixed JSON empty" {
 ///|
 test "CallbackGame from fixed JSON" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let game : CallbackGame = @json.from_json(json)
   inspect(game, content="{}")

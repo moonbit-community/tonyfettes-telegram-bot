@@ -25,7 +25,9 @@ test "DirectMessagesTopic ToJson and FromJson" {
 ///|
 test "DirectMessagesTopic from fixed JSON" {
   let json = @json.parse(
-    #|{"id":1,"name":"Support","icon_color":16711680}
+    (
+      #|{"id":1,"name":"Support","icon_color":16711680}
+    ),
   )
   let topic : DirectMessagesTopic = @json.from_json(json)
   inspect(topic.id, content="1")
@@ -36,7 +38,9 @@ test "DirectMessagesTopic from fixed JSON" {
 ///|
 test "DirectMessagesTopic from fixed JSON blue icon" {
   let json = @json.parse(
-    #|{"id":7,"name":"General","icon_color":255}
+    (
+      #|{"id":7,"name":"General","icon_color":255}
+    ),
   )
   let topic : DirectMessagesTopic = @json.from_json(json)
   inspect(topic.id, content="7")

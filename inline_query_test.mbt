@@ -102,7 +102,9 @@ test "InlineQueryResultsButton JSON round-trip minimal" {
 ///|
 test "InlineQuery from fixed JSON" {
   let json = @json.parse(
-    #|{"id":"abc123","from":{"id":111,"is_bot":false,"first_name":"Bob"},"query":"moon","offset":"0","chat_type":"private"}
+    (
+      #|{"id":"abc123","from":{"id":111,"is_bot":false,"first_name":"Bob"},"query":"moon","offset":"0","chat_type":"private"}
+    ),
   )
   let iq : InlineQuery = @json.from_json(json)
   inspect(iq.id, content="abc123")
@@ -117,7 +119,9 @@ test "InlineQuery from fixed JSON" {
 ///|
 test "InlineQuery minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"id":"xyz789","from":{"id":222,"is_bot":true,"first_name":"MyBot"},"query":"","offset":"20"}
+    (
+      #|{"id":"xyz789","from":{"id":222,"is_bot":true,"first_name":"MyBot"},"query":"","offset":"20"}
+    ),
   )
   let iq : InlineQuery = @json.from_json(json)
   inspect(iq.id, content="xyz789")
@@ -131,7 +135,9 @@ test "InlineQuery minimal from fixed JSON" {
 ///|
 test "ChosenInlineResult from fixed JSON" {
   let json = @json.parse(
-    #|{"result_id":"res1","from":{"id":333,"is_bot":false,"first_name":"Carol"},"query":"chosen","inline_message_id":"msg_abc"}
+    (
+      #|{"result_id":"res1","from":{"id":333,"is_bot":false,"first_name":"Carol"},"query":"chosen","inline_message_id":"msg_abc"}
+    ),
   )
   let result : ChosenInlineResult = @json.from_json(json)
   inspect(result.result_id, content="res1")
@@ -144,7 +150,9 @@ test "ChosenInlineResult from fixed JSON" {
 ///|
 test "ChosenInlineResult minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"result_id":"res2","from":{"id":444,"is_bot":false,"first_name":"Dave"},"query":"simple"}
+    (
+      #|{"result_id":"res2","from":{"id":444,"is_bot":false,"first_name":"Dave"},"query":"simple"}
+    ),
   )
   let result : ChosenInlineResult = @json.from_json(json)
   inspect(result.result_id, content="res2")
@@ -156,7 +164,9 @@ test "ChosenInlineResult minimal from fixed JSON" {
 ///|
 test "InlineQueryResultsButton from fixed JSON" {
   let json = @json.parse(
-    #|{"text":"Start Bot","start_parameter":"my_start"}
+    (
+      #|{"text":"Start Bot","start_parameter":"my_start"}
+    ),
   )
   let button : InlineQueryResultsButton = @json.from_json(json)
   inspect(button.text, content="Start Bot")
@@ -167,7 +177,9 @@ test "InlineQueryResultsButton from fixed JSON" {
 ///|
 test "InlineQueryResultsButton with web_app from fixed JSON" {
   let json = @json.parse(
-    #|{"text":"Open App","web_app":{"url":"https://example.com/app"}}
+    (
+      #|{"text":"Open App","web_app":{"url":"https://example.com/app"}}
+    ),
   )
   let button : InlineQueryResultsButton = @json.from_json(json)
   inspect(button.text, content="Open App")

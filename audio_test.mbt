@@ -47,7 +47,9 @@ test "Audio JSON round-trip without optionals" {
 ///|
 test "Audio from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"CQACAgIAAxkBAAI","file_unique_id":"AQADAgATaudio","duration":180,"performer":"Artist Name","title":"Song Title","file_name":"song.mp3","mime_type":"audio/mpeg","file_size":3500000}
+    (
+      #|{"file_id":"CQACAgIAAxkBAAI","file_unique_id":"AQADAgATaudio","duration":180,"performer":"Artist Name","title":"Song Title","file_name":"song.mp3","mime_type":"audio/mpeg","file_size":3500000}
+    ),
   )
   let audio : Audio = @json.from_json(json)
   inspect(audio.file_id, content="CQACAgIAAxkBAAI")
@@ -64,7 +66,9 @@ test "Audio from fixed JSON" {
 ///|
 test "Audio from fixed JSON without optionals" {
   let json = @json.parse(
-    #|{"file_id":"CQACAgIAAxkBAAI","file_unique_id":"AQADAgATaudio","duration":60}
+    (
+      #|{"file_id":"CQACAgIAAxkBAAI","file_unique_id":"AQADAgATaudio","duration":60}
+    ),
   )
   let audio : Audio = @json.from_json(json)
   inspect(audio.file_id, content="CQACAgIAAxkBAAI")

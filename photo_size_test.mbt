@@ -33,7 +33,9 @@ test "PhotoSize JSON round-trip without optional" {
 ///|
 test "PhotoSize from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgAT","width":320,"height":240,"file_size":12345}
+    (
+      #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgAT","width":320,"height":240,"file_size":12345}
+    ),
   )
   let photo : PhotoSize = @json.from_json(json)
   inspect(photo.file_id, content="AgACAgIAAxkBAAI")
@@ -46,7 +48,9 @@ test "PhotoSize from fixed JSON" {
 ///|
 test "PhotoSize from fixed JSON without optional" {
   let json = @json.parse(
-    #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgAT","width":640,"height":480}
+    (
+      #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgAT","width":640,"height":480}
+    ),
   )
   let photo : PhotoSize = @json.from_json(json)
   inspect(photo.file_id, content="AgACAgIAAxkBAAI")

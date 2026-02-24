@@ -79,7 +79,9 @@ test "ForceReply with options JSON round-trip" {
 ///|
 test "ReplyKeyboardMarkup from fixed JSON" {
   let json = @json.parse(
-    #|{"keyboard":[[{"text":"Yes"},{"text":"No"}],[{"text":"Cancel"}]],"resize_keyboard":true,"one_time_keyboard":true}
+    (
+      #|{"keyboard":[[{"text":"Yes"},{"text":"No"}],[{"text":"Cancel"}]],"resize_keyboard":true,"one_time_keyboard":true}
+    ),
   )
   let markup : ReplyKeyboardMarkup = @json.from_json(json)
   inspect(markup.keyboard.length(), content="2")
@@ -97,7 +99,9 @@ test "ReplyKeyboardMarkup from fixed JSON" {
 ///|
 test "ReplyKeyboardMarkup from fixed JSON with all options" {
   let json = @json.parse(
-    #|{"keyboard":[[{"text":"OK"}]],"is_persistent":true,"resize_keyboard":false,"one_time_keyboard":false,"input_field_placeholder":"Type here","selective":true}
+    (
+      #|{"keyboard":[[{"text":"OK"}]],"is_persistent":true,"resize_keyboard":false,"one_time_keyboard":false,"input_field_placeholder":"Type here","selective":true}
+    ),
   )
   let markup : ReplyKeyboardMarkup = @json.from_json(json)
   inspect(markup.keyboard[0][0].text, content="OK")
@@ -111,7 +115,9 @@ test "ReplyKeyboardMarkup from fixed JSON with all options" {
 ///|
 test "ReplyKeyboardRemove from fixed JSON" {
   let json = @json.parse(
-    #|{"remove_keyboard":true}
+    (
+      #|{"remove_keyboard":true}
+    ),
   )
   let remove : ReplyKeyboardRemove = @json.from_json(json)
   inspect(remove.remove_keyboard, content="true")
@@ -121,7 +127,9 @@ test "ReplyKeyboardRemove from fixed JSON" {
 ///|
 test "ReplyKeyboardRemove from fixed JSON with selective" {
   let json = @json.parse(
-    #|{"remove_keyboard":true,"selective":true}
+    (
+      #|{"remove_keyboard":true,"selective":true}
+    ),
   )
   let remove : ReplyKeyboardRemove = @json.from_json(json)
   inspect(remove.remove_keyboard, content="true")
@@ -131,7 +139,9 @@ test "ReplyKeyboardRemove from fixed JSON with selective" {
 ///|
 test "ForceReply from fixed JSON" {
   let json = @json.parse(
-    #|{"force_reply":true,"input_field_placeholder":"Your answer"}
+    (
+      #|{"force_reply":true,"input_field_placeholder":"Your answer"}
+    ),
   )
   let force : ForceReply = @json.from_json(json)
   inspect(force.force_reply, content="true")
@@ -142,7 +152,9 @@ test "ForceReply from fixed JSON" {
 ///|
 test "ForceReply from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"force_reply":true}
+    (
+      #|{"force_reply":true}
+    ),
   )
   let force : ForceReply = @json.from_json(json)
   inspect(force.force_reply, content="true")

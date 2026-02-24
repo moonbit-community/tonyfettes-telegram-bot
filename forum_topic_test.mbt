@@ -98,7 +98,9 @@ test "ForumTopicEdited JSON round-trip with no fields" {
 ///|
 test "ForumTopic from fixed JSON with icon emoji" {
   let json = @json.parse(
-    #|{"message_thread_id":12345,"name":"General Discussion","icon_color":7322096,"icon_custom_emoji_id":"5368324170671202286"}
+    (
+      #|{"message_thread_id":12345,"name":"General Discussion","icon_color":7322096,"icon_custom_emoji_id":"5368324170671202286"}
+    ),
   )
   let topic : ForumTopic = @json.from_json(json)
   inspect(topic.message_thread_id, content="12345")
@@ -110,7 +112,9 @@ test "ForumTopic from fixed JSON with icon emoji" {
 ///|
 test "ForumTopic from fixed JSON without icon emoji" {
   let json = @json.parse(
-    #|{"message_thread_id":1,"name":"Announcements","icon_color":16766590}
+    (
+      #|{"message_thread_id":1,"name":"Announcements","icon_color":16766590}
+    ),
   )
   let topic : ForumTopic = @json.from_json(json)
   inspect(topic.message_thread_id, content="1")
@@ -122,7 +126,9 @@ test "ForumTopic from fixed JSON without icon emoji" {
 ///|
 test "ForumTopicCreated from fixed JSON with icon emoji" {
   let json = @json.parse(
-    #|{"name":"New Topic","icon_color":7322096,"icon_custom_emoji_id":"5368324170671202286"}
+    (
+      #|{"name":"New Topic","icon_color":7322096,"icon_custom_emoji_id":"5368324170671202286"}
+    ),
   )
   let created : ForumTopicCreated = @json.from_json(json)
   inspect(created.name, content="New Topic")
@@ -133,7 +139,9 @@ test "ForumTopicCreated from fixed JSON with icon emoji" {
 ///|
 test "ForumTopicCreated from fixed JSON without icon emoji" {
   let json = @json.parse(
-    #|{"name":"Another Topic","icon_color":16766590}
+    (
+      #|{"name":"Another Topic","icon_color":16766590}
+    ),
   )
   let created : ForumTopicCreated = @json.from_json(json)
   inspect(created.name, content="Another Topic")
@@ -144,7 +152,9 @@ test "ForumTopicCreated from fixed JSON without icon emoji" {
 ///|
 test "ForumTopicEdited from fixed JSON with name and icon" {
   let json = @json.parse(
-    #|{"name":"Edited Topic Name","icon_custom_emoji_id":"5368324170671202286"}
+    (
+      #|{"name":"Edited Topic Name","icon_custom_emoji_id":"5368324170671202286"}
+    ),
   )
   let edited : ForumTopicEdited = @json.from_json(json)
   inspect(edited.name, content="Some(\"Edited Topic Name\")")
@@ -154,7 +164,9 @@ test "ForumTopicEdited from fixed JSON with name and icon" {
 ///|
 test "ForumTopicEdited from fixed JSON empty object" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let edited : ForumTopicEdited = @json.from_json(json)
   inspect(edited.name, content="None")

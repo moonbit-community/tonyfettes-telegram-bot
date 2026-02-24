@@ -15,7 +15,9 @@ test "ChatPhoto JSON round-trip" {
 ///|
 test "ChatPhoto from fixed JSON" {
   let json = @json.parse(
-    #|{"small_file_id":"AgACAgIAAxk","small_file_unique_id":"AQADAgATref","big_file_id":"AgACAgIAAxkBAAIBs","big_file_unique_id":"AQADAgATref2"}
+    (
+      #|{"small_file_id":"AgACAgIAAxk","small_file_unique_id":"AQADAgATref","big_file_id":"AgACAgIAAxkBAAIBs","big_file_unique_id":"AQADAgATref2"}
+    ),
   )
   let photo : ChatPhoto = @json.from_json(json)
   inspect(photo.small_file_id, content="AgACAgIAAxk")

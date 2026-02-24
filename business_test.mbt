@@ -105,7 +105,9 @@ test "BusinessMessagesDeleted JSON round-trip" {
 ///|
 test "BusinessOpeningHoursInterval from fixed JSON" {
   let json = @json.parse(
-    #|{"opening_minute":540,"closing_minute":1020}
+    (
+      #|{"opening_minute":540,"closing_minute":1020}
+    ),
   )
   let interval : BusinessOpeningHoursInterval = @json.from_json(json)
   inspect(interval.opening_minute, content="540")
@@ -115,7 +117,9 @@ test "BusinessOpeningHoursInterval from fixed JSON" {
 ///|
 test "BusinessOpeningHours from fixed JSON" {
   let json = @json.parse(
-    #|{"time_zone_name":"America/New_York","opening_hours":[{"opening_minute":480,"closing_minute":1080},{"opening_minute":1920,"closing_minute":2520}]}
+    (
+      #|{"time_zone_name":"America/New_York","opening_hours":[{"opening_minute":480,"closing_minute":1080},{"opening_minute":1920,"closing_minute":2520}]}
+    ),
   )
   let hours : BusinessOpeningHours = @json.from_json(json)
   inspect(hours.time_zone_name, content="America/New_York")
@@ -127,7 +131,9 @@ test "BusinessOpeningHours from fixed JSON" {
 ///|
 test "BusinessLocation from fixed JSON with location" {
   let json = @json.parse(
-    #|{"address":"10 Downing Street, London","location":{"latitude":51.5034,"longitude":-0.1276}}
+    (
+      #|{"address":"10 Downing Street, London","location":{"latitude":51.5034,"longitude":-0.1276}}
+    ),
   )
   let loc : BusinessLocation = @json.from_json(json)
   inspect(loc.address, content="10 Downing Street, London")
@@ -139,7 +145,9 @@ test "BusinessLocation from fixed JSON with location" {
 ///|
 test "BusinessLocation from fixed JSON without location" {
   let json = @json.parse(
-    #|{"address":"Remote Business"}
+    (
+      #|{"address":"Remote Business"}
+    ),
   )
   let loc : BusinessLocation = @json.from_json(json)
   inspect(loc.address, content="Remote Business")
@@ -149,7 +157,9 @@ test "BusinessLocation from fixed JSON without location" {
 ///|
 test "BusinessIntro from fixed JSON with fields" {
   let json = @json.parse(
-    #|{"title":"Welcome to our shop","message":"We are open 9-5"}
+    (
+      #|{"title":"Welcome to our shop","message":"We are open 9-5"}
+    ),
   )
   let intro : BusinessIntro = @json.from_json(json)
   inspect(intro.title, content="Some(\"Welcome to our shop\")")
@@ -160,7 +170,9 @@ test "BusinessIntro from fixed JSON with fields" {
 ///|
 test "BusinessIntro from fixed JSON empty" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let intro : BusinessIntro = @json.from_json(json)
   inspect(intro.title, content="None")
@@ -171,7 +183,9 @@ test "BusinessIntro from fixed JSON empty" {
 ///|
 test "BusinessConnection from fixed JSON" {
   let json = @json.parse(
-    #|{"id":"bc_abc123","user":{"id":987654321,"is_bot":false,"first_name":"Alice"},"user_chat_id":123456789,"date":1700000000,"can_reply":true,"is_enabled":true}
+    (
+      #|{"id":"bc_abc123","user":{"id":987654321,"is_bot":false,"first_name":"Alice"},"user_chat_id":123456789,"date":1700000000,"can_reply":true,"is_enabled":true}
+    ),
   )
   let conn : BusinessConnection = @json.from_json(json)
   inspect(conn.id, content="bc_abc123")
@@ -186,7 +200,9 @@ test "BusinessConnection from fixed JSON" {
 ///|
 test "BusinessConnection from fixed JSON disabled" {
   let json = @json.parse(
-    #|{"id":"bc_xyz999","user":{"id":111222333,"is_bot":false,"first_name":"Bob"},"user_chat_id":444555666,"date":1710000000,"can_reply":false,"is_enabled":false}
+    (
+      #|{"id":"bc_xyz999","user":{"id":111222333,"is_bot":false,"first_name":"Bob"},"user_chat_id":444555666,"date":1710000000,"can_reply":false,"is_enabled":false}
+    ),
   )
   let conn : BusinessConnection = @json.from_json(json)
   inspect(conn.id, content="bc_xyz999")
@@ -198,7 +214,9 @@ test "BusinessConnection from fixed JSON disabled" {
 ///|
 test "BusinessMessagesDeleted from fixed JSON" {
   let json = @json.parse(
-    #|{"business_connection_id":"bc_del001","chat":{"id":100200300,"type":"group","title":"My Group"},"message_ids":[10,20,30]}
+    (
+      #|{"business_connection_id":"bc_del001","chat":{"id":100200300,"type":"group","title":"My Group"},"message_ids":[10,20,30]}
+    ),
   )
   let deleted : BusinessMessagesDeleted = @json.from_json(json)
   inspect(deleted.business_connection_id, content="bc_del001")

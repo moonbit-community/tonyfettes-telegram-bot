@@ -163,7 +163,9 @@ test "RefundedPayment JSON round-trip without provider_payment_charge_id" {
 ///|
 test "Invoice from fixed JSON" {
   let json = @json.parse(
-    #|{"title":"Gold Plan","description":"Access to all features","start_parameter":"gold_plan","currency":"EUR","total_amount":4999}
+    (
+      #|{"title":"Gold Plan","description":"Access to all features","start_parameter":"gold_plan","currency":"EUR","total_amount":4999}
+    ),
   )
   let invoice : Invoice = @json.from_json(json)
   inspect(invoice.title, content="Gold Plan")
@@ -176,7 +178,9 @@ test "Invoice from fixed JSON" {
 ///|
 test "LabeledPrice from fixed JSON" {
   let json = @json.parse(
-    #|{"label":"Shipping","amount":500}
+    (
+      #|{"label":"Shipping","amount":500}
+    ),
   )
   let price : LabeledPrice = @json.from_json(json)
   inspect(price.label, content="Shipping")
@@ -186,7 +190,9 @@ test "LabeledPrice from fixed JSON" {
 ///|
 test "ShippingAddress from fixed JSON" {
   let json = @json.parse(
-    #|{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"","post_code":"80539"}
+    (
+      #|{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"","post_code":"80539"}
+    ),
   )
   let addr : ShippingAddress = @json.from_json(json)
   inspect(addr.country_code, content="DE")
@@ -200,7 +206,9 @@ test "ShippingAddress from fixed JSON" {
 ///|
 test "OrderInfo from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"name":"Jane Smith","phone_number":"+4915112345678","email":"jane@example.de","shipping_address":{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"Apt 2","post_code":"80539"}}
+    (
+      #|{"name":"Jane Smith","phone_number":"+4915112345678","email":"jane@example.de","shipping_address":{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"Apt 2","post_code":"80539"}}
+    ),
   )
   let order : OrderInfo = @json.from_json(json)
   inspect(order.name, content="Some(\"Jane Smith\")")
@@ -216,7 +224,9 @@ test "OrderInfo from fixed JSON with all fields" {
 ///|
 test "OrderInfo from fixed JSON empty" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let order : OrderInfo = @json.from_json(json)
   inspect(order.name, content="None")
@@ -228,7 +238,9 @@ test "OrderInfo from fixed JSON empty" {
 ///|
 test "ShippingOption from fixed JSON" {
   let json = @json.parse(
-    #|{"id":"express","title":"Express Shipping","prices":[{"label":"Express fee","amount":2000},{"label":"Handling","amount":300}]}
+    (
+      #|{"id":"express","title":"Express Shipping","prices":[{"label":"Express fee","amount":2000},{"label":"Handling","amount":300}]}
+    ),
   )
   let opt : ShippingOption = @json.from_json(json)
   inspect(opt.id, content="express")
@@ -243,7 +255,9 @@ test "ShippingOption from fixed JSON" {
 ///|
 test "SuccessfulPayment from fixed JSON" {
   let json = @json.parse(
-    #|{"currency":"USD","total_amount":1999,"invoice_payload":"order_123","telegram_payment_charge_id":"tg_pay_abc","provider_payment_charge_id":"stripe_ch_xyz"}
+    (
+      #|{"currency":"USD","total_amount":1999,"invoice_payload":"order_123","telegram_payment_charge_id":"tg_pay_abc","provider_payment_charge_id":"stripe_ch_xyz"}
+    ),
   )
   let payment : SuccessfulPayment = @json.from_json(json)
   inspect(payment.currency, content="USD")
@@ -258,7 +272,9 @@ test "SuccessfulPayment from fixed JSON" {
 ///|
 test "SuccessfulPayment from fixed JSON with optional fields" {
   let json = @json.parse(
-    #|{"currency":"GBP","total_amount":799,"invoice_payload":"sub_456","shipping_option_id":"standard","order_info":{"name":"Bob Brown","email":"bob@example.co.uk"},"telegram_payment_charge_id":"tg_pay_def","provider_payment_charge_id":"stripe_ch_uvw"}
+    (
+      #|{"currency":"GBP","total_amount":799,"invoice_payload":"sub_456","shipping_option_id":"standard","order_info":{"name":"Bob Brown","email":"bob@example.co.uk"},"telegram_payment_charge_id":"tg_pay_def","provider_payment_charge_id":"stripe_ch_uvw"}
+    ),
   )
   let payment : SuccessfulPayment = @json.from_json(json)
   inspect(payment.currency, content="GBP")
@@ -274,7 +290,9 @@ test "SuccessfulPayment from fixed JSON with optional fields" {
 ///|
 test "RefundedPayment from fixed JSON" {
   let json = @json.parse(
-    #|{"currency":"XTR","total_amount":250,"invoice_payload":"stars_refund_99","telegram_payment_charge_id":"tg_ref_111","provider_payment_charge_id":"prov_ref_222"}
+    (
+      #|{"currency":"XTR","total_amount":250,"invoice_payload":"stars_refund_99","telegram_payment_charge_id":"tg_ref_111","provider_payment_charge_id":"prov_ref_222"}
+    ),
   )
   let payment : RefundedPayment = @json.from_json(json)
   inspect(payment.currency, content="XTR")
@@ -287,7 +305,9 @@ test "RefundedPayment from fixed JSON" {
 ///|
 test "RefundedPayment from fixed JSON without provider_payment_charge_id" {
   let json = @json.parse(
-    #|{"currency":"XTR","total_amount":100,"invoice_payload":"stars_refund_77","telegram_payment_charge_id":"tg_ref_333"}
+    (
+      #|{"currency":"XTR","total_amount":100,"invoice_payload":"stars_refund_77","telegram_payment_charge_id":"tg_ref_333"}
+    ),
   )
   let payment : RefundedPayment = @json.from_json(json)
   inspect(payment.currency, content="XTR")

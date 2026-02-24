@@ -40,7 +40,9 @@ test "Update with callback_query JSON round-trip" {
 ///|
 test "Update from fixed JSON" {
   let json = @json.parse(
-    #|{"update_id":12345,"message":{"message_id":1,"date":1234567890,"chat":{"id":456,"type":"private"}}}
+    (
+      #|{"update_id":12345,"message":{"message_id":1,"date":1234567890,"chat":{"id":456,"type":"private"}}}
+    ),
   )
   let upd : Update = @json.from_json(json)
   inspect(upd.update_id, content="12345")
@@ -55,7 +57,9 @@ test "Update from fixed JSON" {
 ///|
 test "Update with edited_message from fixed JSON" {
   let json = @json.parse(
-    #|{"update_id":99999,"edited_message":{"message_id":5,"date":1700000000,"chat":{"id":777,"type":"supergroup","title":"Big Group"},"text":"edited content"}}
+    (
+      #|{"update_id":99999,"edited_message":{"message_id":5,"date":1700000000,"chat":{"id":777,"type":"supergroup","title":"Big Group"},"text":"edited content"}}
+    ),
   )
   let upd : Update = @json.from_json(json)
   inspect(upd.update_id, content="99999")

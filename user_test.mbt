@@ -17,7 +17,9 @@ test "User JSON round-trip" {
 ///|
 test "User from fixed JSON" {
   let json = @json.parse(
-    #|{"id":123,"is_bot":true,"first_name":"TestBot","username":"test_bot"}
+    (
+      #|{"id":123,"is_bot":true,"first_name":"TestBot","username":"test_bot"}
+    ),
   )
   let user : User = @json.from_json(json)
   inspect(user.id, content="123")

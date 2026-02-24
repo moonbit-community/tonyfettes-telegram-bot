@@ -13,9 +13,9 @@ test "Chat JSON round-trip" {
   let chat : Chat = Chat::new(
     id=456L,
     type_=Private,
-    username=("testuser"),
-    first_name=("Test"),
-    last_name=("User"),
+    username="testuser",
+    first_name="Test",
+    last_name="User",
   )
   let json = @json.to_json(chat)
   let parsed : Chat = @json.from_json(json)
@@ -27,7 +27,9 @@ test "Chat JSON round-trip" {
 ///|
 test "ChatType from fixed JSON" {
   let json = @json.parse(
-    #|"supergroup"
+    (
+      #|"supergroup"
+    ),
   )
   let ct : ChatType = @json.from_json(json)
   inspect(ct, content="Supergroup")
@@ -36,7 +38,9 @@ test "ChatType from fixed JSON" {
 ///|
 test "Chat from fixed JSON" {
   let json = @json.parse(
-    #|{"id":456,"type":"group","title":"My Group","username":"mygroup"}
+    (
+      #|{"id":456,"type":"group","title":"My Group","username":"mygroup"}
+    ),
   )
   let chat : Chat = @json.from_json(json)
   inspect(chat.id, content="456")

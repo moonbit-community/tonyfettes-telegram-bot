@@ -29,7 +29,9 @@ test "Location JSON minimal" {
 ///|
 test "Location from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"latitude":40.7128,"longitude":-74.006,"horizontal_accuracy":15.5,"live_period":300,"heading":90,"proximity_alert_radius":100}
+    (
+      #|{"latitude":40.7128,"longitude":-74.006,"horizontal_accuracy":15.5,"live_period":300,"heading":90,"proximity_alert_radius":100}
+    ),
   )
   let location : Location = @json.from_json(json)
   inspect(location.latitude, content="40.7128")
@@ -43,7 +45,9 @@ test "Location from fixed JSON with all fields" {
 ///|
 test "Location from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"latitude":51.5074,"longitude":-0.1278}
+    (
+      #|{"latitude":51.5074,"longitude":-0.1278}
+    ),
   )
   let location : Location = @json.from_json(json)
   inspect(location.latitude, content="51.5074")

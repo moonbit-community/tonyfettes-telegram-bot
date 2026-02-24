@@ -306,7 +306,9 @@ test "InlineQueryResultVenue with reply_markup and input_message_content" {
 ///|
 test "InlineQueryResultArticle from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"article","id":"art1","title":"Wikipedia","input_message_content":{"message_text":"Check Wikipedia"},"url":"https://wikipedia.org","description":"The free encyclopedia"}
+    (
+      #|{"type":"article","id":"art1","title":"Wikipedia","input_message_content":{"message_text":"Check Wikipedia"},"url":"https://wikipedia.org","description":"The free encyclopedia"}
+    ),
   )
   let article : InlineQueryResultArticle = @json.from_json(json)
   inspect(article.type_, content="article")
@@ -323,7 +325,9 @@ test "InlineQueryResultArticle from fixed JSON" {
 ///|
 test "InlineQueryResultArticle minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"article","id":"art2","title":"Minimal","input_message_content":{"message_text":"Hello"}}
+    (
+      #|{"type":"article","id":"art2","title":"Minimal","input_message_content":{"message_text":"Hello"}}
+    ),
   )
   let article : InlineQueryResultArticle = @json.from_json(json)
   inspect(article.type_, content="article")
@@ -336,7 +340,9 @@ test "InlineQueryResultArticle minimal from fixed JSON" {
 ///|
 test "InlineQueryResultContact from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"contact","id":"con1","phone_number":"+1234567890","first_name":"John","last_name":"Doe"}
+    (
+      #|{"type":"contact","id":"con1","phone_number":"+1234567890","first_name":"John","last_name":"Doe"}
+    ),
   )
   let contact : InlineQueryResultContact = @json.from_json(json)
   inspect(contact.type_, content="contact")
@@ -351,7 +357,9 @@ test "InlineQueryResultContact from fixed JSON" {
 ///|
 test "InlineQueryResultContact minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"contact","id":"con2","phone_number":"+9876543210","first_name":"Jane"}
+    (
+      #|{"type":"contact","id":"con2","phone_number":"+9876543210","first_name":"Jane"}
+    ),
   )
   let contact : InlineQueryResultContact = @json.from_json(json)
   inspect(contact.type_, content="contact")
@@ -364,7 +372,9 @@ test "InlineQueryResultContact minimal from fixed JSON" {
 ///|
 test "InlineQueryResultLocation from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"location","id":"loc1","latitude":40.7484,"longitude":-73.9857,"title":"Empire State","live_period":3600,"heading":180}
+    (
+      #|{"type":"location","id":"loc1","latitude":40.7484,"longitude":-73.9857,"title":"Empire State","live_period":3600,"heading":180}
+    ),
   )
   let location : InlineQueryResultLocation = @json.from_json(json)
   inspect(location.type_, content="location")
@@ -381,7 +391,9 @@ test "InlineQueryResultLocation from fixed JSON" {
 ///|
 test "InlineQueryResultLocation minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"location","id":"loc2","latitude":51.5074,"longitude":-0.1278,"title":"London"}
+    (
+      #|{"type":"location","id":"loc2","latitude":51.5074,"longitude":-0.1278,"title":"London"}
+    ),
   )
   let location : InlineQueryResultLocation = @json.from_json(json)
   inspect(location.type_, content="location")
@@ -395,7 +407,9 @@ test "InlineQueryResultLocation minimal from fixed JSON" {
 ///|
 test "InlineQueryResultVenue from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"venue","id":"ven1","latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, Paris","foursquare_id":"4b5a0c13f964a520e5cf28e3"}
+    (
+      #|{"type":"venue","id":"ven1","latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, Paris","foursquare_id":"4b5a0c13f964a520e5cf28e3"}
+    ),
   )
   let venue : InlineQueryResultVenue = @json.from_json(json)
   inspect(venue.type_, content="venue")
@@ -412,7 +426,9 @@ test "InlineQueryResultVenue from fixed JSON" {
 ///|
 test "InlineQueryResultVenue minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"venue","id":"ven2","latitude":35.6762,"longitude":139.6503,"title":"Tokyo Tower","address":"Minato, Tokyo"}
+    (
+      #|{"type":"venue","id":"ven2","latitude":35.6762,"longitude":139.6503,"title":"Tokyo Tower","address":"Minato, Tokyo"}
+    ),
   )
   let venue : InlineQueryResultVenue = @json.from_json(json)
   inspect(venue.type_, content="venue")

@@ -25,7 +25,9 @@ test "SentWebAppMessage JSON round-trip without inline_message_id" {
 ///|
 test "WebAppInfo from fixed JSON" {
   let json = @json.parse(
-    #|{"url":"https://myapp.example.com/game"}
+    (
+      #|{"url":"https://myapp.example.com/game"}
+    ),
   )
   let info : WebAppInfo = @json.from_json(json)
   inspect(info.url, content="https://myapp.example.com/game")
@@ -34,7 +36,9 @@ test "WebAppInfo from fixed JSON" {
 ///|
 test "SentWebAppMessage from fixed JSON with inline_message_id" {
   let json = @json.parse(
-    #|{"inline_message_id":"ABCDEF123456"}
+    (
+      #|{"inline_message_id":"ABCDEF123456"}
+    ),
   )
   let msg : SentWebAppMessage = @json.from_json(json)
   inspect(msg.inline_message_id, content="Some(\"ABCDEF123456\")")
@@ -43,7 +47,9 @@ test "SentWebAppMessage from fixed JSON with inline_message_id" {
 ///|
 test "SentWebAppMessage from fixed JSON without inline_message_id" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let msg : SentWebAppMessage = @json.from_json(json)
   inspect(msg.inline_message_id, content="None")

@@ -311,7 +311,9 @@ test "InlineQueryResultCachedAudio full JSON round-trip" {
 ///|
 test "InlineQueryResultCachedPhoto from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"photo","id":"cp1","photo_file_id":"AgACAgIAAxkBAAIcp1","title":"Fixed Photo","caption":"A cached photo"}
+    (
+      #|{"type":"photo","id":"cp1","photo_file_id":"AgACAgIAAxkBAAIcp1","title":"Fixed Photo","caption":"A cached photo"}
+    ),
   )
   let result : InlineQueryResultCachedPhoto = @json.from_json(json)
   inspect(result.type_, content="photo")
@@ -327,7 +329,9 @@ test "InlineQueryResultCachedPhoto from fixed JSON" {
 ///|
 test "InlineQueryResultCachedPhoto minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"photo","id":"cp2","photo_file_id":"AgACAgIAAxkBAAIcp2"}
+    (
+      #|{"type":"photo","id":"cp2","photo_file_id":"AgACAgIAAxkBAAIcp2"}
+    ),
   )
   let result : InlineQueryResultCachedPhoto = @json.from_json(json)
   inspect(result.type_, content="photo")
@@ -340,7 +344,9 @@ test "InlineQueryResultCachedPhoto minimal from fixed JSON" {
 ///|
 test "InlineQueryResultCachedGif from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"gif","id":"cg1","gif_file_id":"CgACAgIAAxkBAAIcg1","title":"Fixed GIF","caption":"Funny","parse_mode":"HTML"}
+    (
+      #|{"type":"gif","id":"cg1","gif_file_id":"CgACAgIAAxkBAAIcg1","title":"Fixed GIF","caption":"Funny","parse_mode":"HTML"}
+    ),
   )
   let result : InlineQueryResultCachedGif = @json.from_json(json)
   inspect(result.type_, content="gif")
@@ -355,7 +361,9 @@ test "InlineQueryResultCachedGif from fixed JSON" {
 ///|
 test "InlineQueryResultCachedGif minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"gif","id":"cg2","gif_file_id":"CgACAgIAAxkBAAIcg2"}
+    (
+      #|{"type":"gif","id":"cg2","gif_file_id":"CgACAgIAAxkBAAIcg2"}
+    ),
   )
   let result : InlineQueryResultCachedGif = @json.from_json(json)
   inspect(result.type_, content="gif")
@@ -366,7 +374,9 @@ test "InlineQueryResultCachedGif minimal from fixed JSON" {
 ///|
 test "InlineQueryResultCachedMpeg4Gif from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"mpeg4_gif","id":"cm1","mpeg4_file_id":"BgACAgIAAxkBAAIcm1","caption":"Cool video","show_caption_above_media":true}
+    (
+      #|{"type":"mpeg4_gif","id":"cm1","mpeg4_file_id":"BgACAgIAAxkBAAIcm1","caption":"Cool video","show_caption_above_media":true}
+    ),
   )
   let result : InlineQueryResultCachedMpeg4Gif = @json.from_json(json)
   inspect(result.type_, content="mpeg4_gif")
@@ -380,7 +390,9 @@ test "InlineQueryResultCachedMpeg4Gif from fixed JSON" {
 ///|
 test "InlineQueryResultCachedSticker from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"sticker","id":"cs1","sticker_file_id":"CAACAgIAAxkBAAIcs1"}
+    (
+      #|{"type":"sticker","id":"cs1","sticker_file_id":"CAACAgIAAxkBAAIcs1"}
+    ),
   )
   let result : InlineQueryResultCachedSticker = @json.from_json(json)
   inspect(result.type_, content="sticker")
@@ -393,7 +405,9 @@ test "InlineQueryResultCachedSticker from fixed JSON" {
 ///|
 test "InlineQueryResultCachedDocument from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"document","id":"cd1","title":"My Doc","document_file_id":"BQACAgIAAxkBAAIcd1","description":"An important file","caption":"See attached"}
+    (
+      #|{"type":"document","id":"cd1","title":"My Doc","document_file_id":"BQACAgIAAxkBAAIcd1","description":"An important file","caption":"See attached"}
+    ),
   )
   let result : InlineQueryResultCachedDocument = @json.from_json(json)
   inspect(result.type_, content="document")
@@ -408,7 +422,9 @@ test "InlineQueryResultCachedDocument from fixed JSON" {
 ///|
 test "InlineQueryResultCachedDocument minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"document","id":"cd2","title":"Minimal Doc","document_file_id":"BQACAgIAAxkBAAIcd2"}
+    (
+      #|{"type":"document","id":"cd2","title":"Minimal Doc","document_file_id":"BQACAgIAAxkBAAIcd2"}
+    ),
   )
   let result : InlineQueryResultCachedDocument = @json.from_json(json)
   inspect(result.type_, content="document")
@@ -420,7 +436,9 @@ test "InlineQueryResultCachedDocument minimal from fixed JSON" {
 ///|
 test "InlineQueryResultCachedVideo from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"video","id":"cv1","video_file_id":"BAACAgIAAxkBAAIcv1","title":"My Video","description":"Great video","caption":"Watch now"}
+    (
+      #|{"type":"video","id":"cv1","video_file_id":"BAACAgIAAxkBAAIcv1","title":"My Video","description":"Great video","caption":"Watch now"}
+    ),
   )
   let result : InlineQueryResultCachedVideo = @json.from_json(json)
   inspect(result.type_, content="video")
@@ -435,7 +453,9 @@ test "InlineQueryResultCachedVideo from fixed JSON" {
 ///|
 test "InlineQueryResultCachedVoice from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"voice","id":"cvo1","voice_file_id":"AwACAgIAAxkBAAIcvo1","title":"My Voice Note","caption":"Listen!"}
+    (
+      #|{"type":"voice","id":"cvo1","voice_file_id":"AwACAgIAAxkBAAIcvo1","title":"My Voice Note","caption":"Listen!"}
+    ),
   )
   let result : InlineQueryResultCachedVoice = @json.from_json(json)
   inspect(result.type_, content="voice")
@@ -449,7 +469,9 @@ test "InlineQueryResultCachedVoice from fixed JSON" {
 ///|
 test "InlineQueryResultCachedVoice minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"voice","id":"cvo2","voice_file_id":"AwACAgIAAxkBAAIcvo2","title":"Brief Note"}
+    (
+      #|{"type":"voice","id":"cvo2","voice_file_id":"AwACAgIAAxkBAAIcvo2","title":"Brief Note"}
+    ),
   )
   let result : InlineQueryResultCachedVoice = @json.from_json(json)
   inspect(result.type_, content="voice")
@@ -461,7 +483,9 @@ test "InlineQueryResultCachedVoice minimal from fixed JSON" {
 ///|
 test "InlineQueryResultCachedAudio from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"audio","id":"ca1","audio_file_id":"CQACAgIAAxkBAAIca1","caption":"Great track","parse_mode":"Markdown"}
+    (
+      #|{"type":"audio","id":"ca1","audio_file_id":"CQACAgIAAxkBAAIca1","caption":"Great track","parse_mode":"Markdown"}
+    ),
   )
   let result : InlineQueryResultCachedAudio = @json.from_json(json)
   inspect(result.type_, content="audio")
@@ -475,7 +499,9 @@ test "InlineQueryResultCachedAudio from fixed JSON" {
 ///|
 test "InlineQueryResultCachedAudio minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"audio","id":"ca2","audio_file_id":"CQACAgIAAxkBAAIca2"}
+    (
+      #|{"type":"audio","id":"ca2","audio_file_id":"CQACAgIAAxkBAAIca2"}
+    ),
   )
   let result : InlineQueryResultCachedAudio = @json.from_json(json)
   inspect(result.type_, content="audio")

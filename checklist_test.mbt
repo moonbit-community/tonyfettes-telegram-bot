@@ -61,7 +61,9 @@ test "ChecklistTasksAdded JSON round-trip" {
 ///|
 test "ChecklistTask from fixed JSON" {
   let json = @json.parse(
-    #|{"id":3,"text":"Buy groceries","is_done":false}
+    (
+      #|{"id":3,"text":"Buy groceries","is_done":false}
+    ),
   )
   let task : ChecklistTask = @json.from_json(json)
   inspect(task.id, content="3")
@@ -72,7 +74,9 @@ test "ChecklistTask from fixed JSON" {
 ///|
 test "ChecklistTask from fixed JSON done" {
   let json = @json.parse(
-    #|{"id":7,"text":"Write tests","is_done":true}
+    (
+      #|{"id":7,"text":"Write tests","is_done":true}
+    ),
   )
   let task : ChecklistTask = @json.from_json(json)
   inspect(task.id, content="7")
@@ -83,7 +87,9 @@ test "ChecklistTask from fixed JSON done" {
 ///|
 test "Checklist from fixed JSON" {
   let json = @json.parse(
-    #|{"header":"Today's Tasks","tasks":[{"id":1,"text":"Review PR","is_done":true},{"id":2,"text":"Write docs","is_done":false}]}
+    (
+      #|{"header":"Today's Tasks","tasks":[{"id":1,"text":"Review PR","is_done":true},{"id":2,"text":"Write docs","is_done":false}]}
+    ),
   )
   let checklist : Checklist = @json.from_json(json)
   inspect(checklist.header, content="Today's Tasks")
@@ -99,7 +105,9 @@ test "Checklist from fixed JSON" {
 ///|
 test "InputChecklistTask from fixed JSON" {
   let json = @json.parse(
-    #|{"text":"Pick up package"}
+    (
+      #|{"text":"Pick up package"}
+    ),
   )
   let task : InputChecklistTask = @json.from_json(json)
   inspect(task.text, content="Pick up package")
@@ -108,7 +116,9 @@ test "InputChecklistTask from fixed JSON" {
 ///|
 test "InputChecklist from fixed JSON" {
   let json = @json.parse(
-    #|{"header":"Weekend Errands","tasks":[{"text":"Grocery shopping"},{"text":"Bank transfer"}]}
+    (
+      #|{"header":"Weekend Errands","tasks":[{"text":"Grocery shopping"},{"text":"Bank transfer"}]}
+    ),
   )
   let checklist : InputChecklist = @json.from_json(json)
   inspect(checklist.header, content="Weekend Errands")
@@ -120,7 +130,9 @@ test "InputChecklist from fixed JSON" {
 ///|
 test "ChecklistTasksDone from fixed JSON" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let _parsed : ChecklistTasksDone = @json.from_json(json)
 }
@@ -128,7 +140,9 @@ test "ChecklistTasksDone from fixed JSON" {
 ///|
 test "ChecklistTasksAdded from fixed JSON" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let _parsed : ChecklistTasksAdded = @json.from_json(json)
 }

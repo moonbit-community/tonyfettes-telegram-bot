@@ -42,7 +42,9 @@ test "GiftInfo ToJson and FromJson with user" {
 ///|
 test "GiftInfo from fixed JSON without from" {
   let json = @json.parse(
-    #|{"gift":{"id":"fixed_gift_001","sticker":{"file_id":"FixedStickerFid","file_unique_id":"FixedStickerUid","width":512,"height":512},"star_count":75}}
+    (
+      #|{"gift":{"id":"fixed_gift_001","sticker":{"file_id":"FixedStickerFid","file_unique_id":"FixedStickerUid","width":512,"height":512},"star_count":75}}
+    ),
   )
   let info : GiftInfo = @json.from_json(json)
   inspect(info.gift.id, content="fixed_gift_001")
@@ -54,7 +56,9 @@ test "GiftInfo from fixed JSON without from" {
 ///|
 test "GiftInfo from fixed JSON with from user" {
   let json = @json.parse(
-    #|{"gift":{"id":"fixed_gift_002","sticker":{"file_id":"StickerFid002","file_unique_id":"StickerUid002","width":256,"height":256},"star_count":300,"total_count":500},"from":{"id":987654321,"is_bot":false,"first_name":"Carol","last_name":"Smith"}}
+    (
+      #|{"gift":{"id":"fixed_gift_002","sticker":{"file_id":"StickerFid002","file_unique_id":"StickerUid002","width":256,"height":256},"star_count":300,"total_count":500},"from":{"id":987654321,"is_bot":false,"first_name":"Carol","last_name":"Smith"}}
+    ),
   )
   let info : GiftInfo = @json.from_json(json)
   inspect(info.gift.id, content="fixed_gift_002")

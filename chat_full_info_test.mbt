@@ -226,7 +226,9 @@ test "ChatFullInfo with available_reactions JSON round-trip" {
 ///|
 test "Birthdate from fixed JSON with year" {
   let json = @json.parse(
-    #|{"day":14,"month":2,"year":1995}
+    (
+      #|{"day":14,"month":2,"year":1995}
+    ),
   )
   let bd : Birthdate = @json.from_json(json)
   inspect(bd.day, content="14")
@@ -237,7 +239,9 @@ test "Birthdate from fixed JSON with year" {
 ///|
 test "Birthdate from fixed JSON without year" {
   let json = @json.parse(
-    #|{"day":31,"month":10}
+    (
+      #|{"day":31,"month":10}
+    ),
   )
   let bd : Birthdate = @json.from_json(json)
   inspect(bd.day, content="31")
@@ -248,7 +252,9 @@ test "Birthdate from fixed JSON without year" {
 ///|
 test "ChatLocation from fixed JSON" {
   let json = @json.parse(
-    #|{"location":{"latitude":55.7558,"longitude":37.6176},"address":"Moscow, Russia"}
+    (
+      #|{"location":{"latitude":55.7558,"longitude":37.6176},"address":"Moscow, Russia"}
+    ),
   )
   let loc : ChatLocation = @json.from_json(json)
   inspect(loc.address, content="Moscow, Russia")
@@ -259,7 +265,9 @@ test "ChatLocation from fixed JSON" {
 ///|
 test "ReactionType::Emoji from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"emoji","emoji":"👍"}
+    (
+      #|{"type":"emoji","emoji":"👍"}
+    ),
   )
   let reaction : ReactionType = @json.from_json(json)
   guard reaction is Emoji(e) else { fail("Expected Emoji") }
@@ -269,7 +277,9 @@ test "ReactionType::Emoji from fixed JSON" {
 ///|
 test "ReactionType::CustomEmoji from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"custom_emoji","custom_emoji_id":"5368324170671202286"}
+    (
+      #|{"type":"custom_emoji","custom_emoji_id":"5368324170671202286"}
+    ),
   )
   let reaction : ReactionType = @json.from_json(json)
   guard reaction is CustomEmoji(ce) else { fail("Expected CustomEmoji") }
@@ -279,7 +289,9 @@ test "ReactionType::CustomEmoji from fixed JSON" {
 ///|
 test "ChatFullInfo from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"id":123456789,"type":"private","accent_color_id":1,"max_reaction_count":11}
+    (
+      #|{"id":123456789,"type":"private","accent_color_id":1,"max_reaction_count":11}
+    ),
   )
   let info : ChatFullInfo = @json.from_json(json)
   inspect(info.id, content="123456789")
@@ -293,7 +305,9 @@ test "ChatFullInfo from fixed JSON minimal" {
 ///|
 test "ChatFullInfo from fixed JSON supergroup with optional fields" {
   let json = @json.parse(
-    #|{"id":-1001234567890,"type":"supergroup","accent_color_id":5,"max_reaction_count":20,"title":"Dev Chat","username":"devchat","is_forum":true,"description":"A developer group","slow_mode_delay":10,"has_protected_content":false,"linked_chat_id":-1009876543210}
+    (
+      #|{"id":-1001234567890,"type":"supergroup","accent_color_id":5,"max_reaction_count":20,"title":"Dev Chat","username":"devchat","is_forum":true,"description":"A developer group","slow_mode_delay":10,"has_protected_content":false,"linked_chat_id":-1009876543210}
+    ),
   )
   let info : ChatFullInfo = @json.from_json(json)
   inspect(info.id, content="-1001234567890")
@@ -310,7 +324,9 @@ test "ChatFullInfo from fixed JSON supergroup with optional fields" {
 ///|
 test "ChatFullInfo from fixed JSON private with birthdate" {
   let json = @json.parse(
-    #|{"id":42,"type":"private","accent_color_id":0,"max_reaction_count":5,"first_name":"Jane","last_name":"Smith","birthdate":{"day":8,"month":3},"bio":"Just a developer"}
+    (
+      #|{"id":42,"type":"private","accent_color_id":0,"max_reaction_count":5,"first_name":"Jane","last_name":"Smith","birthdate":{"day":8,"month":3},"bio":"Just a developer"}
+    ),
   )
   let info : ChatFullInfo = @json.from_json(json)
   inspect(info.id, content="42")
@@ -326,7 +342,9 @@ test "ChatFullInfo from fixed JSON private with birthdate" {
 ///|
 test "ChatFullInfo from fixed JSON with available_reactions" {
   let json = @json.parse(
-    #|{"id":7777,"type":"group","accent_color_id":2,"max_reaction_count":8,"title":"Fun Group","available_reactions":[{"type":"emoji","emoji":"❤"},{"type":"custom_emoji","custom_emoji_id":"custom_id_999"}]}
+    (
+      #|{"id":7777,"type":"group","accent_color_id":2,"max_reaction_count":8,"title":"Fun Group","available_reactions":[{"type":"emoji","emoji":"❤"},{"type":"custom_emoji","custom_emoji_id":"custom_id_999"}]}
+    ),
   )
   let info : ChatFullInfo = @json.from_json(json)
   inspect(info.id, content="7777")
@@ -346,7 +364,9 @@ test "ChatFullInfo from fixed JSON with available_reactions" {
 ///|
 test "ChatFullInfo from fixed JSON channel with location" {
   let json = @json.parse(
-    #|{"id":-1007654321,"type":"channel","accent_color_id":3,"max_reaction_count":3,"title":"Local News","location":{"location":{"latitude":40.7128,"longitude":-74.006},"address":"New York, USA"}}
+    (
+      #|{"id":-1007654321,"type":"channel","accent_color_id":3,"max_reaction_count":3,"title":"Local News","location":{"location":{"latitude":40.7128,"longitude":-74.006},"address":"New York, USA"}}
+    ),
   )
   let info : ChatFullInfo = @json.from_json(json)
   inspect(info.id, content="-1007654321")

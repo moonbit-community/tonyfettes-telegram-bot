@@ -58,7 +58,9 @@ test "Video JSON round-trip without optionals" {
 ///|
 test "Video from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1920,"height":1080,"duration":120,"file_name":"video.mp4","mime_type":"video/mp4","file_size":15000000}
+    (
+      #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1920,"height":1080,"duration":120,"file_name":"video.mp4","mime_type":"video/mp4","file_size":15000000}
+    ),
   )
   let video : Video = @json.from_json(json)
   inspect(video.file_id, content="BAACAgIAAxkBAAI")
@@ -77,7 +79,9 @@ test "Video from fixed JSON" {
 ///|
 test "Video from fixed JSON with thumbnail" {
   let json = @json.parse(
-    #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1280,"height":720,"duration":60,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"start_timestamp":5}
+    (
+      #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1280,"height":720,"duration":60,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"start_timestamp":5}
+    ),
   )
   let video : Video = @json.from_json(json)
   inspect(video.file_id, content="BAACAgIAAxkBAAI")

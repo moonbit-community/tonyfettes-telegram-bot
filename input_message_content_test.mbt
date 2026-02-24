@@ -331,7 +331,9 @@ test "InputMessageContent Invoice JSON round-trip" {
 ///|
 test "InputMessageContent::Text from fixed JSON" {
   let json = @json.parse(
-    #|{"message_text":"Hello from Telegram!","parse_mode":"HTML"}
+    (
+      #|{"message_text":"Hello from Telegram!","parse_mode":"HTML"}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Text(v) else { fail("Expected Text") }
@@ -343,7 +345,9 @@ test "InputMessageContent::Text from fixed JSON" {
 ///|
 test "InputMessageContent::Text from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"message_text":"Simple text"}
+    (
+      #|{"message_text":"Simple text"}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Text(v) else { fail("Expected Text") }
@@ -355,7 +359,9 @@ test "InputMessageContent::Text from fixed JSON minimal" {
 ///|
 test "InputMessageContent::Location from fixed JSON" {
   let json = @json.parse(
-    #|{"latitude":51.5074,"longitude":-0.1278,"live_period":3600}
+    (
+      #|{"latitude":51.5074,"longitude":-0.1278,"live_period":3600}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Location(v) else { fail("Expected Location") }
@@ -368,7 +374,9 @@ test "InputMessageContent::Location from fixed JSON" {
 ///|
 test "InputMessageContent::Venue from fixed JSON" {
   let json = @json.parse(
-    #|{"latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, 5 Avenue Anatole France","foursquare_id":"foursq123"}
+    (
+      #|{"latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, 5 Avenue Anatole France","foursquare_id":"foursq123"}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Venue(v) else { fail("Expected Venue") }
@@ -382,7 +390,9 @@ test "InputMessageContent::Venue from fixed JSON" {
 ///|
 test "InputMessageContent::Contact from fixed JSON" {
   let json = @json.parse(
-    #|{"phone_number":"+79161234567","first_name":"Ivan","last_name":"Petrov"}
+    (
+      #|{"phone_number":"+79161234567","first_name":"Ivan","last_name":"Petrov"}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Contact(v) else { fail("Expected Contact") }
@@ -395,7 +405,9 @@ test "InputMessageContent::Contact from fixed JSON" {
 ///|
 test "InputMessageContent::Invoice from fixed JSON" {
   let json = @json.parse(
-    #|{"title":"Gold Plan","description":"Gold subscription plan","payload":"gold_plan_payload","currency":"USD","prices":[{"label":"Monthly fee","amount":999}],"need_name":true}
+    (
+      #|{"title":"Gold Plan","description":"Gold subscription plan","payload":"gold_plan_payload","currency":"USD","prices":[{"label":"Monthly fee","amount":999}],"need_name":true}
+    ),
   )
   let content : InputMessageContent = @json.from_json(json)
   guard content is Invoice(v) else { fail("Expected Invoice") }

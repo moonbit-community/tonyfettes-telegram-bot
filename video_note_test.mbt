@@ -41,7 +41,9 @@ test "VideoNote JSON round-trip without optionals" {
 ///|
 test "VideoNote from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"DQACAgIAAxkBAAI","file_unique_id":"AQADAgATvnote","length":240,"duration":30,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_size":500000}
+    (
+      #|{"file_id":"DQACAgIAAxkBAAI","file_unique_id":"AQADAgATvnote","length":240,"duration":30,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_size":500000}
+    ),
   )
   let video_note : VideoNote = @json.from_json(json)
   inspect(video_note.file_id, content="DQACAgIAAxkBAAI")
@@ -54,7 +56,9 @@ test "VideoNote from fixed JSON" {
 ///|
 test "VideoNote from fixed JSON without optionals" {
   let json = @json.parse(
-    #|{"file_id":"DQACAgIAAxkBAAI","file_unique_id":"AQADAgATvnote","length":240,"duration":30}
+    (
+      #|{"file_id":"DQACAgIAAxkBAAI","file_unique_id":"AQADAgATvnote","length":240,"duration":30}
+    ),
   )
   let video_note : VideoNote = @json.from_json(json)
   inspect(video_note.file_id, content="DQACAgIAAxkBAAI")

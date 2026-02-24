@@ -10,7 +10,9 @@ test "BotCommand JSON round-trip" {
 ///|
 test "BotCommand from fixed JSON" {
   let json = @json.parse(
-    #|{"command":"start","description":"Start the bot"}
+    (
+      #|{"command":"start","description":"Start the bot"}
+    ),
   )
   let cmd : BotCommand = @json.from_json(json)
   inspect(cmd.command, content="start")
@@ -20,7 +22,9 @@ test "BotCommand from fixed JSON" {
 ///|
 test "BotCommand from fixed JSON help command" {
   let json = @json.parse(
-    #|{"command":"help","description":"Show help information"}
+    (
+      #|{"command":"help","description":"Show help information"}
+    ),
   )
   let cmd : BotCommand = @json.from_json(json)
   inspect(cmd.command, content="help")

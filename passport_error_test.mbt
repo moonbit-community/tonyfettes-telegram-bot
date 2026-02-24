@@ -170,7 +170,9 @@ test "PassportElementErrorUnspecified JSON round-trip" {
 ///|
 test "PassportElementError::DataField from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"data","type":"passport","field_name":"surname","data_hash":"abc123hash","message":"Bad surname data"}
+    (
+      #|{"source":"data","type":"passport","field_name":"surname","data_hash":"abc123hash","message":"Bad surname data"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is DataField(v) else { fail("Expected DataField") }
@@ -183,7 +185,9 @@ test "PassportElementError::DataField from fixed JSON" {
 ///|
 test "PassportElementError::FrontSide from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"front_side","type":"driver_license","file_hash":"fronthash","message":"Front side blurry"}
+    (
+      #|{"source":"front_side","type":"driver_license","file_hash":"fronthash","message":"Front side blurry"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is FrontSide(v) else { fail("Expected FrontSide") }
@@ -195,7 +199,9 @@ test "PassportElementError::FrontSide from fixed JSON" {
 ///|
 test "PassportElementError::ReverseSide from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"reverse_side","type":"identity_card","file_hash":"reversehash","message":"Reverse side expired"}
+    (
+      #|{"source":"reverse_side","type":"identity_card","file_hash":"reversehash","message":"Reverse side expired"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is ReverseSide(v) else { fail("Expected ReverseSide") }
@@ -207,7 +213,9 @@ test "PassportElementError::ReverseSide from fixed JSON" {
 ///|
 test "PassportElementError::Selfie from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"selfie","type":"passport","file_hash":"selfiehash","message":"No face visible"}
+    (
+      #|{"source":"selfie","type":"passport","file_hash":"selfiehash","message":"No face visible"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is Selfie(v) else { fail("Expected Selfie") }
@@ -219,7 +227,9 @@ test "PassportElementError::Selfie from fixed JSON" {
 ///|
 test "PassportElementError::File from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"file","type":"utility_bill","file_hash":"filehash","message":"File is corrupted"}
+    (
+      #|{"source":"file","type":"utility_bill","file_hash":"filehash","message":"File is corrupted"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is File(v) else { fail("Expected File") }
@@ -231,7 +241,9 @@ test "PassportElementError::File from fixed JSON" {
 ///|
 test "PassportElementError::Files from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"files","type":"bank_statement","file_hashes":["h1","h2"],"message":"Some files invalid"}
+    (
+      #|{"source":"files","type":"bank_statement","file_hashes":["h1","h2"],"message":"Some files invalid"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is Files(v) else { fail("Expected Files") }
@@ -243,7 +255,9 @@ test "PassportElementError::Files from fixed JSON" {
 ///|
 test "PassportElementError::TranslationFile from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"translation_file","type":"passport","file_hash":"transhash","message":"Translation unclear"}
+    (
+      #|{"source":"translation_file","type":"passport","file_hash":"transhash","message":"Translation unclear"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is TranslationFile(v) else { fail("Expected TranslationFile") }
@@ -255,7 +269,9 @@ test "PassportElementError::TranslationFile from fixed JSON" {
 ///|
 test "PassportElementError::TranslationFiles from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"translation_files","type":"driver_license","file_hashes":["t1","t2","t3"],"message":"Multiple translations invalid"}
+    (
+      #|{"source":"translation_files","type":"driver_license","file_hashes":["t1","t2","t3"],"message":"Multiple translations invalid"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is TranslationFiles(v) else { fail("Expected TranslationFiles") }
@@ -267,7 +283,9 @@ test "PassportElementError::TranslationFiles from fixed JSON" {
 ///|
 test "PassportElementError::Unspecified from fixed JSON" {
   let json = @json.parse(
-    #|{"source":"unspecified","type":"personal_details","element_hash":"elemhash","message":"Element has error"}
+    (
+      #|{"source":"unspecified","type":"personal_details","element_hash":"elemhash","message":"Element has error"}
+    ),
   )
   let error : PassportElementError = @json.from_json(json)
   guard error is Unspecified(v) else { fail("Expected Unspecified") }

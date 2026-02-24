@@ -39,7 +39,9 @@ test "CallbackQuery without message JSON round-trip" {
 ///|
 test "CallbackQuery from fixed JSON with data" {
   let json = @json.parse(
-    #|{"id":"abc123","from":{"id":123,"is_bot":false,"first_name":"John"},"chat_instance":"xyz789","data":"button_data"}
+    (
+      #|{"id":"abc123","from":{"id":123,"is_bot":false,"first_name":"John"},"chat_instance":"xyz789","data":"button_data"}
+    ),
   )
   let cq : CallbackQuery = @json.from_json(json)
   inspect(cq.id, content="abc123")
@@ -55,7 +57,9 @@ test "CallbackQuery from fixed JSON with data" {
 ///|
 test "CallbackQuery from fixed JSON with inline_message_id" {
   let json = @json.parse(
-    #|{"id":"cq_inline_01","from":{"id":55667788,"is_bot":false,"first_name":"Eve","username":"eve99"},"inline_message_id":"inline_msg_xyz","chat_instance":"chat_inst_001"}
+    (
+      #|{"id":"cq_inline_01","from":{"id":55667788,"is_bot":false,"first_name":"Eve","username":"eve99"},"inline_message_id":"inline_msg_xyz","chat_instance":"chat_inst_001"}
+    ),
   )
   let cq : CallbackQuery = @json.from_json(json)
   inspect(cq.id, content="cq_inline_01")
@@ -69,7 +73,9 @@ test "CallbackQuery from fixed JSON with inline_message_id" {
 ///|
 test "CallbackQuery from fixed JSON with message" {
   let json = @json.parse(
-    #|{"id":"cq_msg_01","from":{"id":11223344,"is_bot":false,"first_name":"Dave"},"chat_instance":"inst_abc","message":{"message_id":42,"date":1700000000,"chat":{"id":99887766,"type":"private"}},"data":"confirm"}
+    (
+      #|{"id":"cq_msg_01","from":{"id":11223344,"is_bot":false,"first_name":"Dave"},"chat_instance":"inst_abc","message":{"message_id":42,"date":1700000000,"chat":{"id":99887766,"type":"private"}},"data":"confirm"}
+    ),
   )
   let cq : CallbackQuery = @json.from_json(json)
   inspect(cq.id, content="cq_msg_01")

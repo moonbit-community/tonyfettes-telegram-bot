@@ -144,7 +144,9 @@ test "GiveawayCompleted JSON round-trip minimal" {
 ///|
 test "GiveawayCreated from fixed JSON with prize_star_count" {
   let json = @json.parse(
-    #|{"prize_star_count":500}
+    (
+      #|{"prize_star_count":500}
+    ),
   )
   let created : GiveawayCreated = @json.from_json(json)
   inspect(created.prize_star_count, content="Some(500)")
@@ -153,7 +155,9 @@ test "GiveawayCreated from fixed JSON with prize_star_count" {
 ///|
 test "GiveawayCreated from fixed JSON without prize_star_count" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let created : GiveawayCreated = @json.from_json(json)
   inspect(created.prize_star_count, content="None")
@@ -162,7 +166,9 @@ test "GiveawayCreated from fixed JSON without prize_star_count" {
 ///|
 test "Giveaway from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"chats":[{"id":123456,"type":"channel","title":"My Channel"}],"winners_selection_date":1750000000,"winner_count":3}
+    (
+      #|{"chats":[{"id":123456,"type":"channel","title":"My Channel"}],"winners_selection_date":1750000000,"winner_count":3}
+    ),
   )
   let giveaway : Giveaway = @json.from_json(json)
   inspect(giveaway.chats.length(), content="1")
@@ -178,7 +184,9 @@ test "Giveaway from fixed JSON minimal" {
 ///|
 test "Giveaway from fixed JSON with all optional fields" {
   let json = @json.parse(
-    #|{"chats":[{"id":777888,"type":"supergroup"}],"winners_selection_date":1760000000,"winner_count":10,"only_new_members":true,"has_public_winners":false,"prize_description":"1 month premium","country_codes":["US","CA","GB"],"prize_star_count":250,"premium_subscription_month_count":1}
+    (
+      #|{"chats":[{"id":777888,"type":"supergroup"}],"winners_selection_date":1760000000,"winner_count":10,"only_new_members":true,"has_public_winners":false,"prize_description":"1 month premium","country_codes":["US","CA","GB"],"prize_star_count":250,"premium_subscription_month_count":1}
+    ),
   )
   let giveaway : Giveaway = @json.from_json(json)
   inspect(giveaway.winner_count, content="10")
@@ -197,7 +205,9 @@ test "Giveaway from fixed JSON with all optional fields" {
 ///|
 test "GiveawayWinners from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"chat":{"id":555444,"type":"channel"},"giveaway_message_id":2001,"winners_selection_date":1750000000,"winner_count":2,"winners":[{"id":100001,"is_bot":false,"first_name":"Tom"},{"id":100002,"is_bot":false,"first_name":"Jerry"}]}
+    (
+      #|{"chat":{"id":555444,"type":"channel"},"giveaway_message_id":2001,"winners_selection_date":1750000000,"winner_count":2,"winners":[{"id":100001,"is_bot":false,"first_name":"Tom"},{"id":100002,"is_bot":false,"first_name":"Jerry"}]}
+    ),
   )
   let winners : GiveawayWinners = @json.from_json(json)
   inspect(winners.chat.id, content="555444")
@@ -213,7 +223,9 @@ test "GiveawayWinners from fixed JSON minimal" {
 ///|
 test "GiveawayWinners from fixed JSON with optional fields" {
   let json = @json.parse(
-    #|{"chat":{"id":999111,"type":"channel","title":"Big Giveaway"},"giveaway_message_id":3001,"winners_selection_date":1760000000,"winner_count":5,"winners":[{"id":200001,"is_bot":false,"first_name":"Alice"}],"additional_chat_count":1,"prize_star_count":1000,"unclaimed_prize_count":2,"only_new_members":true,"was_refunded":false,"prize_description":"Special prize"}
+    (
+      #|{"chat":{"id":999111,"type":"channel","title":"Big Giveaway"},"giveaway_message_id":3001,"winners_selection_date":1760000000,"winner_count":5,"winners":[{"id":200001,"is_bot":false,"first_name":"Alice"}],"additional_chat_count":1,"prize_star_count":1000,"unclaimed_prize_count":2,"only_new_members":true,"was_refunded":false,"prize_description":"Special prize"}
+    ),
   )
   let winners : GiveawayWinners = @json.from_json(json)
   inspect(winners.chat.title, content="Some(\"Big Giveaway\")")
@@ -228,7 +240,9 @@ test "GiveawayWinners from fixed JSON with optional fields" {
 ///|
 test "GiveawayCompleted from fixed JSON with optional fields" {
   let json = @json.parse(
-    #|{"winner_count":7,"unclaimed_prize_count":1,"is_star_giveaway":true,"giveaway_message":{"message_id":500,"date":1750000000,"chat":{"id":888777,"type":"channel"}}}
+    (
+      #|{"winner_count":7,"unclaimed_prize_count":1,"is_star_giveaway":true,"giveaway_message":{"message_id":500,"date":1750000000,"chat":{"id":888777,"type":"channel"}}}
+    ),
   )
   let completed : GiveawayCompleted = @json.from_json(json)
   inspect(completed.winner_count, content="7")
@@ -244,7 +258,9 @@ test "GiveawayCompleted from fixed JSON with optional fields" {
 ///|
 test "GiveawayCompleted from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"winner_count":15}
+    (
+      #|{"winner_count":15}
+    ),
   )
   let completed : GiveawayCompleted = @json.from_json(json)
   inspect(completed.winner_count, content="15")

@@ -66,7 +66,9 @@ test "TextQuote JSON round-trip minimal" {
 ///|
 test "LinkPreviewOptions from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"is_disabled":true,"url":"https://example.com","prefer_small_media":false,"prefer_large_media":true,"show_above_text":true}
+    (
+      #|{"is_disabled":true,"url":"https://example.com","prefer_small_media":false,"prefer_large_media":true,"show_above_text":true}
+    ),
   )
   let opts : LinkPreviewOptions = @json.from_json(json)
   inspect(opts.is_disabled, content="Some(true)")
@@ -79,7 +81,9 @@ test "LinkPreviewOptions from fixed JSON with all fields" {
 ///|
 test "LinkPreviewOptions from fixed JSON empty" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let opts : LinkPreviewOptions = @json.from_json(json)
   inspect(opts.is_disabled, content="None")
@@ -92,7 +96,9 @@ test "LinkPreviewOptions from fixed JSON empty" {
 ///|
 test "TextQuote from fixed JSON with entities and is_manual" {
   let json = @json.parse(
-    #|{"text":"Hello, world!","entities":[{"type":"bold","offset":0,"length":5},{"type":"italic","offset":7,"length":5}],"position":10,"is_manual":true}
+    (
+      #|{"text":"Hello, world!","entities":[{"type":"bold","offset":0,"length":5},{"type":"italic","offset":7,"length":5}],"position":10,"is_manual":true}
+    ),
   )
   let quote : TextQuote = @json.from_json(json)
   inspect(quote.text, content="Hello, world!")
@@ -109,7 +115,9 @@ test "TextQuote from fixed JSON with entities and is_manual" {
 ///|
 test "TextQuote from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"text":"Simple quote","position":5}
+    (
+      #|{"text":"Simple quote","position":5}
+    ),
   )
   let quote : TextQuote = @json.from_json(json)
   inspect(quote.text, content="Simple quote")

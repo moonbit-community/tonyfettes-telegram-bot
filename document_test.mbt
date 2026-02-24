@@ -39,7 +39,9 @@ test "Document JSON round-trip without optionals" {
 ///|
 test "Document from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc","thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_name":"document.pdf","mime_type":"application/pdf","file_size":1024000}
+    (
+      #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc","thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_name":"document.pdf","mime_type":"application/pdf","file_size":1024000}
+    ),
   )
   let document : Document = @json.from_json(json)
   inspect(document.file_id, content="BQACAgIAAxkBAAI")
@@ -52,7 +54,9 @@ test "Document from fixed JSON" {
 ///|
 test "Document from fixed JSON without optionals" {
   let json = @json.parse(
-    #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc"}
+    (
+      #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc"}
+    ),
   )
   let document : Document = @json.from_json(json)
   inspect(document.file_id, content="BQACAgIAAxkBAAI")

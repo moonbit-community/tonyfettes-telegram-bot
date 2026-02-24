@@ -94,7 +94,9 @@ test "Message with direct_messages_topic field" {
 ///|
 test "MessageEntity from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"bold","offset":0,"length":4}
+    (
+      #|{"type":"bold","offset":0,"length":4}
+    ),
   )
   let entity : MessageEntity = @json.from_json(json)
   inspect(entity.type_, content="bold")
@@ -108,7 +110,9 @@ test "MessageEntity from fixed JSON" {
 ///|
 test "MessageEntity with optional fields from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"text_link","offset":5,"length":10,"url":"https://example.com","language":"en"}
+    (
+      #|{"type":"text_link","offset":5,"length":10,"url":"https://example.com","language":"en"}
+    ),
   )
   let entity : MessageEntity = @json.from_json(json)
   inspect(entity.type_, content="text_link")
@@ -121,7 +125,9 @@ test "MessageEntity with optional fields from fixed JSON" {
 ///|
 test "Message from fixed JSON" {
   let json = @json.parse(
-    #|{"message_id":1,"date":1234567890,"chat":{"id":456,"type":"private"}}
+    (
+      #|{"message_id":1,"date":1234567890,"chat":{"id":456,"type":"private"}}
+    ),
   )
   let msg : Message = @json.from_json(json)
   inspect(msg.message_id, content="1")
@@ -136,7 +142,9 @@ test "Message from fixed JSON" {
 ///|
 test "Message with text and from from fixed JSON" {
   let json = @json.parse(
-    #|{"message_id":42,"date":1700000000,"chat":{"id":100,"type":"group","title":"My Group"},"from":{"id":999,"is_bot":false,"first_name":"Alice","username":"alice"},"text":"Hello world"}
+    (
+      #|{"message_id":42,"date":1700000000,"chat":{"id":100,"type":"group","title":"My Group"},"from":{"id":999,"is_bot":false,"first_name":"Alice","username":"alice"},"text":"Hello world"}
+    ),
   )
   let msg : Message = @json.from_json(json)
   inspect(msg.message_id, content="42")
@@ -156,7 +164,9 @@ test "Message with text and from from fixed JSON" {
 ///|
 test "Message with entities from fixed JSON" {
   let json = @json.parse(
-    #|{"message_id":7,"date":1700001000,"chat":{"id":200,"type":"private"},"text":"bold text","entities":[{"type":"bold","offset":0,"length":4}]}
+    (
+      #|{"message_id":7,"date":1700001000,"chat":{"id":200,"type":"private"},"text":"bold text","entities":[{"type":"bold","offset":0,"length":4}]}
+    ),
   )
   let msg : Message = @json.from_json(json)
   inspect(msg.message_id, content="7")

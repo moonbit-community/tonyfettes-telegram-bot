@@ -253,7 +253,9 @@ test "InlineQueryResultPhoto with caption_entities JSON round-trip" {
 ///|
 test "InlineQueryResultPhoto from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"photo","id":"ph1","photo_url":"https://example.com/img.jpg","thumbnail_url":"https://example.com/thumb.jpg","photo_width":1920,"photo_height":1080,"title":"Sunset","caption":"Beautiful sunset"}
+    (
+      #|{"type":"photo","id":"ph1","photo_url":"https://example.com/img.jpg","thumbnail_url":"https://example.com/thumb.jpg","photo_width":1920,"photo_height":1080,"title":"Sunset","caption":"Beautiful sunset"}
+    ),
   )
   let result : InlineQueryResultPhoto = @json.from_json(json)
   inspect(result.type_, content="photo")
@@ -271,7 +273,9 @@ test "InlineQueryResultPhoto from fixed JSON" {
 ///|
 test "InlineQueryResultPhoto minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"photo","id":"ph2","photo_url":"https://example.com/photo2.jpg","thumbnail_url":"https://example.com/t2.jpg"}
+    (
+      #|{"type":"photo","id":"ph2","photo_url":"https://example.com/photo2.jpg","thumbnail_url":"https://example.com/t2.jpg"}
+    ),
   )
   let result : InlineQueryResultPhoto = @json.from_json(json)
   inspect(result.type_, content="photo")
@@ -286,7 +290,9 @@ test "InlineQueryResultPhoto minimal from fixed JSON" {
 ///|
 test "InlineQueryResultGif from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"gif","id":"gif1","gif_url":"https://example.com/anim.gif","thumbnail_url":"https://example.com/t.jpg","gif_width":480,"gif_height":270,"gif_duration":3,"title":"Cool GIF"}
+    (
+      #|{"type":"gif","id":"gif1","gif_url":"https://example.com/anim.gif","thumbnail_url":"https://example.com/t.jpg","gif_width":480,"gif_height":270,"gif_duration":3,"title":"Cool GIF"}
+    ),
   )
   let result : InlineQueryResultGif = @json.from_json(json)
   inspect(result.type_, content="gif")
@@ -304,7 +310,9 @@ test "InlineQueryResultGif from fixed JSON" {
 ///|
 test "InlineQueryResultGif minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"gif","id":"gif2","gif_url":"https://example.com/simple.gif","thumbnail_url":"https://example.com/ts.jpg"}
+    (
+      #|{"type":"gif","id":"gif2","gif_url":"https://example.com/simple.gif","thumbnail_url":"https://example.com/ts.jpg"}
+    ),
   )
   let result : InlineQueryResultGif = @json.from_json(json)
   inspect(result.type_, content="gif")
@@ -318,7 +326,9 @@ test "InlineQueryResultGif minimal from fixed JSON" {
 ///|
 test "InlineQueryResultMpeg4Gif from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"mpeg4_gif","id":"mp4g1","mpeg4_url":"https://example.com/clip.mp4","thumbnail_url":"https://example.com/tc.jpg","mpeg4_width":640,"mpeg4_height":360,"mpeg4_duration":8,"thumbnail_mime_type":"image/jpeg","title":"MP4 Clip"}
+    (
+      #|{"type":"mpeg4_gif","id":"mp4g1","mpeg4_url":"https://example.com/clip.mp4","thumbnail_url":"https://example.com/tc.jpg","mpeg4_width":640,"mpeg4_height":360,"mpeg4_duration":8,"thumbnail_mime_type":"image/jpeg","title":"MP4 Clip"}
+    ),
   )
   let result : InlineQueryResultMpeg4Gif = @json.from_json(json)
   inspect(result.type_, content="mpeg4_gif")
@@ -336,7 +346,9 @@ test "InlineQueryResultMpeg4Gif from fixed JSON" {
 ///|
 test "InlineQueryResultMpeg4Gif minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"mpeg4_gif","id":"mp4g2","mpeg4_url":"https://example.com/minimal.mp4","thumbnail_url":"https://example.com/tm.jpg"}
+    (
+      #|{"type":"mpeg4_gif","id":"mp4g2","mpeg4_url":"https://example.com/minimal.mp4","thumbnail_url":"https://example.com/tm.jpg"}
+    ),
   )
   let result : InlineQueryResultMpeg4Gif = @json.from_json(json)
   inspect(result.type_, content="mpeg4_gif")
@@ -349,7 +361,9 @@ test "InlineQueryResultMpeg4Gif minimal from fixed JSON" {
 ///|
 test "InlineQueryResultVideo from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"video","id":"vid1","video_url":"https://example.com/movie.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tv.jpg","title":"Great Movie","video_width":1920,"video_height":1080,"video_duration":7200,"description":"An award-winning film"}
+    (
+      #|{"type":"video","id":"vid1","video_url":"https://example.com/movie.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tv.jpg","title":"Great Movie","video_width":1920,"video_height":1080,"video_duration":7200,"description":"An award-winning film"}
+    ),
   )
   let result : InlineQueryResultVideo = @json.from_json(json)
   inspect(result.type_, content="video")
@@ -369,7 +383,9 @@ test "InlineQueryResultVideo from fixed JSON" {
 ///|
 test "InlineQueryResultVideo minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"video","id":"vid2","video_url":"https://example.com/clip.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tc.jpg","title":"Short Clip"}
+    (
+      #|{"type":"video","id":"vid2","video_url":"https://example.com/clip.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tc.jpg","title":"Short Clip"}
+    ),
   )
   let result : InlineQueryResultVideo = @json.from_json(json)
   inspect(result.type_, content="video")

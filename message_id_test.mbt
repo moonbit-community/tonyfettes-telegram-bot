@@ -9,7 +9,9 @@ test "MessageId JSON round-trip" {
 ///|
 test "MessageId from fixed JSON" {
   let json = @json.parse(
-    #|{"message_id":42}
+    (
+      #|{"message_id":42}
+    ),
   )
   let msg_id : MessageId = @json.from_json(json)
   inspect(msg_id.message_id, content="42")
@@ -18,7 +20,9 @@ test "MessageId from fixed JSON" {
 ///|
 test "MessageId from fixed JSON large id" {
   let json = @json.parse(
-    #|{"message_id":9999999}
+    (
+      #|{"message_id":9999999}
+    ),
   )
   let msg_id : MessageId = @json.from_json(json)
   inspect(msg_id.message_id, content="9999999")

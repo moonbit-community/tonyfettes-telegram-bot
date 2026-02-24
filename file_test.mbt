@@ -27,7 +27,9 @@ test "File JSON round-trip without optionals" {
 ///|
 test "File from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgATfile","file_size":1024000,"file_path":"photos/file_0.jpg"}
+    (
+      #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgATfile","file_size":1024000,"file_path":"photos/file_0.jpg"}
+    ),
   )
   let file : File = @json.from_json(json)
   inspect(file.file_id, content="AgACAgIAAxkBAAI")
@@ -39,7 +41,9 @@ test "File from fixed JSON" {
 ///|
 test "File from fixed JSON without optionals" {
   let json = @json.parse(
-    #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgATfile"}
+    (
+      #|{"file_id":"AgACAgIAAxkBAAI","file_unique_id":"AQADAgATfile"}
+    ),
   )
   let file : File = @json.from_json(json)
   inspect(file.file_id, content="AgACAgIAAxkBAAI")

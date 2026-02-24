@@ -34,7 +34,9 @@ test "Contact JSON minimal" {
 ///|
 test "Contact from fixed JSON" {
   let json = @json.parse(
-    #|{"phone_number":"+1234567890","first_name":"John","last_name":"Doe","user_id":123456789}
+    (
+      #|{"phone_number":"+1234567890","first_name":"John","last_name":"Doe","user_id":123456789}
+    ),
   )
   let contact : Contact = @json.from_json(json)
   inspect(contact.phone_number, content="+1234567890")
@@ -47,7 +49,9 @@ test "Contact from fixed JSON" {
 ///|
 test "Contact from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"phone_number":"+9876543210","first_name":"Jane"}
+    (
+      #|{"phone_number":"+9876543210","first_name":"Jane"}
+    ),
   )
   let contact : Contact = @json.from_json(json)
   inspect(contact.phone_number, content="+9876543210")

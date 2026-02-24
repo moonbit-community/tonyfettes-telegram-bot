@@ -179,7 +179,9 @@ test "ExternalReplyInfo JSON round-trip with link_preview_options" {
 ///|
 test "ReplyParameters from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"message_id":42}
+    (
+      #|{"message_id":42}
+    ),
   )
   let params : ReplyParameters = @json.from_json(json)
   inspect(params.message_id, content="42")
@@ -194,7 +196,9 @@ test "ReplyParameters from fixed JSON minimal" {
 ///|
 test "ReplyParameters from fixed JSON with chat_id integer" {
   let json = @json.parse(
-    #|{"message_id":100,"chat_id":123456789,"allow_sending_without_reply":true}
+    (
+      #|{"message_id":100,"chat_id":123456789,"allow_sending_without_reply":true}
+    ),
   )
   let params : ReplyParameters = @json.from_json(json)
   inspect(params.message_id, content="100")
@@ -205,7 +209,9 @@ test "ReplyParameters from fixed JSON with chat_id integer" {
 ///|
 test "ReplyParameters from fixed JSON with chat_id username" {
   let json = @json.parse(
-    #|{"message_id":77,"chat_id":"@somechannel"}
+    (
+      #|{"message_id":77,"chat_id":"@somechannel"}
+    ),
   )
   let params : ReplyParameters = @json.from_json(json)
   inspect(params.message_id, content="77")
@@ -216,7 +222,9 @@ test "ReplyParameters from fixed JSON with chat_id username" {
 ///|
 test "ReplyParameters from fixed JSON with quote fields" {
   let json = @json.parse(
-    #|{"message_id":55,"quote":"Hello world","quote_parse_mode":"Markdown","quote_position":6}
+    (
+      #|{"message_id":55,"quote":"Hello world","quote_parse_mode":"Markdown","quote_position":6}
+    ),
   )
   let params : ReplyParameters = @json.from_json(json)
   inspect(params.message_id, content="55")
@@ -229,7 +237,9 @@ test "ReplyParameters from fixed JSON with quote fields" {
 ///|
 test "MessageOriginPlaceholder from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"channel","date":1700001234}
+    (
+      #|{"type":"channel","date":1700001234}
+    ),
   )
   let origin : MessageOriginPlaceholder = @json.from_json(json)
   inspect(origin.type_, content="channel")
@@ -239,7 +249,9 @@ test "MessageOriginPlaceholder from fixed JSON" {
 ///|
 test "LinkPreviewPlaceholder from fixed JSON with is_disabled" {
   let json = @json.parse(
-    #|{"is_disabled":true}
+    (
+      #|{"is_disabled":true}
+    ),
   )
   let preview : LinkPreviewPlaceholder = @json.from_json(json)
   inspect(preview.is_disabled, content="Some(true)")
@@ -248,7 +260,9 @@ test "LinkPreviewPlaceholder from fixed JSON with is_disabled" {
 ///|
 test "LinkPreviewPlaceholder from fixed JSON empty" {
   let json = @json.parse(
-    #|{}
+    (
+      #|{}
+    ),
   )
   let preview : LinkPreviewPlaceholder = @json.from_json(json)
   inspect(preview.is_disabled, content="None")
@@ -257,7 +271,9 @@ test "LinkPreviewPlaceholder from fixed JSON empty" {
 ///|
 test "GamePlaceholder from fixed JSON" {
   let json = @json.parse(
-    #|{"title":"Space Invaders","description":"Classic retro shooter game"}
+    (
+      #|{"title":"Space Invaders","description":"Classic retro shooter game"}
+    ),
   )
   let game : GamePlaceholder = @json.from_json(json)
   inspect(game.title, content="Space Invaders")
@@ -267,7 +283,9 @@ test "GamePlaceholder from fixed JSON" {
 ///|
 test "ExternalReplyInfo from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"origin":{"type":"user","date":1700000000}}
+    (
+      #|{"origin":{"type":"user","date":1700000000}}
+    ),
   )
   let info : ExternalReplyInfo = @json.from_json(json)
   inspect(info.origin.type_, content="user")
@@ -280,7 +298,9 @@ test "ExternalReplyInfo from fixed JSON minimal" {
 ///|
 test "ExternalReplyInfo from fixed JSON with message_id and has_media_spoiler" {
   let json = @json.parse(
-    #|{"origin":{"type":"channel","date":1710000000},"message_id":999,"has_media_spoiler":true}
+    (
+      #|{"origin":{"type":"channel","date":1710000000},"message_id":999,"has_media_spoiler":true}
+    ),
   )
   let info : ExternalReplyInfo = @json.from_json(json)
   inspect(info.origin.type_, content="channel")

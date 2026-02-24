@@ -207,7 +207,9 @@ test "PollAnswer JSON round-trip (with voter_chat)" {
 ///|
 test "PollOption from fixed JSON" {
   let json = @json.parse(
-    #|{"text":"Option A","voter_count":42}
+    (
+      #|{"text":"Option A","voter_count":42}
+    ),
   )
   let opt : PollOption = @json.from_json(json)
   inspect(opt.text, content="Option A")
@@ -218,7 +220,9 @@ test "PollOption from fixed JSON" {
 ///|
 test "PollOption from fixed JSON with text_entities" {
   let json = @json.parse(
-    #|{"text":"Bold text","voter_count":5,"text_entities":[{"type":"bold","offset":0,"length":4}]}
+    (
+      #|{"text":"Bold text","voter_count":5,"text_entities":[{"type":"bold","offset":0,"length":4}]}
+    ),
   )
   let opt : PollOption = @json.from_json(json)
   inspect(opt.text, content="Bold text")
@@ -235,7 +239,9 @@ test "PollOption from fixed JSON with text_entities" {
 ///|
 test "InputPollOption from fixed JSON" {
   let json = @json.parse(
-    #|{"text":"My option","text_parse_mode":"HTML"}
+    (
+      #|{"text":"My option","text_parse_mode":"HTML"}
+    ),
   )
   let opt : InputPollOption = @json.from_json(json)
   inspect(opt.text, content="My option")
@@ -246,7 +252,9 @@ test "InputPollOption from fixed JSON" {
 ///|
 test "InputPollOption from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"text":"Simple option"}
+    (
+      #|{"text":"Simple option"}
+    ),
   )
   let opt : InputPollOption = @json.from_json(json)
   inspect(opt.text, content="Simple option")
@@ -257,7 +265,9 @@ test "InputPollOption from fixed JSON minimal" {
 ///|
 test "Poll from fixed JSON (regular)" {
   let json = @json.parse(
-    #|{"id":"poll_abc","question":"Favorite color?","options":[{"text":"Red","voter_count":10},{"text":"Blue","voter_count":20}],"total_voter_count":30,"is_closed":false,"is_anonymous":true,"type":"regular","allows_multiple_answers":false}
+    (
+      #|{"id":"poll_abc","question":"Favorite color?","options":[{"text":"Red","voter_count":10},{"text":"Blue","voter_count":20}],"total_voter_count":30,"is_closed":false,"is_anonymous":true,"type":"regular","allows_multiple_answers":false}
+    ),
   )
   let poll : Poll = @json.from_json(json)
   inspect(poll.id, content="poll_abc")
@@ -279,7 +289,9 @@ test "Poll from fixed JSON (regular)" {
 ///|
 test "Poll from fixed JSON (quiz with optional fields)" {
   let json = @json.parse(
-    #|{"id":"quiz_xyz","question":"Capital of Japan?","options":[{"text":"Tokyo","voter_count":50},{"text":"Osaka","voter_count":5}],"total_voter_count":55,"is_closed":false,"is_anonymous":false,"type":"quiz","allows_multiple_answers":false,"correct_option_id":0,"explanation":"Tokyo is the capital.","open_period":600}
+    (
+      #|{"id":"quiz_xyz","question":"Capital of Japan?","options":[{"text":"Tokyo","voter_count":50},{"text":"Osaka","voter_count":5}],"total_voter_count":55,"is_closed":false,"is_anonymous":false,"type":"quiz","allows_multiple_answers":false,"correct_option_id":0,"explanation":"Tokyo is the capital.","open_period":600}
+    ),
   )
   let poll : Poll = @json.from_json(json)
   inspect(poll.id, content="quiz_xyz")
@@ -296,7 +308,9 @@ test "Poll from fixed JSON (quiz with optional fields)" {
 ///|
 test "PollAnswer from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"poll_id":"poll123","option_ids":[0,2]}
+    (
+      #|{"poll_id":"poll123","option_ids":[0,2]}
+    ),
   )
   let answer : PollAnswer = @json.from_json(json)
   inspect(answer.poll_id, content="poll123")
@@ -308,7 +322,9 @@ test "PollAnswer from fixed JSON minimal" {
 ///|
 test "PollAnswer from fixed JSON with user" {
   let json = @json.parse(
-    #|{"poll_id":"poll456","option_ids":[1],"user":{"id":99887766,"is_bot":false,"first_name":"Alice","username":"alice99"}}
+    (
+      #|{"poll_id":"poll456","option_ids":[1],"user":{"id":99887766,"is_bot":false,"first_name":"Alice","username":"alice99"}}
+    ),
   )
   let answer : PollAnswer = @json.from_json(json)
   inspect(answer.poll_id, content="poll456")

@@ -278,7 +278,9 @@ test "InlineQueryResultDocument JSON round-trip without optionals" {
 ///|
 test "InlineQueryResultAudio from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"audio","id":"aud1","audio_url":"https://example.com/song.mp3","title":"My Song","performer":"The Band","audio_duration":240}
+    (
+      #|{"type":"audio","id":"aud1","audio_url":"https://example.com/song.mp3","title":"My Song","performer":"The Band","audio_duration":240}
+    ),
   )
   let result : InlineQueryResultAudio = @json.from_json(json)
   inspect(result.type_, content="audio")
@@ -294,7 +296,9 @@ test "InlineQueryResultAudio from fixed JSON" {
 ///|
 test "InlineQueryResultAudio minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"audio","id":"aud2","audio_url":"https://example.com/track.mp3","title":"Track"}
+    (
+      #|{"type":"audio","id":"aud2","audio_url":"https://example.com/track.mp3","title":"Track"}
+    ),
   )
   let result : InlineQueryResultAudio = @json.from_json(json)
   inspect(result.type_, content="audio")
@@ -308,7 +312,9 @@ test "InlineQueryResultAudio minimal from fixed JSON" {
 ///|
 test "InlineQueryResultVoice from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"voice","id":"voi1","voice_url":"https://example.com/voice.ogg","title":"Voice Memo","caption":"Important note","voice_duration":45}
+    (
+      #|{"type":"voice","id":"voi1","voice_url":"https://example.com/voice.ogg","title":"Voice Memo","caption":"Important note","voice_duration":45}
+    ),
   )
   let result : InlineQueryResultVoice = @json.from_json(json)
   inspect(result.type_, content="voice")
@@ -324,7 +330,9 @@ test "InlineQueryResultVoice from fixed JSON" {
 ///|
 test "InlineQueryResultVoice minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"voice","id":"voi2","voice_url":"https://example.com/brief.ogg","title":"Brief"}
+    (
+      #|{"type":"voice","id":"voi2","voice_url":"https://example.com/brief.ogg","title":"Brief"}
+    ),
   )
   let result : InlineQueryResultVoice = @json.from_json(json)
   inspect(result.type_, content="voice")
@@ -337,7 +345,9 @@ test "InlineQueryResultVoice minimal from fixed JSON" {
 ///|
 test "InlineQueryResultDocument from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"document","id":"doc1","title":"Contract","document_url":"https://example.com/contract.pdf","mime_type":"application/pdf","description":"Legal contract","thumbnail_url":"https://example.com/doc-thumb.jpg","thumbnail_width":80,"thumbnail_height":100}
+    (
+      #|{"type":"document","id":"doc1","title":"Contract","document_url":"https://example.com/contract.pdf","mime_type":"application/pdf","description":"Legal contract","thumbnail_url":"https://example.com/doc-thumb.jpg","thumbnail_width":80,"thumbnail_height":100}
+    ),
   )
   let result : InlineQueryResultDocument = @json.from_json(json)
   inspect(result.type_, content="document")
@@ -346,7 +356,10 @@ test "InlineQueryResultDocument from fixed JSON" {
   inspect(result.document_url, content="https://example.com/contract.pdf")
   inspect(result.mime_type, content="application/pdf")
   inspect(result.description, content="Some(\"Legal contract\")")
-  inspect(result.thumbnail_url, content="Some(\"https://example.com/doc-thumb.jpg\")")
+  inspect(
+    result.thumbnail_url,
+    content="Some(\"https://example.com/doc-thumb.jpg\")",
+  )
   inspect(result.thumbnail_width, content="Some(80)")
   inspect(result.thumbnail_height, content="Some(100)")
   inspect(result.caption, content="None")
@@ -355,7 +368,9 @@ test "InlineQueryResultDocument from fixed JSON" {
 ///|
 test "InlineQueryResultDocument minimal from fixed JSON" {
   let json = @json.parse(
-    #|{"type":"document","id":"doc2","title":"Report","document_url":"https://example.com/report.pdf","mime_type":"application/pdf"}
+    (
+      #|{"type":"document","id":"doc2","title":"Report","document_url":"https://example.com/report.pdf","mime_type":"application/pdf"}
+    ),
   )
   let result : InlineQueryResultDocument = @json.from_json(json)
   inspect(result.type_, content="document")

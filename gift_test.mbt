@@ -233,7 +233,9 @@ test "Gift with all new fields JSON round-trip" {
 ///|
 test "StickerPlaceholder from fixed JSON" {
   let json = @json.parse(
-    #|{"file_id":"CAACAgIAAxkBAAI","file_unique_id":"AgADXQADIyqpSw","width":512,"height":512}
+    (
+      #|{"file_id":"CAACAgIAAxkBAAI","file_unique_id":"AgADXQADIyqpSw","width":512,"height":512}
+    ),
   )
   let sp : StickerPlaceholder = @json.from_json(json)
   inspect(sp.file_id, content="CAACAgIAAxkBAAI")
@@ -245,7 +247,9 @@ test "StickerPlaceholder from fixed JSON" {
 ///|
 test "Gift from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"id":"gift_minimal_01","sticker":{"file_id":"StickerFileId","file_unique_id":"StickerUniqId","width":256,"height":256},"star_count":50}
+    (
+      #|{"id":"gift_minimal_01","sticker":{"file_id":"StickerFileId","file_unique_id":"StickerUniqId","width":256,"height":256},"star_count":50}
+    ),
   )
   let gift : Gift = @json.from_json(json)
   inspect(gift.id, content="gift_minimal_01")
@@ -260,7 +264,9 @@ test "Gift from fixed JSON minimal" {
 ///|
 test "Gift from fixed JSON with optional fields" {
   let json = @json.parse(
-    #|{"id":"gift_opt_02","sticker":{"file_id":"StickerFid2","file_unique_id":"StickerUid2","width":128,"height":128},"star_count":200,"total_count":1000,"remaining_count":750,"is_premium":true,"gifts_from_channels":false,"has_colors":true}
+    (
+      #|{"id":"gift_opt_02","sticker":{"file_id":"StickerFid2","file_unique_id":"StickerUid2","width":128,"height":128},"star_count":200,"total_count":1000,"remaining_count":750,"is_premium":true,"gifts_from_channels":false,"has_colors":true}
+    ),
   )
   let gift : Gift = @json.from_json(json)
   inspect(gift.id, content="gift_opt_02")
@@ -276,7 +282,9 @@ test "Gift from fixed JSON with optional fields" {
 ///|
 test "Gifts from fixed JSON" {
   let json = @json.parse(
-    #|{"gifts":[{"id":"g1","sticker":{"file_id":"fid1","file_unique_id":"uid1","width":64,"height":64},"star_count":10},{"id":"g2","sticker":{"file_id":"fid2","file_unique_id":"uid2","width":64,"height":64},"star_count":20,"total_count":500}]}
+    (
+      #|{"gifts":[{"id":"g1","sticker":{"file_id":"fid1","file_unique_id":"uid1","width":64,"height":64},"star_count":10},{"id":"g2","sticker":{"file_id":"fid2","file_unique_id":"uid2","width":64,"height":64},"star_count":20,"total_count":500}]}
+    ),
   )
   let gifts : Gifts = @json.from_json(json)
   inspect(gifts.gifts.length(), content="2")
@@ -289,7 +297,9 @@ test "Gifts from fixed JSON" {
 ///|
 test "AcceptedGiftTypes from fixed JSON" {
   let json = @json.parse(
-    #|{"unlimited_gifts":true,"limited_gifts":false,"unique_gifts":true,"premium_subscription":false}
+    (
+      #|{"unlimited_gifts":true,"limited_gifts":false,"unique_gifts":true,"premium_subscription":false}
+    ),
   )
   let types : AcceptedGiftTypes = @json.from_json(json)
   inspect(types.unlimited_gifts, content="true")
@@ -301,7 +311,9 @@ test "AcceptedGiftTypes from fixed JSON" {
 ///|
 test "UniqueGiftInfo from fixed JSON with all fields" {
   let json = @json.parse(
-    #|{"gift_id":"unique_gift_xyz","next_transfer_date":1800000000,"last_resale_amount":1500,"origin":"purchase","is_from_blockchain":false}
+    (
+      #|{"gift_id":"unique_gift_xyz","next_transfer_date":1800000000,"last_resale_amount":1500,"origin":"purchase","is_from_blockchain":false}
+    ),
   )
   let info : UniqueGiftInfo = @json.from_json(json)
   inspect(info.gift_id, content="unique_gift_xyz")
@@ -314,7 +326,9 @@ test "UniqueGiftInfo from fixed JSON with all fields" {
 ///|
 test "UniqueGiftInfo from fixed JSON minimal" {
   let json = @json.parse(
-    #|{"gift_id":"minimal_gift"}
+    (
+      #|{"gift_id":"minimal_gift"}
+    ),
   )
   let info : UniqueGiftInfo = @json.from_json(json)
   inspect(info.gift_id, content="minimal_gift")
@@ -327,7 +341,9 @@ test "UniqueGiftInfo from fixed JSON minimal" {
 ///|
 test "StarBalance from fixed JSON" {
   let json = @json.parse(
-    #|{"balance":5000}
+    (
+      #|{"balance":5000}
+    ),
   )
   let balance : StarBalance = @json.from_json(json)
   inspect(balance.balance, content="5000")
