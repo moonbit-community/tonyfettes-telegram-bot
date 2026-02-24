@@ -79,7 +79,14 @@ pub async fn Bot::get_me(self : Bot) -> User raise TelegramError {
       raise TelegramError::HttpError(code=0, body="Request failed: \{error}")
   }
   guard response.code is (200..=299) else {
-    let body = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body~)
   }
   parse_api_response(data)
@@ -120,7 +127,14 @@ pub async fn Bot::send_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -156,7 +170,14 @@ pub async fn Bot::get_updates(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -191,7 +212,14 @@ pub async fn Bot::copy_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -226,7 +254,14 @@ pub async fn Bot::edit_message_text(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -255,7 +290,14 @@ pub async fn Bot::edit_message_reply_markup(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -286,7 +328,14 @@ pub async fn Bot::answer_callback_query(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -307,7 +356,14 @@ pub async fn Bot::set_my_commands(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -384,7 +440,14 @@ pub async fn Bot::send_photo(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -481,7 +544,14 @@ pub async fn Bot::send_video(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -567,7 +637,14 @@ pub async fn Bot::send_audio(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -644,7 +721,14 @@ pub async fn Bot::send_document(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -717,7 +801,14 @@ pub async fn Bot::send_voice(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -786,7 +877,14 @@ pub async fn Bot::send_video_note(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -879,7 +977,14 @@ pub async fn Bot::send_animation(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -954,7 +1059,14 @@ pub async fn Bot::send_location(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1033,7 +1145,14 @@ pub async fn Bot::send_venue(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1100,7 +1219,14 @@ pub async fn Bot::send_contact(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1207,7 +1333,14 @@ pub async fn Bot::send_poll(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1264,7 +1397,14 @@ pub async fn Bot::send_dice(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1298,7 +1438,14 @@ pub async fn Bot::send_chat_action(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1359,7 +1506,14 @@ pub async fn Bot::edit_message_live_location(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1399,7 +1553,14 @@ pub async fn Bot::stop_message_live_location(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1455,7 +1616,14 @@ pub async fn Bot::edit_message_caption(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1496,7 +1664,14 @@ pub async fn Bot::edit_message_media(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1521,7 +1696,14 @@ pub async fn Bot::delete_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1546,7 +1728,14 @@ pub async fn Bot::delete_messages(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1585,7 +1774,14 @@ pub async fn Bot::forward_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1624,7 +1820,14 @@ pub async fn Bot::forward_messages(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1659,7 +1862,14 @@ pub async fn Bot::ban_chat_member(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1690,7 +1900,14 @@ pub async fn Bot::unban_chat_member(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1727,7 +1944,14 @@ pub async fn Bot::restrict_chat_member(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1814,7 +2038,14 @@ pub async fn Bot::promote_chat_member(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1841,7 +2072,14 @@ pub async fn Bot::set_chat_administrator_custom_title(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1863,7 +2101,14 @@ pub async fn Bot::export_chat_invite_link(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1900,7 +2145,14 @@ pub async fn Bot::create_chat_invite_link(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1941,7 +2193,14 @@ pub async fn Bot::edit_chat_invite_link(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1966,7 +2225,14 @@ pub async fn Bot::revoke_chat_invite_link(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -1991,7 +2257,14 @@ pub async fn Bot::approve_chat_join_request(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2016,7 +2289,14 @@ pub async fn Bot::decline_chat_join_request(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2047,7 +2327,14 @@ pub async fn Bot::set_chat_permissions(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2075,7 +2362,14 @@ pub async fn Bot::set_chat_photo(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2099,7 +2393,14 @@ pub async fn Bot::delete_chat_photo(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2127,7 +2428,14 @@ pub async fn Bot::set_chat_title(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2154,7 +2462,14 @@ pub async fn Bot::set_chat_description(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2190,7 +2505,14 @@ pub async fn Bot::pin_chat_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2222,7 +2544,14 @@ pub async fn Bot::unpin_chat_message(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2246,7 +2575,14 @@ pub async fn Bot::unpin_all_chat_messages(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2267,7 +2603,14 @@ pub async fn Bot::leave_chat(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2288,7 +2631,14 @@ pub async fn Bot::get_chat(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2349,7 +2699,14 @@ pub async fn Bot::send_sticker(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2372,7 +2729,14 @@ pub async fn Bot::get_custom_emoji_stickers(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2393,7 +2757,14 @@ pub async fn Bot::get_sticker_set(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2421,7 +2792,14 @@ pub async fn Bot::upload_sticker_file(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2442,7 +2820,14 @@ pub async fn Bot::delete_sticker_from_set(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2467,7 +2852,14 @@ pub async fn Bot::set_sticker_position_in_set(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2493,7 +2885,14 @@ pub async fn Bot::set_sticker_emoji_list(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2514,7 +2913,14 @@ pub async fn Bot::delete_sticker_set(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2556,7 +2962,14 @@ pub async fn Bot::answer_inline_query(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2581,7 +2994,14 @@ pub async fn Bot::answer_web_app_query(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2638,7 +3058,14 @@ pub async fn Bot::send_game(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2684,7 +3111,14 @@ pub async fn Bot::set_game_score(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2718,7 +3152,14 @@ pub async fn Bot::get_game_high_scores(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2843,7 +3284,14 @@ pub async fn Bot::send_invoice(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2942,7 +3390,14 @@ pub async fn Bot::create_invoice_link(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -2977,7 +3432,14 @@ pub async fn Bot::answer_shipping_query(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3009,7 +3471,14 @@ pub async fn Bot::answer_pre_checkout_query(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3056,7 +3525,14 @@ pub async fn Bot::set_webhook(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3080,7 +3556,14 @@ pub async fn Bot::delete_webhook(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3100,7 +3583,14 @@ pub async fn Bot::get_webhook_info(
       raise TelegramError::HttpError(code=0, body="Request failed: \{error}")
   }
   guard response.code is (200..=299) else {
-    let body = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body~)
   }
   parse_api_response(data)
@@ -3121,7 +3611,14 @@ pub async fn Bot::get_file(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3150,7 +3647,14 @@ pub async fn Bot::get_user_profile_photos(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3170,7 +3674,14 @@ pub async fn Bot::get_forum_topic_icon_stickers(
       raise TelegramError::HttpError(code=0, body="Request failed: \{error}")
   }
   guard response.code is (200..=299) else {
-    let body = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body~)
   }
   parse_api_response(data)
@@ -3203,7 +3714,14 @@ pub async fn Bot::create_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3236,7 +3754,14 @@ pub async fn Bot::edit_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3261,7 +3786,14 @@ pub async fn Bot::close_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3286,7 +3818,14 @@ pub async fn Bot::reopen_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3311,7 +3850,14 @@ pub async fn Bot::delete_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3336,7 +3882,14 @@ pub async fn Bot::unpin_all_forum_topic_messages(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3361,7 +3914,14 @@ pub async fn Bot::edit_general_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3382,7 +3942,14 @@ pub async fn Bot::close_general_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3403,7 +3970,14 @@ pub async fn Bot::reopen_general_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3424,7 +3998,14 @@ pub async fn Bot::hide_general_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3445,7 +4026,14 @@ pub async fn Bot::unhide_general_forum_topic(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3474,7 +4062,14 @@ pub async fn Bot::delete_my_commands(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3503,7 +4098,14 @@ pub async fn Bot::get_my_commands(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3531,7 +4133,14 @@ pub async fn Bot::set_my_name(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3555,7 +4164,14 @@ pub async fn Bot::get_my_name(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3583,7 +4199,14 @@ pub async fn Bot::set_my_description(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3607,7 +4230,14 @@ pub async fn Bot::get_my_description(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3636,7 +4266,14 @@ pub async fn Bot::set_my_short_description(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3660,7 +4297,14 @@ pub async fn Bot::get_my_short_description(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3688,7 +4332,14 @@ pub async fn Bot::set_chat_menu_button(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3712,7 +4363,14 @@ pub async fn Bot::get_chat_menu_button(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3733,7 +4391,14 @@ pub async fn Bot::get_chat_administrators(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3754,7 +4419,14 @@ pub async fn Bot::get_chat_member_count(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3780,7 +4452,14 @@ pub async fn Bot::get_chat_member(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3813,7 +4492,14 @@ pub async fn Bot::send_checklist(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3867,7 +4553,14 @@ pub async fn Bot::send_message_draft(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3908,7 +4601,14 @@ pub async fn Bot::edit_message_checklist(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3936,7 +4636,14 @@ pub async fn Bot::get_user_gifts(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3965,7 +4672,14 @@ pub async fn Bot::get_chat_gifts(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -3985,7 +4699,14 @@ pub async fn Bot::get_my_star_balance(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -4018,7 +4739,14 @@ pub async fn Bot::approve_suggested_post(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -4051,7 +4779,14 @@ pub async fn Bot::decline_suggested_post(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
@@ -4102,7 +4837,14 @@ pub async fn Bot::repost_story(
     err => raise TelegramError::HttpError(code=0, body="Request failed: \{err}")
   }
   guard response.code is (200..=299) else {
-    let body_text = data.text() catch { _ => "<failed to read body>" }
+    let bytes = data.binary()
+    let body_text = @encoding/utf8.decode(bytes) catch {
+      _ =>
+        raise TelegramError::HttpError(
+          code=response.code,
+          body=@encoding/utf8.decode_lossy(bytes),
+        )
+    }
     raise TelegramError::HttpError(code=response.code, body=body_text)
   }
   parse_api_response(data)
