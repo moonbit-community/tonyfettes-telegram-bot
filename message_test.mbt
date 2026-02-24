@@ -90,3 +90,80 @@ test "Message with direct_messages_topic field" {
   inspect(topic.name, content="General")
   inspect(topic.icon_color, content="65280")
 }
+
+///|
+test "MessageEntity from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"bold","offset":0,"length":4}
+  )
+  let entity : MessageEntity = @json.from_json(json)
+  inspect(entity.type_, content="bold")
+  inspect(entity.offset, content="0")
+  inspect(entity.length, content="4")
+  inspect(entity.url, content="None")
+  inspect(entity.user, content="None")
+  inspect(entity.language, content="None")
+}
+
+///|
+test "MessageEntity with optional fields from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"text_link","offset":5,"length":10,"url":"https://example.com","language":"en"}
+  )
+  let entity : MessageEntity = @json.from_json(json)
+  inspect(entity.type_, content="text_link")
+  inspect(entity.offset, content="5")
+  inspect(entity.length, content="10")
+  inspect(entity.url, content="Some(\"https://example.com\")")
+  inspect(entity.language, content="Some(\"en\")")
+}
+
+///|
+test "Message from fixed JSON" {
+  let json = @json.parse(
+    #|{"message_id":1,"date":1234567890,"chat":{"id":456,"type":"private"}}
+  )
+  let msg : Message = @json.from_json(json)
+  inspect(msg.message_id, content="1")
+  inspect(msg.date, content="1234567890")
+  inspect(msg.chat.id, content="456")
+  inspect(msg.chat.type_, content="Private")
+  inspect(msg.text, content="None")
+  inspect(msg.from, content="None")
+  inspect(msg.entities, content="None")
+}
+
+///|
+test "Message with text and from from fixed JSON" {
+  let json = @json.parse(
+    #|{"message_id":42,"date":1700000000,"chat":{"id":100,"type":"group","title":"My Group"},"from":{"id":999,"is_bot":false,"first_name":"Alice","username":"alice"},"text":"Hello world"}
+  )
+  let msg : Message = @json.from_json(json)
+  inspect(msg.message_id, content="42")
+  inspect(msg.date, content="1700000000")
+  inspect(msg.chat.id, content="100")
+  inspect(msg.chat.type_, content="Group")
+  inspect(msg.chat.title, content="Some(\"My Group\")")
+  inspect(msg.text, content="Some(\"Hello world\")")
+  guard msg.from is Some(user) else { fail("Expected from") }
+  inspect(user.id, content="999")
+  inspect(user.first_name, content="Alice")
+  inspect(user.username, content="Some(\"alice\")")
+  inspect(msg.reply_to_message, content="None")
+  inspect(msg.message_thread_id, content="None")
+}
+
+///|
+test "Message with entities from fixed JSON" {
+  let json = @json.parse(
+    #|{"message_id":7,"date":1700001000,"chat":{"id":200,"type":"private"},"text":"bold text","entities":[{"type":"bold","offset":0,"length":4}]}
+  )
+  let msg : Message = @json.from_json(json)
+  inspect(msg.message_id, content="7")
+  inspect(msg.text, content="Some(\"bold text\")")
+  guard msg.entities is Some(entities) else { fail("Expected entities") }
+  inspect(entities.length(), content="1")
+  inspect(entities[0].type_, content="bold")
+  inspect(entities[0].offset, content="0")
+  inspect(entities[0].length, content="4")
+}

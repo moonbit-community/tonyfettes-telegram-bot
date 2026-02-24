@@ -222,3 +222,136 @@ test "ChatFullInfo with available_reactions JSON round-trip" {
   }
   inspect(r.length(), content="2")
 }
+
+///|
+test "Birthdate from fixed JSON with year" {
+  let json = @json.parse(
+    #|{"day":14,"month":2,"year":1995}
+  )
+  let bd : Birthdate = @json.from_json(json)
+  inspect(bd.day, content="14")
+  inspect(bd.month, content="2")
+  inspect(bd.year, content="Some(1995)")
+}
+
+///|
+test "Birthdate from fixed JSON without year" {
+  let json = @json.parse(
+    #|{"day":31,"month":10}
+  )
+  let bd : Birthdate = @json.from_json(json)
+  inspect(bd.day, content="31")
+  inspect(bd.month, content="10")
+  inspect(bd.year, content="None")
+}
+
+///|
+test "ChatLocation from fixed JSON" {
+  let json = @json.parse(
+    #|{"location":{"latitude":55.7558,"longitude":37.6176},"address":"Moscow, Russia"}
+  )
+  let loc : ChatLocation = @json.from_json(json)
+  inspect(loc.address, content="Moscow, Russia")
+  inspect(loc.location.latitude, content="55.7558")
+  inspect(loc.location.longitude, content="37.6176")
+}
+
+///|
+test "ReactionType::Emoji from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"emoji","emoji":"👍"}
+  )
+  let reaction : ReactionType = @json.from_json(json)
+  guard reaction is Emoji(e) else { fail("Expected Emoji") }
+  inspect(e.emoji, content="👍")
+}
+
+///|
+test "ReactionType::CustomEmoji from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"custom_emoji","custom_emoji_id":"5368324170671202286"}
+  )
+  let reaction : ReactionType = @json.from_json(json)
+  guard reaction is CustomEmoji(ce) else { fail("Expected CustomEmoji") }
+  inspect(ce.custom_emoji_id, content="5368324170671202286")
+}
+
+///|
+test "ChatFullInfo from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"id":123456789,"type":"private","accent_color_id":1,"max_reaction_count":11}
+  )
+  let info : ChatFullInfo = @json.from_json(json)
+  inspect(info.id, content="123456789")
+  inspect(info.type_, content="private")
+  inspect(info.accent_color_id, content="1")
+  inspect(info.max_reaction_count, content="11")
+  inspect(info.title, content="None")
+  inspect(info.linked_chat_id, content="None")
+}
+
+///|
+test "ChatFullInfo from fixed JSON supergroup with optional fields" {
+  let json = @json.parse(
+    #|{"id":-1001234567890,"type":"supergroup","accent_color_id":5,"max_reaction_count":20,"title":"Dev Chat","username":"devchat","is_forum":true,"description":"A developer group","slow_mode_delay":10,"has_protected_content":false,"linked_chat_id":-1009876543210}
+  )
+  let info : ChatFullInfo = @json.from_json(json)
+  inspect(info.id, content="-1001234567890")
+  inspect(info.type_, content="supergroup")
+  inspect(info.title, content="Some(\"Dev Chat\")")
+  inspect(info.username, content="Some(\"devchat\")")
+  inspect(info.is_forum, content="Some(true)")
+  inspect(info.description, content="Some(\"A developer group\")")
+  inspect(info.slow_mode_delay, content="Some(10)")
+  inspect(info.has_protected_content, content="Some(false)")
+  inspect(info.linked_chat_id, content="Some(-1009876543210)")
+}
+
+///|
+test "ChatFullInfo from fixed JSON private with birthdate" {
+  let json = @json.parse(
+    #|{"id":42,"type":"private","accent_color_id":0,"max_reaction_count":5,"first_name":"Jane","last_name":"Smith","birthdate":{"day":8,"month":3},"bio":"Just a developer"}
+  )
+  let info : ChatFullInfo = @json.from_json(json)
+  inspect(info.id, content="42")
+  inspect(info.first_name, content="Some(\"Jane\")")
+  inspect(info.last_name, content="Some(\"Smith\")")
+  inspect(info.bio, content="Some(\"Just a developer\")")
+  guard info.birthdate is Some(bd) else { fail("Expected birthdate") }
+  inspect(bd.day, content="8")
+  inspect(bd.month, content="3")
+  inspect(bd.year, content="None")
+}
+
+///|
+test "ChatFullInfo from fixed JSON with available_reactions" {
+  let json = @json.parse(
+    #|{"id":7777,"type":"group","accent_color_id":2,"max_reaction_count":8,"title":"Fun Group","available_reactions":[{"type":"emoji","emoji":"❤"},{"type":"custom_emoji","custom_emoji_id":"custom_id_999"}]}
+  )
+  let info : ChatFullInfo = @json.from_json(json)
+  inspect(info.id, content="7777")
+  inspect(info.title, content="Some(\"Fun Group\")")
+  guard info.available_reactions is Some(reactions) else {
+    fail("Expected available_reactions")
+  }
+  inspect(reactions.length(), content="2")
+  guard reactions[0] is Emoji(e) else { fail("Expected Emoji reaction") }
+  inspect(e.emoji, content="❤")
+  guard reactions[1] is CustomEmoji(ce) else {
+    fail("Expected CustomEmoji reaction")
+  }
+  inspect(ce.custom_emoji_id, content="custom_id_999")
+}
+
+///|
+test "ChatFullInfo from fixed JSON channel with location" {
+  let json = @json.parse(
+    #|{"id":-1007654321,"type":"channel","accent_color_id":3,"max_reaction_count":3,"title":"Local News","location":{"location":{"latitude":40.7128,"longitude":-74.006},"address":"New York, USA"}}
+  )
+  let info : ChatFullInfo = @json.from_json(json)
+  inspect(info.id, content="-1007654321")
+  inspect(info.title, content="Some(\"Local News\")")
+  guard info.location is Some(loc) else { fail("Expected location") }
+  inspect(loc.address, content="New York, USA")
+  inspect(loc.location.latitude, content="40.7128")
+}

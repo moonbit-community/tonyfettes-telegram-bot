@@ -14,3 +14,23 @@ test "Dice different emojis" {
   inspect(dart.emoji, content="🎯")
   inspect(basketball.value, content="4")
 }
+
+///|
+test "Dice from fixed JSON" {
+  let json = @json.parse(
+    #|{"emoji":"🎲","value":6}
+  )
+  let dice : Dice = @json.from_json(json)
+  inspect(dice.emoji, content="🎲")
+  inspect(dice.value, content="6")
+}
+
+///|
+test "Dice from fixed JSON dart" {
+  let json = @json.parse(
+    #|{"emoji":"🎯","value":1}
+  )
+  let dice : Dice = @json.from_json(json)
+  inspect(dice.emoji, content="🎯")
+  inspect(dice.value, content="1")
+}

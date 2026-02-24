@@ -147,3 +147,93 @@ test "ChatBackground JSON round-trip" {
   guard parsed.type_ is Fill(f) else { fail("Expected Fill type") }
   inspect(f.dark_theme_dimming, content="25")
 }
+
+///|
+test "BackgroundFill::Solid from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"solid","color":16711680}
+  )
+  let fill : BackgroundFill = @json.from_json(json)
+  guard fill is Solid(s) else { fail("Expected Solid") }
+  inspect(s.color, content="16711680")
+}
+
+///|
+test "BackgroundFill::Gradient from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"gradient","top_color":16777215,"bottom_color":0,"rotation_angle":90}
+  )
+  let fill : BackgroundFill = @json.from_json(json)
+  guard fill is Gradient(g) else { fail("Expected Gradient") }
+  inspect(g.top_color, content="16777215")
+  inspect(g.bottom_color, content="0")
+  inspect(g.rotation_angle, content="90")
+}
+
+///|
+test "BackgroundFill::FreeformGradient from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"freeform_gradient","colors":[16711680,65280,255,16776960]}
+  )
+  let fill : BackgroundFill = @json.from_json(json)
+  guard fill is FreeformGradient(fg) else { fail("Expected FreeformGradient") }
+  inspect(fg.colors, content="[16711680, 65280, 255, 16776960]")
+}
+
+///|
+test "BackgroundType::Fill from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"fill","fill":{"type":"solid","color":255},"dark_theme_dimming":40}
+  )
+  let bg : BackgroundType = @json.from_json(json)
+  guard bg is Fill(f) else { fail("Expected Fill") }
+  inspect(f.dark_theme_dimming, content="40")
+  guard f.fill is Solid(s) else { fail("Expected Solid fill") }
+  inspect(s.color, content="255")
+}
+
+///|
+test "BackgroundType::Wallpaper from fixed JSON with optional fields" {
+  let json = @json.parse(
+    #|{"type":"wallpaper","document":{"file_id":"wallpaper_file","file_unique_id":"wallpaper_unique"},"dark_theme_dimming":20,"is_blurred":true}
+  )
+  let bg : BackgroundType = @json.from_json(json)
+  guard bg is Wallpaper(w) else { fail("Expected Wallpaper") }
+  inspect(w.document.file_id, content="wallpaper_file")
+  inspect(w.dark_theme_dimming, content="20")
+  inspect(w.is_blurred, content="Some(true)")
+  inspect(w.is_moving, content="None")
+}
+
+///|
+test "BackgroundType::Pattern from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"pattern","document":{"file_id":"pattern_file","file_unique_id":"pattern_unique"},"fill":{"type":"gradient","top_color":16777215,"bottom_color":0,"rotation_angle":45},"intensity":60,"is_moving":true}
+  )
+  let bg : BackgroundType = @json.from_json(json)
+  guard bg is Pattern(p) else { fail("Expected Pattern") }
+  inspect(p.document.file_id, content="pattern_file")
+  inspect(p.intensity, content="60")
+  inspect(p.is_inverted, content="None")
+  inspect(p.is_moving, content="Some(true)")
+}
+
+///|
+test "BackgroundType::ChatTheme from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"chat_theme","theme_name":"night"}
+  )
+  let bg : BackgroundType = @json.from_json(json)
+  guard bg is ChatTheme(ct) else { fail("Expected ChatTheme") }
+  inspect(ct.theme_name, content="night")
+}
+
+///|
+test "ChatBackground from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":{"type":"chat_theme","theme_name":"ocean"}}
+  )
+  let background : ChatBackground = @json.from_json(json)
+  guard background.type_ is ChatTheme(ct) else { fail("Expected ChatTheme") }
+  inspect(ct.theme_name, content="ocean")
+}

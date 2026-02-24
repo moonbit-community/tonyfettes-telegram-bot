@@ -274,3 +274,95 @@ test "InlineQueryResultDocument JSON round-trip without optionals" {
   inspect(parsed.thumbnail_width, content="None")
   inspect(parsed.thumbnail_height, content="None")
 }
+
+///|
+test "InlineQueryResultAudio from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"audio","id":"aud1","audio_url":"https://example.com/song.mp3","title":"My Song","performer":"The Band","audio_duration":240}
+  )
+  let result : InlineQueryResultAudio = @json.from_json(json)
+  inspect(result.type_, content="audio")
+  inspect(result.id, content="aud1")
+  inspect(result.audio_url, content="https://example.com/song.mp3")
+  inspect(result.title, content="My Song")
+  inspect(result.performer, content="Some(\"The Band\")")
+  inspect(result.audio_duration, content="Some(240)")
+  inspect(result.caption, content="None")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultAudio minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"audio","id":"aud2","audio_url":"https://example.com/track.mp3","title":"Track"}
+  )
+  let result : InlineQueryResultAudio = @json.from_json(json)
+  inspect(result.type_, content="audio")
+  inspect(result.id, content="aud2")
+  inspect(result.title, content="Track")
+  inspect(result.performer, content="None")
+  inspect(result.audio_duration, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultVoice from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"voice","id":"voi1","voice_url":"https://example.com/voice.ogg","title":"Voice Memo","caption":"Important note","voice_duration":45}
+  )
+  let result : InlineQueryResultVoice = @json.from_json(json)
+  inspect(result.type_, content="voice")
+  inspect(result.id, content="voi1")
+  inspect(result.voice_url, content="https://example.com/voice.ogg")
+  inspect(result.title, content="Voice Memo")
+  inspect(result.caption, content="Some(\"Important note\")")
+  inspect(result.voice_duration, content="Some(45)")
+  inspect(result.parse_mode, content="None")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultVoice minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"voice","id":"voi2","voice_url":"https://example.com/brief.ogg","title":"Brief"}
+  )
+  let result : InlineQueryResultVoice = @json.from_json(json)
+  inspect(result.type_, content="voice")
+  inspect(result.title, content="Brief")
+  inspect(result.caption, content="None")
+  inspect(result.voice_duration, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultDocument from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"document","id":"doc1","title":"Contract","document_url":"https://example.com/contract.pdf","mime_type":"application/pdf","description":"Legal contract","thumbnail_url":"https://example.com/doc-thumb.jpg","thumbnail_width":80,"thumbnail_height":100}
+  )
+  let result : InlineQueryResultDocument = @json.from_json(json)
+  inspect(result.type_, content="document")
+  inspect(result.id, content="doc1")
+  inspect(result.title, content="Contract")
+  inspect(result.document_url, content="https://example.com/contract.pdf")
+  inspect(result.mime_type, content="application/pdf")
+  inspect(result.description, content="Some(\"Legal contract\")")
+  inspect(result.thumbnail_url, content="Some(\"https://example.com/doc-thumb.jpg\")")
+  inspect(result.thumbnail_width, content="Some(80)")
+  inspect(result.thumbnail_height, content="Some(100)")
+  inspect(result.caption, content="None")
+}
+
+///|
+test "InlineQueryResultDocument minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"document","id":"doc2","title":"Report","document_url":"https://example.com/report.pdf","mime_type":"application/pdf"}
+  )
+  let result : InlineQueryResultDocument = @json.from_json(json)
+  inspect(result.type_, content="document")
+  inspect(result.id, content="doc2")
+  inspect(result.title, content="Report")
+  inspect(result.mime_type, content="application/pdf")
+  inspect(result.description, content="None")
+  inspect(result.thumbnail_url, content="None")
+  inspect(result.input_message_content, content="None")
+}

@@ -86,3 +86,76 @@ test "MessageOriginChannel without author_signature" {
   guard parsed is Channel(v) else { fail("Expected MessageOrigin::Channel") }
   inspect(v.author_signature, content="None")
 }
+
+///|
+test "MessageOrigin::User from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"user","date":1700000000,"sender_user":{"id":123,"is_bot":false,"first_name":"Alice"}}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is User(v) else { fail("Expected MessageOrigin::User") }
+  inspect(v.date, content="1700000000")
+  inspect(v.sender_user.id, content="123")
+  inspect(v.sender_user.first_name, content="Alice")
+}
+
+///|
+test "MessageOrigin::HiddenUser from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"hidden_user","date":1700000001,"sender_user_name":"SomeAnonymous"}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is HiddenUser(v) else {
+    fail("Expected MessageOrigin::HiddenUser")
+  }
+  inspect(v.date, content="1700000001")
+  inspect(v.sender_user_name, content="SomeAnonymous")
+}
+
+///|
+test "MessageOrigin::Chat from fixed JSON with author_signature" {
+  let json = @json.parse(
+    #|{"type":"chat","date":1700000002,"sender_chat":{"id":456,"type":"group","title":"MyGroup"},"author_signature":"Editor"}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is Chat(v) else { fail("Expected MessageOrigin::Chat") }
+  inspect(v.date, content="1700000002")
+  inspect(v.sender_chat.id, content="456")
+  inspect(v.author_signature, content="Some(\"Editor\")")
+}
+
+///|
+test "MessageOrigin::Chat from fixed JSON without author_signature" {
+  let json = @json.parse(
+    #|{"type":"chat","date":1700000003,"sender_chat":{"id":789,"type":"supergroup","title":"BigGroup"}}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is Chat(v) else { fail("Expected MessageOrigin::Chat") }
+  inspect(v.sender_chat.id, content="789")
+  inspect(v.author_signature, content="None")
+}
+
+///|
+test "MessageOrigin::Channel from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"channel","date":1700000004,"chat":{"id":1001,"type":"channel","title":"NewsChannel"},"message_id":55,"author_signature":"Reporter"}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is Channel(v) else { fail("Expected MessageOrigin::Channel") }
+  inspect(v.date, content="1700000004")
+  inspect(v.chat.id, content="1001")
+  inspect(v.message_id, content="55")
+  inspect(v.author_signature, content="Some(\"Reporter\")")
+}
+
+///|
+test "MessageOrigin::Channel from fixed JSON without author_signature" {
+  let json = @json.parse(
+    #|{"type":"channel","date":1700000005,"chat":{"id":2002,"type":"channel","title":"TechNews"},"message_id":99}
+  )
+  let origin : MessageOrigin = @json.from_json(json)
+  guard origin is Channel(v) else { fail("Expected MessageOrigin::Channel") }
+  inspect(v.chat.id, content="2002")
+  inspect(v.message_id, content="99")
+  inspect(v.author_signature, content="None")
+}

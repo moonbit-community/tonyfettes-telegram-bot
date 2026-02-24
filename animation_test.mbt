@@ -44,3 +44,31 @@ test "Animation JSON round-trip without optionals" {
   inspect(parsed.thumbnail, content="None")
   inspect(parsed.file_name, content="None")
 }
+
+///|
+test "Animation from fixed JSON" {
+  let json = @json.parse(
+    #|{"file_id":"CgACAgIAAxkBAAI","file_unique_id":"AQADAgATanim","width":480,"height":360,"duration":5,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_name":"animation.gif","mime_type":"image/gif","file_size":256000}
+  )
+  let animation : Animation = @json.from_json(json)
+  inspect(animation.file_id, content="CgACAgIAAxkBAAI")
+  inspect(animation.file_unique_id, content="AQADAgATanim")
+  inspect(animation.width, content="480")
+  inspect(animation.height, content="360")
+  inspect(animation.duration, content="5")
+  inspect(animation.file_name, content="Some(\"animation.gif\")")
+  inspect(animation.mime_type, content="Some(\"image/gif\")")
+  inspect(animation.file_size, content="Some(256000)")
+}
+
+///|
+test "Animation from fixed JSON without optionals" {
+  let json = @json.parse(
+    #|{"file_id":"CgACAgIAAxkBAAI","file_unique_id":"AQADAgATanim","width":320,"height":240,"duration":3}
+  )
+  let animation : Animation = @json.from_json(json)
+  inspect(animation.file_id, content="CgACAgIAAxkBAAI")
+  inspect(animation.thumbnail, content="None")
+  inspect(animation.file_name, content="None")
+  inspect(animation.file_size, content="None")
+}

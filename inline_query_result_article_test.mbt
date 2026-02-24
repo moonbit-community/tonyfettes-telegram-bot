@@ -302,3 +302,123 @@ test "InlineQueryResultVenue with reply_markup and input_message_content" {
   inspect(content.message_text, content="Check out Big Ben!")
   inspect(content.parse_mode, content="Some(\"HTML\")")
 }
+
+///|
+test "InlineQueryResultArticle from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"article","id":"art1","title":"Wikipedia","input_message_content":{"message_text":"Check Wikipedia"},"url":"https://wikipedia.org","description":"The free encyclopedia"}
+  )
+  let article : InlineQueryResultArticle = @json.from_json(json)
+  inspect(article.type_, content="article")
+  inspect(article.id, content="art1")
+  inspect(article.title, content="Wikipedia")
+  inspect(article.input_message_content.message_text, content="Check Wikipedia")
+  inspect(article.url, content="Some(\"https://wikipedia.org\")")
+  inspect(article.description, content="Some(\"The free encyclopedia\")")
+  inspect(article.hide_url, content="None")
+  inspect(article.thumbnail_url, content="None")
+  inspect(article.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultArticle minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"article","id":"art2","title":"Minimal","input_message_content":{"message_text":"Hello"}}
+  )
+  let article : InlineQueryResultArticle = @json.from_json(json)
+  inspect(article.type_, content="article")
+  inspect(article.id, content="art2")
+  inspect(article.title, content="Minimal")
+  inspect(article.url, content="None")
+  inspect(article.description, content="None")
+}
+
+///|
+test "InlineQueryResultContact from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"contact","id":"con1","phone_number":"+1234567890","first_name":"John","last_name":"Doe"}
+  )
+  let contact : InlineQueryResultContact = @json.from_json(json)
+  inspect(contact.type_, content="contact")
+  inspect(contact.id, content="con1")
+  inspect(contact.phone_number, content="+1234567890")
+  inspect(contact.first_name, content="John")
+  inspect(contact.last_name, content="Some(\"Doe\")")
+  inspect(contact.vcard, content="None")
+  inspect(contact.thumbnail_url, content="None")
+}
+
+///|
+test "InlineQueryResultContact minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"contact","id":"con2","phone_number":"+9876543210","first_name":"Jane"}
+  )
+  let contact : InlineQueryResultContact = @json.from_json(json)
+  inspect(contact.type_, content="contact")
+  inspect(contact.phone_number, content="+9876543210")
+  inspect(contact.first_name, content="Jane")
+  inspect(contact.last_name, content="None")
+  inspect(contact.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultLocation from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"location","id":"loc1","latitude":40.7484,"longitude":-73.9857,"title":"Empire State","live_period":3600,"heading":180}
+  )
+  let location : InlineQueryResultLocation = @json.from_json(json)
+  inspect(location.type_, content="location")
+  inspect(location.id, content="loc1")
+  inspect(location.latitude, content="40.7484")
+  inspect(location.longitude, content="-73.9857")
+  inspect(location.title, content="Empire State")
+  inspect(location.live_period, content="Some(3600)")
+  inspect(location.heading, content="Some(180)")
+  inspect(location.horizontal_accuracy, content="None")
+  inspect(location.thumbnail_url, content="None")
+}
+
+///|
+test "InlineQueryResultLocation minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"location","id":"loc2","latitude":51.5074,"longitude":-0.1278,"title":"London"}
+  )
+  let location : InlineQueryResultLocation = @json.from_json(json)
+  inspect(location.type_, content="location")
+  inspect(location.latitude, content="51.5074")
+  inspect(location.longitude, content="-0.1278")
+  inspect(location.title, content="London")
+  inspect(location.live_period, content="None")
+  inspect(location.proximity_alert_radius, content="None")
+}
+
+///|
+test "InlineQueryResultVenue from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"venue","id":"ven1","latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, Paris","foursquare_id":"4b5a0c13f964a520e5cf28e3"}
+  )
+  let venue : InlineQueryResultVenue = @json.from_json(json)
+  inspect(venue.type_, content="venue")
+  inspect(venue.id, content="ven1")
+  inspect(venue.latitude, content="48.8584")
+  inspect(venue.longitude, content="2.2945")
+  inspect(venue.title, content="Eiffel Tower")
+  inspect(venue.address, content="Champ de Mars, Paris")
+  inspect(venue.foursquare_id, content="Some(\"4b5a0c13f964a520e5cf28e3\")")
+  inspect(venue.google_place_id, content="None")
+  inspect(venue.thumbnail_url, content="None")
+}
+
+///|
+test "InlineQueryResultVenue minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"venue","id":"ven2","latitude":35.6762,"longitude":139.6503,"title":"Tokyo Tower","address":"Minato, Tokyo"}
+  )
+  let venue : InlineQueryResultVenue = @json.from_json(json)
+  inspect(venue.type_, content="venue")
+  inspect(venue.title, content="Tokyo Tower")
+  inspect(venue.address, content="Minato, Tokyo")
+  inspect(venue.foursquare_id, content="None")
+  inspect(venue.foursquare_type, content="None")
+  inspect(venue.reply_markup, content="None")
+}

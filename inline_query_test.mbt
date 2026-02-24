@@ -98,3 +98,80 @@ test "InlineQueryResultsButton JSON round-trip minimal" {
   inspect(parsed.web_app, content="None")
   inspect(parsed.start_parameter, content="None")
 }
+
+///|
+test "InlineQuery from fixed JSON" {
+  let json = @json.parse(
+    #|{"id":"abc123","from":{"id":111,"is_bot":false,"first_name":"Bob"},"query":"moon","offset":"0","chat_type":"private"}
+  )
+  let iq : InlineQuery = @json.from_json(json)
+  inspect(iq.id, content="abc123")
+  inspect(iq.from.id, content="111")
+  inspect(iq.from.first_name, content="Bob")
+  inspect(iq.query, content="moon")
+  inspect(iq.offset, content="0")
+  inspect(iq.chat_type, content="Some(\"private\")")
+  inspect(iq.location, content="None")
+}
+
+///|
+test "InlineQuery minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"id":"xyz789","from":{"id":222,"is_bot":true,"first_name":"MyBot"},"query":"","offset":"20"}
+  )
+  let iq : InlineQuery = @json.from_json(json)
+  inspect(iq.id, content="xyz789")
+  inspect(iq.from.id, content="222")
+  inspect(iq.query, content="")
+  inspect(iq.offset, content="20")
+  inspect(iq.chat_type, content="None")
+  inspect(iq.location, content="None")
+}
+
+///|
+test "ChosenInlineResult from fixed JSON" {
+  let json = @json.parse(
+    #|{"result_id":"res1","from":{"id":333,"is_bot":false,"first_name":"Carol"},"query":"chosen","inline_message_id":"msg_abc"}
+  )
+  let result : ChosenInlineResult = @json.from_json(json)
+  inspect(result.result_id, content="res1")
+  inspect(result.from.id, content="333")
+  inspect(result.query, content="chosen")
+  inspect(result.inline_message_id, content="Some(\"msg_abc\")")
+  inspect(result.location, content="None")
+}
+
+///|
+test "ChosenInlineResult minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"result_id":"res2","from":{"id":444,"is_bot":false,"first_name":"Dave"},"query":"simple"}
+  )
+  let result : ChosenInlineResult = @json.from_json(json)
+  inspect(result.result_id, content="res2")
+  inspect(result.query, content="simple")
+  inspect(result.inline_message_id, content="None")
+  inspect(result.location, content="None")
+}
+
+///|
+test "InlineQueryResultsButton from fixed JSON" {
+  let json = @json.parse(
+    #|{"text":"Start Bot","start_parameter":"my_start"}
+  )
+  let button : InlineQueryResultsButton = @json.from_json(json)
+  inspect(button.text, content="Start Bot")
+  inspect(button.start_parameter, content="Some(\"my_start\")")
+  inspect(button.web_app, content="None")
+}
+
+///|
+test "InlineQueryResultsButton with web_app from fixed JSON" {
+  let json = @json.parse(
+    #|{"text":"Open App","web_app":{"url":"https://example.com/app"}}
+  )
+  let button : InlineQueryResultsButton = @json.from_json(json)
+  inspect(button.text, content="Open App")
+  guard button.web_app is Some(app) else { fail("Expected web_app") }
+  inspect(app.url, content="https://example.com/app")
+  inspect(button.start_parameter, content="None")
+}

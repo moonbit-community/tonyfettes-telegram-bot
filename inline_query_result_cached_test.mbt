@@ -307,3 +307,179 @@ test "InlineQueryResultCachedAudio full JSON round-trip" {
   guard parsed.input_message_content is Some(content) else { panic() }
   inspect(content.message_text, content="Here is the audio")
 }
+
+///|
+test "InlineQueryResultCachedPhoto from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"photo","id":"cp1","photo_file_id":"AgACAgIAAxkBAAIcp1","title":"Fixed Photo","caption":"A cached photo"}
+  )
+  let result : InlineQueryResultCachedPhoto = @json.from_json(json)
+  inspect(result.type_, content="photo")
+  inspect(result.id, content="cp1")
+  inspect(result.photo_file_id, content="AgACAgIAAxkBAAIcp1")
+  inspect(result.title, content="Some(\"Fixed Photo\")")
+  inspect(result.caption, content="Some(\"A cached photo\")")
+  inspect(result.description, content="None")
+  inspect(result.parse_mode, content="None")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultCachedPhoto minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"photo","id":"cp2","photo_file_id":"AgACAgIAAxkBAAIcp2"}
+  )
+  let result : InlineQueryResultCachedPhoto = @json.from_json(json)
+  inspect(result.type_, content="photo")
+  inspect(result.id, content="cp2")
+  inspect(result.title, content="None")
+  inspect(result.caption, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultCachedGif from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"gif","id":"cg1","gif_file_id":"CgACAgIAAxkBAAIcg1","title":"Fixed GIF","caption":"Funny","parse_mode":"HTML"}
+  )
+  let result : InlineQueryResultCachedGif = @json.from_json(json)
+  inspect(result.type_, content="gif")
+  inspect(result.id, content="cg1")
+  inspect(result.gif_file_id, content="CgACAgIAAxkBAAIcg1")
+  inspect(result.title, content="Some(\"Fixed GIF\")")
+  inspect(result.caption, content="Some(\"Funny\")")
+  inspect(result.parse_mode, content="Some(\"HTML\")")
+  inspect(result.show_caption_above_media, content="None")
+}
+
+///|
+test "InlineQueryResultCachedGif minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"gif","id":"cg2","gif_file_id":"CgACAgIAAxkBAAIcg2"}
+  )
+  let result : InlineQueryResultCachedGif = @json.from_json(json)
+  inspect(result.type_, content="gif")
+  inspect(result.title, content="None")
+  inspect(result.caption, content="None")
+}
+
+///|
+test "InlineQueryResultCachedMpeg4Gif from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"mpeg4_gif","id":"cm1","mpeg4_file_id":"BgACAgIAAxkBAAIcm1","caption":"Cool video","show_caption_above_media":true}
+  )
+  let result : InlineQueryResultCachedMpeg4Gif = @json.from_json(json)
+  inspect(result.type_, content="mpeg4_gif")
+  inspect(result.id, content="cm1")
+  inspect(result.mpeg4_file_id, content="BgACAgIAAxkBAAIcm1")
+  inspect(result.caption, content="Some(\"Cool video\")")
+  inspect(result.show_caption_above_media, content="Some(true)")
+  inspect(result.title, content="None")
+}
+
+///|
+test "InlineQueryResultCachedSticker from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"sticker","id":"cs1","sticker_file_id":"CAACAgIAAxkBAAIcs1"}
+  )
+  let result : InlineQueryResultCachedSticker = @json.from_json(json)
+  inspect(result.type_, content="sticker")
+  inspect(result.id, content="cs1")
+  inspect(result.sticker_file_id, content="CAACAgIAAxkBAAIcs1")
+  inspect(result.reply_markup, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultCachedDocument from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"document","id":"cd1","title":"My Doc","document_file_id":"BQACAgIAAxkBAAIcd1","description":"An important file","caption":"See attached"}
+  )
+  let result : InlineQueryResultCachedDocument = @json.from_json(json)
+  inspect(result.type_, content="document")
+  inspect(result.id, content="cd1")
+  inspect(result.title, content="My Doc")
+  inspect(result.document_file_id, content="BQACAgIAAxkBAAIcd1")
+  inspect(result.description, content="Some(\"An important file\")")
+  inspect(result.caption, content="Some(\"See attached\")")
+  inspect(result.parse_mode, content="None")
+}
+
+///|
+test "InlineQueryResultCachedDocument minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"document","id":"cd2","title":"Minimal Doc","document_file_id":"BQACAgIAAxkBAAIcd2"}
+  )
+  let result : InlineQueryResultCachedDocument = @json.from_json(json)
+  inspect(result.type_, content="document")
+  inspect(result.title, content="Minimal Doc")
+  inspect(result.description, content="None")
+  inspect(result.caption, content="None")
+}
+
+///|
+test "InlineQueryResultCachedVideo from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"video","id":"cv1","video_file_id":"BAACAgIAAxkBAAIcv1","title":"My Video","description":"Great video","caption":"Watch now"}
+  )
+  let result : InlineQueryResultCachedVideo = @json.from_json(json)
+  inspect(result.type_, content="video")
+  inspect(result.id, content="cv1")
+  inspect(result.video_file_id, content="BAACAgIAAxkBAAIcv1")
+  inspect(result.title, content="My Video")
+  inspect(result.description, content="Some(\"Great video\")")
+  inspect(result.caption, content="Some(\"Watch now\")")
+  inspect(result.show_caption_above_media, content="None")
+}
+
+///|
+test "InlineQueryResultCachedVoice from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"voice","id":"cvo1","voice_file_id":"AwACAgIAAxkBAAIcvo1","title":"My Voice Note","caption":"Listen!"}
+  )
+  let result : InlineQueryResultCachedVoice = @json.from_json(json)
+  inspect(result.type_, content="voice")
+  inspect(result.id, content="cvo1")
+  inspect(result.voice_file_id, content="AwACAgIAAxkBAAIcvo1")
+  inspect(result.title, content="My Voice Note")
+  inspect(result.caption, content="Some(\"Listen!\")")
+  inspect(result.parse_mode, content="None")
+}
+
+///|
+test "InlineQueryResultCachedVoice minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"voice","id":"cvo2","voice_file_id":"AwACAgIAAxkBAAIcvo2","title":"Brief Note"}
+  )
+  let result : InlineQueryResultCachedVoice = @json.from_json(json)
+  inspect(result.type_, content="voice")
+  inspect(result.title, content="Brief Note")
+  inspect(result.caption, content="None")
+  inspect(result.caption_entities, content="None")
+}
+
+///|
+test "InlineQueryResultCachedAudio from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"audio","id":"ca1","audio_file_id":"CQACAgIAAxkBAAIca1","caption":"Great track","parse_mode":"Markdown"}
+  )
+  let result : InlineQueryResultCachedAudio = @json.from_json(json)
+  inspect(result.type_, content="audio")
+  inspect(result.id, content="ca1")
+  inspect(result.audio_file_id, content="CQACAgIAAxkBAAIca1")
+  inspect(result.caption, content="Some(\"Great track\")")
+  inspect(result.parse_mode, content="Some(\"Markdown\")")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultCachedAudio minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"audio","id":"ca2","audio_file_id":"CQACAgIAAxkBAAIca2"}
+  )
+  let result : InlineQueryResultCachedAudio = @json.from_json(json)
+  inspect(result.type_, content="audio")
+  inspect(result.id, content="ca2")
+  inspect(result.caption, content="None")
+  inspect(result.input_message_content, content="None")
+}

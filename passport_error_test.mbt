@@ -166,3 +166,112 @@ test "PassportElementErrorUnspecified JSON round-trip" {
   inspect(v.element_hash, content="elem_hash")
   inspect(v.message, content="Unspecified error")
 }
+
+///|
+test "PassportElementError::DataField from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"data","type":"passport","field_name":"surname","data_hash":"abc123hash","message":"Bad surname data"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is DataField(v) else { fail("Expected DataField") }
+  inspect(v.type_, content="passport")
+  inspect(v.field_name, content="surname")
+  inspect(v.data_hash, content="abc123hash")
+  inspect(v.message, content="Bad surname data")
+}
+
+///|
+test "PassportElementError::FrontSide from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"front_side","type":"driver_license","file_hash":"fronthash","message":"Front side blurry"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is FrontSide(v) else { fail("Expected FrontSide") }
+  inspect(v.type_, content="driver_license")
+  inspect(v.file_hash, content="fronthash")
+  inspect(v.message, content="Front side blurry")
+}
+
+///|
+test "PassportElementError::ReverseSide from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"reverse_side","type":"identity_card","file_hash":"reversehash","message":"Reverse side expired"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is ReverseSide(v) else { fail("Expected ReverseSide") }
+  inspect(v.type_, content="identity_card")
+  inspect(v.file_hash, content="reversehash")
+  inspect(v.message, content="Reverse side expired")
+}
+
+///|
+test "PassportElementError::Selfie from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"selfie","type":"passport","file_hash":"selfiehash","message":"No face visible"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is Selfie(v) else { fail("Expected Selfie") }
+  inspect(v.type_, content="passport")
+  inspect(v.file_hash, content="selfiehash")
+  inspect(v.message, content="No face visible")
+}
+
+///|
+test "PassportElementError::File from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"file","type":"utility_bill","file_hash":"filehash","message":"File is corrupted"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is File(v) else { fail("Expected File") }
+  inspect(v.type_, content="utility_bill")
+  inspect(v.file_hash, content="filehash")
+  inspect(v.message, content="File is corrupted")
+}
+
+///|
+test "PassportElementError::Files from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"files","type":"bank_statement","file_hashes":["h1","h2"],"message":"Some files invalid"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is Files(v) else { fail("Expected Files") }
+  inspect(v.type_, content="bank_statement")
+  inspect(v.file_hashes, content="[\"h1\", \"h2\"]")
+  inspect(v.message, content="Some files invalid")
+}
+
+///|
+test "PassportElementError::TranslationFile from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"translation_file","type":"passport","file_hash":"transhash","message":"Translation unclear"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is TranslationFile(v) else { fail("Expected TranslationFile") }
+  inspect(v.type_, content="passport")
+  inspect(v.file_hash, content="transhash")
+  inspect(v.message, content="Translation unclear")
+}
+
+///|
+test "PassportElementError::TranslationFiles from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"translation_files","type":"driver_license","file_hashes":["t1","t2","t3"],"message":"Multiple translations invalid"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is TranslationFiles(v) else { fail("Expected TranslationFiles") }
+  inspect(v.type_, content="driver_license")
+  inspect(v.file_hashes, content="[\"t1\", \"t2\", \"t3\"]")
+  inspect(v.message, content="Multiple translations invalid")
+}
+
+///|
+test "PassportElementError::Unspecified from fixed JSON" {
+  let json = @json.parse(
+    #|{"source":"unspecified","type":"personal_details","element_hash":"elemhash","message":"Element has error"}
+  )
+  let error : PassportElementError = @json.from_json(json)
+  guard error is Unspecified(v) else { fail("Expected Unspecified") }
+  inspect(v.type_, content="personal_details")
+  inspect(v.element_hash, content="elemhash")
+  inspect(v.message, content="Element has error")
+}

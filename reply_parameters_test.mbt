@@ -175,3 +175,118 @@ test "ExternalReplyInfo JSON round-trip with link_preview_options" {
   }
   inspect(lp.is_disabled, content="Some(false)")
 }
+
+///|
+test "ReplyParameters from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"message_id":42}
+  )
+  let params : ReplyParameters = @json.from_json(json)
+  inspect(params.message_id, content="42")
+  inspect(params.chat_id, content="None")
+  inspect(params.allow_sending_without_reply, content="None")
+  inspect(params.quote, content="None")
+  inspect(params.quote_parse_mode, content="None")
+  inspect(params.quote_entities, content="None")
+  inspect(params.quote_position, content="None")
+}
+
+///|
+test "ReplyParameters from fixed JSON with chat_id integer" {
+  let json = @json.parse(
+    #|{"message_id":100,"chat_id":123456789,"allow_sending_without_reply":true}
+  )
+  let params : ReplyParameters = @json.from_json(json)
+  inspect(params.message_id, content="100")
+  inspect(params.chat_id, content="Some(Id(123456789))")
+  inspect(params.allow_sending_without_reply, content="Some(true)")
+}
+
+///|
+test "ReplyParameters from fixed JSON with chat_id username" {
+  let json = @json.parse(
+    #|{"message_id":77,"chat_id":"@somechannel"}
+  )
+  let params : ReplyParameters = @json.from_json(json)
+  inspect(params.message_id, content="77")
+  inspect(params.chat_id, content="Some(Username(\"@somechannel\"))")
+  inspect(params.allow_sending_without_reply, content="None")
+}
+
+///|
+test "ReplyParameters from fixed JSON with quote fields" {
+  let json = @json.parse(
+    #|{"message_id":55,"quote":"Hello world","quote_parse_mode":"Markdown","quote_position":6}
+  )
+  let params : ReplyParameters = @json.from_json(json)
+  inspect(params.message_id, content="55")
+  inspect(params.quote, content="Some(\"Hello world\")")
+  inspect(params.quote_parse_mode, content="Some(\"Markdown\")")
+  inspect(params.quote_position, content="Some(6)")
+  inspect(params.quote_entities, content="None")
+}
+
+///|
+test "MessageOriginPlaceholder from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"channel","date":1700001234}
+  )
+  let origin : MessageOriginPlaceholder = @json.from_json(json)
+  inspect(origin.type_, content="channel")
+  inspect(origin.date, content="1700001234")
+}
+
+///|
+test "LinkPreviewPlaceholder from fixed JSON with is_disabled" {
+  let json = @json.parse(
+    #|{"is_disabled":true}
+  )
+  let preview : LinkPreviewPlaceholder = @json.from_json(json)
+  inspect(preview.is_disabled, content="Some(true)")
+}
+
+///|
+test "LinkPreviewPlaceholder from fixed JSON empty" {
+  let json = @json.parse(
+    #|{}
+  )
+  let preview : LinkPreviewPlaceholder = @json.from_json(json)
+  inspect(preview.is_disabled, content="None")
+}
+
+///|
+test "GamePlaceholder from fixed JSON" {
+  let json = @json.parse(
+    #|{"title":"Space Invaders","description":"Classic retro shooter game"}
+  )
+  let game : GamePlaceholder = @json.from_json(json)
+  inspect(game.title, content="Space Invaders")
+  inspect(game.description, content="Classic retro shooter game")
+}
+
+///|
+test "ExternalReplyInfo from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"origin":{"type":"user","date":1700000000}}
+  )
+  let info : ExternalReplyInfo = @json.from_json(json)
+  inspect(info.origin.type_, content="user")
+  inspect(info.origin.date, content="1700000000")
+  inspect(info.chat, content="None")
+  inspect(info.message_id, content="None")
+  inspect(info.has_media_spoiler, content="None")
+}
+
+///|
+test "ExternalReplyInfo from fixed JSON with message_id and has_media_spoiler" {
+  let json = @json.parse(
+    #|{"origin":{"type":"channel","date":1710000000},"message_id":999,"has_media_spoiler":true}
+  )
+  let info : ExternalReplyInfo = @json.from_json(json)
+  inspect(info.origin.type_, content="channel")
+  inspect(info.origin.date, content="1710000000")
+  inspect(info.message_id, content="Some(999)")
+  inspect(info.has_media_spoiler, content="Some(true)")
+  inspect(info.chat, content="None")
+  inspect(info.link_preview_options, content="None")
+}

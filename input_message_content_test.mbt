@@ -327,3 +327,83 @@ test "InputMessageContent Invoice JSON round-trip" {
   inspect(v.currency, content="JPY")
   inspect(v.prices.length(), content="1")
 }
+
+///|
+test "InputMessageContent::Text from fixed JSON" {
+  let json = @json.parse(
+    #|{"message_text":"Hello from Telegram!","parse_mode":"HTML"}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Text(v) else { fail("Expected Text") }
+  inspect(v.message_text, content="Hello from Telegram!")
+  inspect(v.parse_mode, content="Some(\"HTML\")")
+  inspect(v.entities, content="None")
+}
+
+///|
+test "InputMessageContent::Text from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"message_text":"Simple text"}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Text(v) else { fail("Expected Text") }
+  inspect(v.message_text, content="Simple text")
+  inspect(v.parse_mode, content="None")
+  inspect(v.link_preview_options, content="None")
+}
+
+///|
+test "InputMessageContent::Location from fixed JSON" {
+  let json = @json.parse(
+    #|{"latitude":51.5074,"longitude":-0.1278,"live_period":3600}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Location(v) else { fail("Expected Location") }
+  inspect(v.latitude, content="51.5074")
+  inspect(v.longitude, content="-0.1278")
+  inspect(v.live_period, content="Some(3600)")
+  inspect(v.horizontal_accuracy, content="None")
+}
+
+///|
+test "InputMessageContent::Venue from fixed JSON" {
+  let json = @json.parse(
+    #|{"latitude":48.8584,"longitude":2.2945,"title":"Eiffel Tower","address":"Champ de Mars, 5 Avenue Anatole France","foursquare_id":"foursq123"}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Venue(v) else { fail("Expected Venue") }
+  inspect(v.latitude, content="48.8584")
+  inspect(v.title, content="Eiffel Tower")
+  inspect(v.address, content="Champ de Mars, 5 Avenue Anatole France")
+  inspect(v.foursquare_id, content="Some(\"foursq123\")")
+  inspect(v.google_place_id, content="None")
+}
+
+///|
+test "InputMessageContent::Contact from fixed JSON" {
+  let json = @json.parse(
+    #|{"phone_number":"+79161234567","first_name":"Ivan","last_name":"Petrov"}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Contact(v) else { fail("Expected Contact") }
+  inspect(v.phone_number, content="+79161234567")
+  inspect(v.first_name, content="Ivan")
+  inspect(v.last_name, content="Some(\"Petrov\")")
+  inspect(v.vcard, content="None")
+}
+
+///|
+test "InputMessageContent::Invoice from fixed JSON" {
+  let json = @json.parse(
+    #|{"title":"Gold Plan","description":"Gold subscription plan","payload":"gold_plan_payload","currency":"USD","prices":[{"label":"Monthly fee","amount":999}],"need_name":true}
+  )
+  let content : InputMessageContent = @json.from_json(json)
+  guard content is Invoice(v) else { fail("Expected Invoice") }
+  inspect(v.title, content="Gold Plan")
+  inspect(v.currency, content="USD")
+  inspect(v.prices.length(), content="1")
+  inspect(v.prices[0].label, content="Monthly fee")
+  inspect(v.prices[0].amount, content="999")
+  inspect(v.need_name, content="Some(true)")
+  inspect(v.provider_token, content="None")
+}

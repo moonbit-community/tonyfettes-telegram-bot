@@ -121,3 +121,67 @@ test "Video JSON round-trip" {
   inspect(parsed.height, content="1080")
   inspect(parsed.duration, content="300")
 }
+
+///|
+test "PaidMedia::Preview from fixed JSON with all optional fields" {
+  let json = @json.parse(
+    #|{"type":"preview","width":640,"height":480,"duration":15}
+  )
+  let media : PaidMedia = @json.from_json(json)
+  guard media is Preview(p) else { fail("Expected Preview") }
+  inspect(p.width, content="Some(640)")
+  inspect(p.height, content="Some(480)")
+  inspect(p.duration, content="Some(15)")
+}
+
+///|
+test "PaidMedia::Preview from fixed JSON with no optional fields" {
+  let json = @json.parse(
+    #|{"type":"preview"}
+  )
+  let media : PaidMedia = @json.from_json(json)
+  guard media is Preview(p) else { fail("Expected Preview") }
+  inspect(p.width, content="None")
+  inspect(p.height, content="None")
+  inspect(p.duration, content="None")
+}
+
+///|
+test "PaidMedia::Photo from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"photo","photo":[{"file_id":"photo_id","file_unique_id":"photo_unique","width":800,"height":600}]}
+  )
+  let media : PaidMedia = @json.from_json(json)
+  guard media is Photo(p) else { fail("Expected Photo") }
+  inspect(p.photo.length(), content="1")
+  inspect(p.photo[0].file_id, content="photo_id")
+  inspect(p.photo[0].width, content="800")
+  inspect(p.photo[0].height, content="600")
+}
+
+///|
+test "PaidMedia::Video from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"video","video":{"file_id":"vid_id","file_unique_id":"vid_unique","width":1280,"height":720,"duration":60}}
+  )
+  let media : PaidMedia = @json.from_json(json)
+  guard media is Video(v) else { fail("Expected Video") }
+  inspect(v.video.file_id, content="vid_id")
+  inspect(v.video.width, content="1280")
+  inspect(v.video.height, content="720")
+  inspect(v.video.duration, content="60")
+}
+
+///|
+test "PaidMediaInfo from fixed JSON" {
+  let json = @json.parse(
+    #|{"star_count":50,"paid_media":[{"type":"preview","width":320,"height":240},{"type":"photo","photo":[{"file_id":"ph","file_unique_id":"phu","width":100,"height":100}]}]}
+  )
+  let info : PaidMediaInfo = @json.from_json(json)
+  inspect(info.star_count, content="50")
+  inspect(info.paid_media.length(), content="2")
+  guard info.paid_media[0] is Preview(p) else { fail("Expected Preview") }
+  inspect(p.width, content="Some(320)")
+  guard info.paid_media[1] is Photo(ph) else { fail("Expected Photo") }
+  inspect(ph.photo[0].file_id, content="ph")
+}

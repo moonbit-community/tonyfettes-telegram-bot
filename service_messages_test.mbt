@@ -120,3 +120,149 @@ test "WebAppData JSON round-trip" {
   inspect(parsed.data, content="test_data")
   inspect(parsed.button_text, content="Open App")
 }
+
+///|
+test "ForumTopicClosed from fixed JSON" {
+  let json = @json.parse(
+    #|{}
+  )
+  let _parsed : ForumTopicClosed = @json.from_json(json)
+}
+
+///|
+test "ForumTopicReopened from fixed JSON" {
+  let json = @json.parse(
+    #|{}
+  )
+  let _parsed : ForumTopicReopened = @json.from_json(json)
+}
+
+///|
+test "GeneralForumTopicHidden from fixed JSON" {
+  let json = @json.parse(
+    #|{}
+  )
+  let _parsed : GeneralForumTopicHidden = @json.from_json(json)
+}
+
+///|
+test "GeneralForumTopicUnhidden from fixed JSON" {
+  let json = @json.parse(
+    #|{}
+  )
+  let _parsed : GeneralForumTopicUnhidden = @json.from_json(json)
+}
+
+///|
+test "VideoChatStarted from fixed JSON" {
+  let json = @json.parse(
+    #|{}
+  )
+  let _parsed : VideoChatStarted = @json.from_json(json)
+}
+
+///|
+test "VideoChatEnded from fixed JSON" {
+  let json = @json.parse(
+    #|{"duration":1800}
+  )
+  let parsed : VideoChatEnded = @json.from_json(json)
+  inspect(parsed.duration, content="1800")
+}
+
+///|
+test "VideoChatScheduled from fixed JSON" {
+  let json = @json.parse(
+    #|{"start_date":1750000000}
+  )
+  let parsed : VideoChatScheduled = @json.from_json(json)
+  inspect(parsed.start_date, content="1750000000")
+}
+
+///|
+test "VideoChatParticipantsInvited from fixed JSON" {
+  let json = @json.parse(
+    #|{"users":[{"id":11111111,"is_bot":false,"first_name":"Carol"},{"id":22222222,"is_bot":true,"first_name":"BotFriend"}]}
+  )
+  let parsed : VideoChatParticipantsInvited = @json.from_json(json)
+  inspect(parsed.users.length(), content="2")
+  inspect(parsed.users[0].first_name, content="Carol")
+  inspect(parsed.users[0].id, content="11111111")
+  inspect(parsed.users[0].is_bot, content="false")
+  inspect(parsed.users[1].first_name, content="BotFriend")
+  inspect(parsed.users[1].is_bot, content="true")
+}
+
+///|
+test "MessageAutoDeleteTimerChanged from fixed JSON" {
+  let json = @json.parse(
+    #|{"message_auto_delete_time":604800}
+  )
+  let parsed : MessageAutoDeleteTimerChanged = @json.from_json(json)
+  inspect(parsed.message_auto_delete_time, content="604800")
+}
+
+///|
+test "ChatBoostAdded from fixed JSON" {
+  let json = @json.parse(
+    #|{"boost_count":12}
+  )
+  let parsed : ChatBoostAdded = @json.from_json(json)
+  inspect(parsed.boost_count, content="12")
+}
+
+///|
+test "ProximityAlertTriggered from fixed JSON" {
+  let json = @json.parse(
+    #|{"traveler":{"id":55551111,"is_bot":false,"first_name":"Dave"},"watcher":{"id":55552222,"is_bot":false,"first_name":"Eve"},"distance":250}
+  )
+  let parsed : ProximityAlertTriggered = @json.from_json(json)
+  inspect(parsed.traveler.first_name, content="Dave")
+  inspect(parsed.traveler.id, content="55551111")
+  inspect(parsed.watcher.first_name, content="Eve")
+  inspect(parsed.watcher.id, content="55552222")
+  inspect(parsed.distance, content="250")
+}
+
+///|
+test "WriteAccessAllowed from fixed JSON with web_app_name" {
+  let json = @json.parse(
+    #|{"from_request":true,"web_app_name":"MyWebApp"}
+  )
+  let parsed : WriteAccessAllowed = @json.from_json(json)
+  inspect(parsed.from_request, content="Some(true)")
+  inspect(parsed.web_app_name, content="Some(\"MyWebApp\")")
+  inspect(parsed.from_attachment_menu, content="None")
+}
+
+///|
+test "WriteAccessAllowed from fixed JSON empty" {
+  let json = @json.parse(
+    #|{}
+  )
+  let parsed : WriteAccessAllowed = @json.from_json(json)
+  inspect(parsed.from_request, content="None")
+  inspect(parsed.web_app_name, content="None")
+  inspect(parsed.from_attachment_menu, content="None")
+}
+
+///|
+test "WriteAccessAllowed from fixed JSON from_attachment_menu" {
+  let json = @json.parse(
+    #|{"from_attachment_menu":true}
+  )
+  let parsed : WriteAccessAllowed = @json.from_json(json)
+  inspect(parsed.from_request, content="None")
+  inspect(parsed.web_app_name, content="None")
+  inspect(parsed.from_attachment_menu, content="Some(true)")
+}
+
+///|
+test "WebAppData from fixed JSON" {
+  let json = @json.parse(
+    #|{"data":"{\"key\":\"value\"}","button_text":"Open WebApp"}
+  )
+  let parsed : WebAppData = @json.from_json(json)
+  inspect(parsed.data, content="{\"key\":\"value\"}")
+  inspect(parsed.button_text, content="Open WebApp")
+}

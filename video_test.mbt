@@ -54,3 +54,35 @@ test "Video JSON round-trip without optionals" {
   inspect(parsed.cover, content="None")
   inspect(parsed.start_timestamp, content="None")
 }
+
+///|
+test "Video from fixed JSON" {
+  let json = @json.parse(
+    #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1920,"height":1080,"duration":120,"file_name":"video.mp4","mime_type":"video/mp4","file_size":15000000}
+  )
+  let video : Video = @json.from_json(json)
+  inspect(video.file_id, content="BAACAgIAAxkBAAI")
+  inspect(video.file_unique_id, content="AQADAgATvideo")
+  inspect(video.width, content="1920")
+  inspect(video.height, content="1080")
+  inspect(video.duration, content="120")
+  inspect(video.file_name, content="Some(\"video.mp4\")")
+  inspect(video.mime_type, content="Some(\"video/mp4\")")
+  inspect(video.file_size, content="Some(15000000)")
+  inspect(video.thumbnail, content="None")
+  inspect(video.cover, content="None")
+  inspect(video.start_timestamp, content="None")
+}
+
+///|
+test "Video from fixed JSON with thumbnail" {
+  let json = @json.parse(
+    #|{"file_id":"BAACAgIAAxkBAAI","file_unique_id":"AQADAgATvideo","width":1280,"height":720,"duration":60,"thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"start_timestamp":5}
+  )
+  let video : Video = @json.from_json(json)
+  inspect(video.file_id, content="BAACAgIAAxkBAAI")
+  inspect(video.width, content="1280")
+  inspect(video.height, content="720")
+  inspect(video.start_timestamp, content="Some(5)")
+  inspect(video.file_size, content="None")
+}

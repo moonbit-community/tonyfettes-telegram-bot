@@ -60,3 +60,37 @@ test "WebhookInfo JSON round-trip minimal" {
   inspect(parsed.max_connections, content="None")
   inspect(parsed.allowed_updates, content="None")
 }
+
+///|
+test "WebhookInfo from fixed JSON with all fields" {
+  let json = @json.parse(
+    #|{"url":"https://example.com/webhook","has_custom_certificate":true,"pending_update_count":3,"ip_address":"1.2.3.4","last_error_date":1640995200,"last_error_message":"Connection timeout","last_synchronization_error_date":1641081600,"max_connections":40,"allowed_updates":["message","callback_query"]}
+  )
+  let info : WebhookInfo = @json.from_json(json)
+  inspect(info.url, content="https://example.com/webhook")
+  inspect(info.has_custom_certificate, content="true")
+  inspect(info.pending_update_count, content="3")
+  inspect(info.ip_address, content="Some(\"1.2.3.4\")")
+  inspect(info.last_error_date, content="Some(1640995200)")
+  inspect(info.last_error_message, content="Some(\"Connection timeout\")")
+  inspect(info.last_synchronization_error_date, content="Some(1641081600)")
+  inspect(info.max_connections, content="Some(40)")
+  inspect(info.allowed_updates, content="Some([\"message\", \"callback_query\"])")
+}
+
+///|
+test "WebhookInfo from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"url":"","has_custom_certificate":false,"pending_update_count":0}
+  )
+  let info : WebhookInfo = @json.from_json(json)
+  inspect(info.url, content="")
+  inspect(info.has_custom_certificate, content="false")
+  inspect(info.pending_update_count, content="0")
+  inspect(info.ip_address, content="None")
+  inspect(info.last_error_date, content="None")
+  inspect(info.last_error_message, content="None")
+  inspect(info.last_synchronization_error_date, content="None")
+  inspect(info.max_connections, content="None")
+  inspect(info.allowed_updates, content="None")
+}

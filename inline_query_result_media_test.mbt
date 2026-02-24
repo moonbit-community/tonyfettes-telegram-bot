@@ -249,3 +249,135 @@ test "InlineQueryResultPhoto with caption_entities JSON round-trip" {
   inspect(entities[0].offset, content="0")
   inspect(entities[0].length, content="4")
 }
+
+///|
+test "InlineQueryResultPhoto from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"photo","id":"ph1","photo_url":"https://example.com/img.jpg","thumbnail_url":"https://example.com/thumb.jpg","photo_width":1920,"photo_height":1080,"title":"Sunset","caption":"Beautiful sunset"}
+  )
+  let result : InlineQueryResultPhoto = @json.from_json(json)
+  inspect(result.type_, content="photo")
+  inspect(result.id, content="ph1")
+  inspect(result.photo_url, content="https://example.com/img.jpg")
+  inspect(result.thumbnail_url, content="https://example.com/thumb.jpg")
+  inspect(result.photo_width, content="Some(1920)")
+  inspect(result.photo_height, content="Some(1080)")
+  inspect(result.title, content="Some(\"Sunset\")")
+  inspect(result.caption, content="Some(\"Beautiful sunset\")")
+  inspect(result.description, content="None")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultPhoto minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"photo","id":"ph2","photo_url":"https://example.com/photo2.jpg","thumbnail_url":"https://example.com/t2.jpg"}
+  )
+  let result : InlineQueryResultPhoto = @json.from_json(json)
+  inspect(result.type_, content="photo")
+  inspect(result.id, content="ph2")
+  inspect(result.photo_width, content="None")
+  inspect(result.photo_height, content="None")
+  inspect(result.title, content="None")
+  inspect(result.caption, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultGif from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"gif","id":"gif1","gif_url":"https://example.com/anim.gif","thumbnail_url":"https://example.com/t.jpg","gif_width":480,"gif_height":270,"gif_duration":3,"title":"Cool GIF"}
+  )
+  let result : InlineQueryResultGif = @json.from_json(json)
+  inspect(result.type_, content="gif")
+  inspect(result.id, content="gif1")
+  inspect(result.gif_url, content="https://example.com/anim.gif")
+  inspect(result.thumbnail_url, content="https://example.com/t.jpg")
+  inspect(result.gif_width, content="Some(480)")
+  inspect(result.gif_height, content="Some(270)")
+  inspect(result.gif_duration, content="Some(3)")
+  inspect(result.title, content="Some(\"Cool GIF\")")
+  inspect(result.caption, content="None")
+  inspect(result.thumbnail_mime_type, content="None")
+}
+
+///|
+test "InlineQueryResultGif minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"gif","id":"gif2","gif_url":"https://example.com/simple.gif","thumbnail_url":"https://example.com/ts.jpg"}
+  )
+  let result : InlineQueryResultGif = @json.from_json(json)
+  inspect(result.type_, content="gif")
+  inspect(result.id, content="gif2")
+  inspect(result.gif_width, content="None")
+  inspect(result.gif_duration, content="None")
+  inspect(result.title, content="None")
+  inspect(result.show_caption_above_media, content="None")
+}
+
+///|
+test "InlineQueryResultMpeg4Gif from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"mpeg4_gif","id":"mp4g1","mpeg4_url":"https://example.com/clip.mp4","thumbnail_url":"https://example.com/tc.jpg","mpeg4_width":640,"mpeg4_height":360,"mpeg4_duration":8,"thumbnail_mime_type":"image/jpeg","title":"MP4 Clip"}
+  )
+  let result : InlineQueryResultMpeg4Gif = @json.from_json(json)
+  inspect(result.type_, content="mpeg4_gif")
+  inspect(result.id, content="mp4g1")
+  inspect(result.mpeg4_url, content="https://example.com/clip.mp4")
+  inspect(result.thumbnail_url, content="https://example.com/tc.jpg")
+  inspect(result.mpeg4_width, content="Some(640)")
+  inspect(result.mpeg4_height, content="Some(360)")
+  inspect(result.mpeg4_duration, content="Some(8)")
+  inspect(result.thumbnail_mime_type, content="Some(\"image/jpeg\")")
+  inspect(result.title, content="Some(\"MP4 Clip\")")
+  inspect(result.caption, content="None")
+}
+
+///|
+test "InlineQueryResultMpeg4Gif minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"mpeg4_gif","id":"mp4g2","mpeg4_url":"https://example.com/minimal.mp4","thumbnail_url":"https://example.com/tm.jpg"}
+  )
+  let result : InlineQueryResultMpeg4Gif = @json.from_json(json)
+  inspect(result.type_, content="mpeg4_gif")
+  inspect(result.id, content="mp4g2")
+  inspect(result.mpeg4_width, content="None")
+  inspect(result.title, content="None")
+  inspect(result.input_message_content, content="None")
+}
+
+///|
+test "InlineQueryResultVideo from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"video","id":"vid1","video_url":"https://example.com/movie.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tv.jpg","title":"Great Movie","video_width":1920,"video_height":1080,"video_duration":7200,"description":"An award-winning film"}
+  )
+  let result : InlineQueryResultVideo = @json.from_json(json)
+  inspect(result.type_, content="video")
+  inspect(result.id, content="vid1")
+  inspect(result.video_url, content="https://example.com/movie.mp4")
+  inspect(result.mime_type, content="video/mp4")
+  inspect(result.thumbnail_url, content="https://example.com/tv.jpg")
+  inspect(result.title, content="Great Movie")
+  inspect(result.video_width, content="Some(1920)")
+  inspect(result.video_height, content="Some(1080)")
+  inspect(result.video_duration, content="Some(7200)")
+  inspect(result.description, content="Some(\"An award-winning film\")")
+  inspect(result.caption, content="None")
+  inspect(result.reply_markup, content="None")
+}
+
+///|
+test "InlineQueryResultVideo minimal from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"video","id":"vid2","video_url":"https://example.com/clip.mp4","mime_type":"video/mp4","thumbnail_url":"https://example.com/tc.jpg","title":"Short Clip"}
+  )
+  let result : InlineQueryResultVideo = @json.from_json(json)
+  inspect(result.type_, content="video")
+  inspect(result.id, content="vid2")
+  inspect(result.mime_type, content="video/mp4")
+  inspect(result.title, content="Short Clip")
+  inspect(result.video_width, content="None")
+  inspect(result.video_duration, content="None")
+  inspect(result.description, content="None")
+  inspect(result.input_message_content, content="None")
+}

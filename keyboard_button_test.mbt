@@ -93,3 +93,92 @@ test "KeyboardButton with web_app JSON round-trip" {
   guard parsed.web_app is Some(wa) else { fail("Expected web_app to be Some") }
   inspect(wa.url, content="https://example.com/webapp")
 }
+
+///|
+test "KeyboardButtonPollType from fixed JSON" {
+  let json = @json.parse(
+    #|{"type":"quiz"}
+  )
+  let poll_type : KeyboardButtonPollType = @json.from_json(json)
+  inspect(poll_type.type_, content="Some(\"quiz\")")
+}
+
+///|
+test "KeyboardButtonPollType from fixed JSON without type" {
+  let json = @json.parse(
+    #|{}
+  )
+  let poll_type : KeyboardButtonPollType = @json.from_json(json)
+  inspect(poll_type.type_, content="None")
+}
+
+///|
+test "KeyboardButtonRequestUsers from fixed JSON" {
+  let json = @json.parse(
+    #|{"request_id":7,"user_is_bot":false,"max_quantity":3}
+  )
+  let req : KeyboardButtonRequestUsers = @json.from_json(json)
+  inspect(req.request_id, content="7")
+  inspect(req.user_is_bot, content="Some(false)")
+  inspect(req.user_is_premium, content="None")
+  inspect(req.max_quantity, content="Some(3)")
+  inspect(req.request_name, content="None")
+  inspect(req.request_username, content="None")
+  inspect(req.request_photo, content="None")
+}
+
+///|
+test "KeyboardButtonRequestChat from fixed JSON" {
+  let json = @json.parse(
+    #|{"request_id":3,"chat_is_channel":true,"chat_is_forum":false,"request_title":true}
+  )
+  let req : KeyboardButtonRequestChat = @json.from_json(json)
+  inspect(req.request_id, content="3")
+  inspect(req.chat_is_channel, content="true")
+  inspect(req.chat_is_forum, content="Some(false)")
+  inspect(req.chat_has_username, content="None")
+  inspect(req.bot_is_member, content="None")
+  inspect(req.request_title, content="Some(true)")
+  inspect(req.request_username, content="None")
+  inspect(req.request_photo, content="None")
+}
+
+///|
+test "KeyboardButton from fixed JSON simple" {
+  let json = @json.parse(
+    #|{"text":"Share Location","request_location":true}
+  )
+  let btn : KeyboardButton = @json.from_json(json)
+  inspect(btn.text, content="Share Location")
+  inspect(btn.request_location, content="Some(true)")
+  inspect(btn.request_contact, content="None")
+  inspect(btn.request_poll, content="None")
+  inspect(btn.web_app, content="None")
+}
+
+///|
+test "KeyboardButton from fixed JSON with request_poll" {
+  let json = @json.parse(
+    #|{"text":"Vote","request_poll":{"type":"regular"}}
+  )
+  let btn : KeyboardButton = @json.from_json(json)
+  inspect(btn.text, content="Vote")
+  guard btn.request_poll is Some(rp) else {
+    fail("Expected request_poll to be Some")
+  }
+  inspect(rp.type_, content="Some(\"regular\")")
+  inspect(btn.request_contact, content="None")
+}
+
+///|
+test "KeyboardButton from fixed JSON with web_app" {
+  let json = @json.parse(
+    #|{"text":"Launch","web_app":{"url":"https://myapp.example.com"}}
+  )
+  let btn : KeyboardButton = @json.from_json(json)
+  inspect(btn.text, content="Launch")
+  guard btn.web_app is Some(wa) else { fail("Expected web_app to be Some") }
+  inspect(wa.url, content="https://myapp.example.com")
+  inspect(btn.request_users, content="None")
+  inspect(btn.request_chat, content="None")
+}

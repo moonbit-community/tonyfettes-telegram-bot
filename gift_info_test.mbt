@@ -38,3 +38,30 @@ test "GiftInfo ToJson and FromJson with user" {
   inspect(reconstructed.gift.star_count, content="500")
   inspect(reconstructed.from is Some(_), content="true")
 }
+
+///|
+test "GiftInfo from fixed JSON without from" {
+  let json = @json.parse(
+    #|{"gift":{"id":"fixed_gift_001","sticker":{"file_id":"FixedStickerFid","file_unique_id":"FixedStickerUid","width":512,"height":512},"star_count":75}}
+  )
+  let info : GiftInfo = @json.from_json(json)
+  inspect(info.gift.id, content="fixed_gift_001")
+  inspect(info.gift.sticker.file_id, content="FixedStickerFid")
+  inspect(info.gift.star_count, content="75")
+  inspect(info.from, content="None")
+}
+
+///|
+test "GiftInfo from fixed JSON with from user" {
+  let json = @json.parse(
+    #|{"gift":{"id":"fixed_gift_002","sticker":{"file_id":"StickerFid002","file_unique_id":"StickerUid002","width":256,"height":256},"star_count":300,"total_count":500},"from":{"id":987654321,"is_bot":false,"first_name":"Carol","last_name":"Smith"}}
+  )
+  let info : GiftInfo = @json.from_json(json)
+  inspect(info.gift.id, content="fixed_gift_002")
+  inspect(info.gift.star_count, content="300")
+  inspect(info.gift.total_count, content="Some(500)")
+  guard info.from is Some(u) else { fail("Expected from user") }
+  inspect(u.id, content="987654321")
+  inspect(u.first_name, content="Carol")
+  inspect(u.last_name, content="Some(\"Smith\")")
+}

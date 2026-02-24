@@ -35,3 +35,28 @@ test "Document JSON round-trip without optionals" {
   inspect(parsed.thumbnail, content="None")
   inspect(parsed.file_name, content="None")
 }
+
+///|
+test "Document from fixed JSON" {
+  let json = @json.parse(
+    #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc","thumbnail":{"file_id":"thumb_id","file_unique_id":"thumb_unique","width":90,"height":90},"file_name":"document.pdf","mime_type":"application/pdf","file_size":1024000}
+  )
+  let document : Document = @json.from_json(json)
+  inspect(document.file_id, content="BQACAgIAAxkBAAI")
+  inspect(document.file_unique_id, content="AQADAgATdoc")
+  inspect(document.file_name, content="Some(\"document.pdf\")")
+  inspect(document.mime_type, content="Some(\"application/pdf\")")
+  inspect(document.file_size, content="Some(1024000)")
+}
+
+///|
+test "Document from fixed JSON without optionals" {
+  let json = @json.parse(
+    #|{"file_id":"BQACAgIAAxkBAAI","file_unique_id":"AQADAgATdoc"}
+  )
+  let document : Document = @json.from_json(json)
+  inspect(document.file_id, content="BQACAgIAAxkBAAI")
+  inspect(document.thumbnail, content="None")
+  inspect(document.file_name, content="None")
+  inspect(document.file_size, content="None")
+}

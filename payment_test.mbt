@@ -159,3 +159,140 @@ test "RefundedPayment JSON round-trip without provider_payment_charge_id" {
   inspect(parsed.total_amount, content="50")
   inspect(parsed.provider_payment_charge_id, content="None")
 }
+
+///|
+test "Invoice from fixed JSON" {
+  let json = @json.parse(
+    #|{"title":"Gold Plan","description":"Access to all features","start_parameter":"gold_plan","currency":"EUR","total_amount":4999}
+  )
+  let invoice : Invoice = @json.from_json(json)
+  inspect(invoice.title, content="Gold Plan")
+  inspect(invoice.description, content="Access to all features")
+  inspect(invoice.start_parameter, content="gold_plan")
+  inspect(invoice.currency, content="EUR")
+  inspect(invoice.total_amount, content="4999")
+}
+
+///|
+test "LabeledPrice from fixed JSON" {
+  let json = @json.parse(
+    #|{"label":"Shipping","amount":500}
+  )
+  let price : LabeledPrice = @json.from_json(json)
+  inspect(price.label, content="Shipping")
+  inspect(price.amount, content="500")
+}
+
+///|
+test "ShippingAddress from fixed JSON" {
+  let json = @json.parse(
+    #|{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"","post_code":"80539"}
+  )
+  let addr : ShippingAddress = @json.from_json(json)
+  inspect(addr.country_code, content="DE")
+  inspect(addr.state, content="Bavaria")
+  inspect(addr.city, content="Munich")
+  inspect(addr.street_line1, content="Maximilianstr. 1")
+  inspect(addr.street_line2, content="")
+  inspect(addr.post_code, content="80539")
+}
+
+///|
+test "OrderInfo from fixed JSON with all fields" {
+  let json = @json.parse(
+    #|{"name":"Jane Smith","phone_number":"+4915112345678","email":"jane@example.de","shipping_address":{"country_code":"DE","state":"Bavaria","city":"Munich","street_line1":"Maximilianstr. 1","street_line2":"Apt 2","post_code":"80539"}}
+  )
+  let order : OrderInfo = @json.from_json(json)
+  inspect(order.name, content="Some(\"Jane Smith\")")
+  inspect(order.phone_number, content="Some(\"+4915112345678\")")
+  inspect(order.email, content="Some(\"jane@example.de\")")
+  guard order.shipping_address is Some(addr) else {
+    fail("Expected shipping_address to be Some")
+  }
+  inspect(addr.country_code, content="DE")
+  inspect(addr.city, content="Munich")
+}
+
+///|
+test "OrderInfo from fixed JSON empty" {
+  let json = @json.parse(
+    #|{}
+  )
+  let order : OrderInfo = @json.from_json(json)
+  inspect(order.name, content="None")
+  inspect(order.phone_number, content="None")
+  inspect(order.email, content="None")
+  inspect(order.shipping_address, content="None")
+}
+
+///|
+test "ShippingOption from fixed JSON" {
+  let json = @json.parse(
+    #|{"id":"express","title":"Express Shipping","prices":[{"label":"Express fee","amount":2000},{"label":"Handling","amount":300}]}
+  )
+  let opt : ShippingOption = @json.from_json(json)
+  inspect(opt.id, content="express")
+  inspect(opt.title, content="Express Shipping")
+  inspect(opt.prices.length(), content="2")
+  inspect(opt.prices[0].label, content="Express fee")
+  inspect(opt.prices[0].amount, content="2000")
+  inspect(opt.prices[1].label, content="Handling")
+  inspect(opt.prices[1].amount, content="300")
+}
+
+///|
+test "SuccessfulPayment from fixed JSON" {
+  let json = @json.parse(
+    #|{"currency":"USD","total_amount":1999,"invoice_payload":"order_123","telegram_payment_charge_id":"tg_pay_abc","provider_payment_charge_id":"stripe_ch_xyz"}
+  )
+  let payment : SuccessfulPayment = @json.from_json(json)
+  inspect(payment.currency, content="USD")
+  inspect(payment.total_amount, content="1999")
+  inspect(payment.invoice_payload, content="order_123")
+  inspect(payment.telegram_payment_charge_id, content="tg_pay_abc")
+  inspect(payment.provider_payment_charge_id, content="stripe_ch_xyz")
+  inspect(payment.shipping_option_id, content="None")
+  inspect(payment.order_info, content="None")
+}
+
+///|
+test "SuccessfulPayment from fixed JSON with optional fields" {
+  let json = @json.parse(
+    #|{"currency":"GBP","total_amount":799,"invoice_payload":"sub_456","shipping_option_id":"standard","order_info":{"name":"Bob Brown","email":"bob@example.co.uk"},"telegram_payment_charge_id":"tg_pay_def","provider_payment_charge_id":"stripe_ch_uvw"}
+  )
+  let payment : SuccessfulPayment = @json.from_json(json)
+  inspect(payment.currency, content="GBP")
+  inspect(payment.total_amount, content="799")
+  inspect(payment.shipping_option_id, content="Some(\"standard\")")
+  guard payment.order_info is Some(oi) else {
+    fail("Expected order_info to be Some")
+  }
+  inspect(oi.name, content="Some(\"Bob Brown\")")
+  inspect(oi.email, content="Some(\"bob@example.co.uk\")")
+}
+
+///|
+test "RefundedPayment from fixed JSON" {
+  let json = @json.parse(
+    #|{"currency":"XTR","total_amount":250,"invoice_payload":"stars_refund_99","telegram_payment_charge_id":"tg_ref_111","provider_payment_charge_id":"prov_ref_222"}
+  )
+  let payment : RefundedPayment = @json.from_json(json)
+  inspect(payment.currency, content="XTR")
+  inspect(payment.total_amount, content="250")
+  inspect(payment.invoice_payload, content="stars_refund_99")
+  inspect(payment.telegram_payment_charge_id, content="tg_ref_111")
+  inspect(payment.provider_payment_charge_id, content="Some(\"prov_ref_222\")")
+}
+
+///|
+test "RefundedPayment from fixed JSON without provider_payment_charge_id" {
+  let json = @json.parse(
+    #|{"currency":"XTR","total_amount":100,"invoice_payload":"stars_refund_77","telegram_payment_charge_id":"tg_ref_333"}
+  )
+  let payment : RefundedPayment = @json.from_json(json)
+  inspect(payment.currency, content="XTR")
+  inspect(payment.total_amount, content="100")
+  inspect(payment.invoice_payload, content="stars_refund_77")
+  inspect(payment.telegram_payment_charge_id, content="tg_ref_333")
+  inspect(payment.provider_payment_charge_id, content="None")
+}

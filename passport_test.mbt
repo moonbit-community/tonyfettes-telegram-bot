@@ -156,3 +156,83 @@ test "PassportData JSON round-trip" {
   inspect(parsed.credentials.hash, content="credentials_hash")
   inspect(parsed.credentials.secret, content="credentials_secret")
 }
+
+///|
+test "PassportFile from fixed JSON" {
+  let json = @json.parse(
+    #|{"file_id":"pf_abc123","file_unique_id":"pf_unique_abc","file_size":4096,"file_date":1700000000}
+  )
+  let file : PassportFile = @json.from_json(json)
+  inspect(file.file_id, content="pf_abc123")
+  inspect(file.file_unique_id, content="pf_unique_abc")
+  inspect(file.file_size, content="4096")
+  inspect(file.file_date, content="1700000000")
+}
+
+///|
+test "EncryptedCredentials from fixed JSON" {
+  let json = @json.parse(
+    #|{"data":"base64encodeddata==","hash":"base64encodedhash==","secret":"base64encodedsecret=="}
+  )
+  let creds : EncryptedCredentials = @json.from_json(json)
+  inspect(creds.data, content="base64encodeddata==")
+  inspect(creds.hash, content="base64encodedhash==")
+  inspect(creds.secret, content="base64encodedsecret==")
+}
+
+///|
+test "EncryptedPassportElement from fixed JSON minimal" {
+  let json = @json.parse(
+    #|{"type":"email","hash":"emailhash123"}
+  )
+  let elem : EncryptedPassportElement = @json.from_json(json)
+  inspect(elem.type_, content="email")
+  inspect(elem.hash, content="emailhash123")
+  inspect(elem.email, content="None")
+  inspect(elem.data, content="None")
+  inspect(elem.front_side, content="None")
+}
+
+///|
+test "EncryptedPassportElement from fixed JSON with email and phone" {
+  let json = @json.parse(
+    #|{"type":"personal_details","hash":"pdhash","data":"encryptedpersonaldata","phone_number":"+1234567890","email":"user@example.com"}
+  )
+  let elem : EncryptedPassportElement = @json.from_json(json)
+  inspect(elem.type_, content="personal_details")
+  inspect(elem.hash, content="pdhash")
+  inspect(elem.data, content="Some(\"encryptedpersonaldata\")")
+  inspect(elem.phone_number, content="Some(\"+1234567890\")")
+  inspect(elem.email, content="Some(\"user@example.com\")")
+  inspect(elem.files, content="None")
+}
+
+///|
+test "EncryptedPassportElement from fixed JSON with front_side and selfie" {
+  let json = @json.parse(
+    #|{"type":"passport","hash":"passporthash","front_side":{"file_id":"front_id","file_unique_id":"front_unique","file_size":2048,"file_date":1700000100},"selfie":{"file_id":"selfie_id","file_unique_id":"selfie_unique","file_size":1024,"file_date":1700000200}}
+  )
+  let elem : EncryptedPassportElement = @json.from_json(json)
+  inspect(elem.type_, content="passport")
+  guard elem.front_side is Some(fs) else { fail("Expected front_side") }
+  inspect(fs.file_id, content="front_id")
+  inspect(fs.file_size, content="2048")
+  guard elem.selfie is Some(sf) else { fail("Expected selfie") }
+  inspect(sf.file_id, content="selfie_id")
+  inspect(elem.reverse_side, content="None")
+}
+
+///|
+test "PassportData from fixed JSON" {
+  let json = @json.parse(
+    #|{"data":[{"type":"phone_number","hash":"ph_hash"},{"type":"email","hash":"em_hash","email":"test@test.com"}],"credentials":{"data":"cred_data","hash":"cred_hash","secret":"cred_secret"}}
+  )
+  let pd : PassportData = @json.from_json(json)
+  inspect(pd.data.length(), content="2")
+  inspect(pd.data[0].type_, content="phone_number")
+  inspect(pd.data[1].type_, content="email")
+  inspect(pd.data[1].email, content="Some(\"test@test.com\")")
+  inspect(pd.credentials.data, content="cred_data")
+  inspect(pd.credentials.hash, content="cred_hash")
+  inspect(pd.credentials.secret, content="cred_secret")
+}

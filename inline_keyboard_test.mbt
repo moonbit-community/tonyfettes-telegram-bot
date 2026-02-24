@@ -40,3 +40,41 @@ test "InlineKeyboardMarkup JSON round-trip" {
     content="Some(\"https://example.com\")",
   )
 }
+
+///|
+test "InlineKeyboardButton from fixed JSON" {
+  let json = @json.parse(
+    #|{"text":"Click me","url":"https://example.com"}
+  )
+  let btn : InlineKeyboardButton = @json.from_json(json)
+  inspect(btn.text, content="Click me")
+  inspect(btn.url, content="Some(\"https://example.com\")")
+  inspect(btn.callback_data, content="None")
+}
+
+///|
+test "InlineKeyboardButton from fixed JSON with callback_data" {
+  let json = @json.parse(
+    #|{"text":"Press me","callback_data":"action_42"}
+  )
+  let btn : InlineKeyboardButton = @json.from_json(json)
+  inspect(btn.text, content="Press me")
+  inspect(btn.callback_data, content="Some(\"action_42\")")
+  inspect(btn.url, content="None")
+}
+
+///|
+test "InlineKeyboardMarkup from fixed JSON" {
+  let json = @json.parse(
+    #|{"inline_keyboard":[[{"text":"Yes","callback_data":"yes"},{"text":"No","callback_data":"no"}],[{"text":"Visit","url":"https://example.com"}]]}
+  )
+  let markup : InlineKeyboardMarkup = @json.from_json(json)
+  inspect(markup.inline_keyboard.length(), content="2")
+  inspect(markup.inline_keyboard[0].length(), content="2")
+  inspect(markup.inline_keyboard[0][0].text, content="Yes")
+  inspect(markup.inline_keyboard[0][0].callback_data, content="Some(\"yes\")")
+  inspect(markup.inline_keyboard[0][1].text, content="No")
+  inspect(markup.inline_keyboard[1][0].text, content="Visit")
+  inspect(markup.inline_keyboard[1][0].url, content="Some(\"https://example.com\")")
+  inspect(markup.inline_keyboard[1][0].callback_data, content="None")
+}
