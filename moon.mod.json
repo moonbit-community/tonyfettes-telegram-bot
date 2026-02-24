@@ -14,5 +14,8 @@
     "async"
   ],
   "description": "MoonBit Telegram Bot API library with async support",
-  "preferred-target": "native"
+  "preferred-target": "native",
+  "exclude": [
+    "examples"
+  ]
 }
