@@ -185,8 +185,8 @@ test "ChatMember::Owner from fixed JSON" {
       #|{"status":"creator","user":{"id":123,"is_bot":false,"first_name":"Admin"},"is_anonymous":false}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Owner(owner) else { fail("Expected Owner") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Owner(owner) else { fail("Expected Owner") }
   inspect(owner.user.id, content="123")
   inspect(owner.is_anonymous, content="false")
   inspect(owner.custom_title, content="None")
@@ -199,8 +199,8 @@ test "ChatMember::Owner from fixed JSON with custom_title" {
       #|{"status":"creator","user":{"id":777,"is_bot":false,"first_name":"Boss"},"is_anonymous":true,"custom_title":"Founder"}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Owner(owner) else { fail("Expected Owner") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Owner(owner) else { fail("Expected Owner") }
   inspect(owner.user.id, content="777")
   inspect(owner.is_anonymous, content="true")
   inspect(owner.custom_title, content="Some(\"Founder\")")
@@ -213,8 +213,8 @@ test "ChatMember::Administrator from fixed JSON" {
       #|{"status":"administrator","user":{"id":456,"is_bot":false,"first_name":"Mod"},"can_be_edited":false,"is_anonymous":false,"can_manage_chat":true,"can_delete_messages":true,"can_manage_video_chats":true,"can_restrict_members":true,"can_promote_members":false,"can_change_info":true,"can_invite_users":true,"can_post_stories":false,"can_edit_stories":false,"can_delete_stories":false,"can_pin_messages":true}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Administrator(admin) else { fail("Expected Administrator") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Administrator(admin) else { fail("Expected Administrator") }
   inspect(admin.user.id, content="456")
   inspect(admin.can_be_edited, content="false")
   inspect(admin.can_manage_chat, content="true")
@@ -230,8 +230,8 @@ test "ChatMember::Member from fixed JSON" {
       #|{"status":"member","user":{"id":789,"is_bot":false,"first_name":"Regular"}}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Member(m) else { fail("Expected Member") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Member(m) else { fail("Expected Member") }
   inspect(m.user.id, content="789")
   inspect(m.until_date, content="None")
 }
@@ -243,8 +243,8 @@ test "ChatMember::Member from fixed JSON with until_date" {
       #|{"status":"member","user":{"id":999,"is_bot":false,"first_name":"Sub"},"until_date":1800000000}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Member(m) else { fail("Expected Member") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Member(m) else { fail("Expected Member") }
   inspect(m.user.id, content="999")
   inspect(m.until_date, content="Some(1800000000)")
 }
@@ -256,8 +256,8 @@ test "ChatMember::Restricted from fixed JSON" {
       #|{"status":"restricted","user":{"id":100,"is_bot":false,"first_name":"Restricted"},"is_member":true,"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_change_info":false,"can_invite_users":false,"can_pin_messages":false,"can_manage_topics":false,"until_date":0}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Restricted(r) else { fail("Expected Restricted") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Restricted(r) else { fail("Expected Restricted") }
   inspect(r.user.id, content="100")
   inspect(r.is_member, content="true")
   inspect(r.can_send_messages, content="false")
@@ -271,8 +271,8 @@ test "ChatMember::Left from fixed JSON" {
       #|{"status":"left","user":{"id":200,"is_bot":false,"first_name":"Departed"}}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Left(l) else { fail("Expected Left") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Left(l) else { fail("Expected Left") }
   inspect(l.user.id, content="200")
   inspect(l.user.first_name, content="Departed")
 }
@@ -284,8 +284,8 @@ test "ChatMember::Banned from fixed JSON" {
       #|{"status":"kicked","user":{"id":300,"is_bot":false,"first_name":"Banned"},"until_date":1700000000}
     ),
   )
-  let member : ChatMember = @json.from_json(json)
-  guard member is Banned(b) else { fail("Expected Banned") }
+  let cm : ChatMember = @json.from_json(json)
+  guard cm is Banned(b) else { fail("Expected Banned") }
   inspect(b.user.id, content="300")
   inspect(b.until_date, content="1700000000")
 }
