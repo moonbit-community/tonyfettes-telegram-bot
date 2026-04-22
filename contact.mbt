@@ -6,7 +6,7 @@ pub struct Contact {
   last_name : String?
   user_id : Int64?
   vcard : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Contact].

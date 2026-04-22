@@ -7,7 +7,7 @@ pub struct Document {
   file_name : String?
   mime_type : String?
   file_size : Int64?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Document].

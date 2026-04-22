@@ -3,7 +3,7 @@
 pub struct DocumentPlaceholder {
   file_id : String
   file_unique_id : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [DocumentPlaceholder].
@@ -39,7 +39,7 @@ pub impl @json.FromJson for DocumentPlaceholder with from_json(json, path) {
 /// The background is filled using the selected color.
 pub struct BackgroundFillSolid {
   color : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundFillSolid].
@@ -53,7 +53,7 @@ pub struct BackgroundFillGradient {
   top_color : Int
   bottom_color : Int
   rotation_angle : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundFillGradient].
@@ -69,7 +69,7 @@ pub fn BackgroundFillGradient::new(
 /// The background is a freeform gradient that rotates after every message in the chat.
 pub struct BackgroundFillFreeformGradient {
   colors : Array[Int]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundFillFreeformGradient].
@@ -85,7 +85,7 @@ pub(all) enum BackgroundFill {
   Solid(BackgroundFillSolid)
   Gradient(BackgroundFillGradient)
   FreeformGradient(BackgroundFillFreeformGradient)
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub impl ToJson for BackgroundFill with to_json(self) {
@@ -156,7 +156,7 @@ pub impl @json.FromJson for BackgroundFill with from_json(json, path) {
 pub struct BackgroundTypeFill {
   fill : BackgroundFill
   dark_theme_dimming : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundTypeFill].
@@ -174,7 +174,7 @@ pub struct BackgroundTypeWallpaper {
   dark_theme_dimming : Int
   is_blurred : Bool?
   is_moving : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundTypeWallpaper].
@@ -196,7 +196,7 @@ pub struct BackgroundTypePattern {
   intensity : Int
   is_inverted : Bool?
   is_moving : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundTypePattern].
@@ -214,7 +214,7 @@ pub fn BackgroundTypePattern::new(
 /// The background is taken directly from a built-in chat theme.
 pub struct BackgroundTypeChatTheme {
   theme_name : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BackgroundTypeChatTheme].
@@ -231,7 +231,7 @@ pub(all) enum BackgroundType {
   Wallpaper(BackgroundTypeWallpaper)
   Pattern(BackgroundTypePattern)
   ChatTheme(BackgroundTypeChatTheme)
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub impl ToJson for BackgroundType with to_json(self) {
@@ -357,7 +357,7 @@ pub impl @json.FromJson for BackgroundType with from_json(json, path) {
 /// This object represents a chat background.
 pub struct ChatBackground {
   type_ : BackgroundType
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatBackground].

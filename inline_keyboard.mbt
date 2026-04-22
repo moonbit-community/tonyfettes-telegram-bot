@@ -4,7 +4,7 @@ pub struct InlineKeyboardButton {
   text : String
   url : String?
   callback_data : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineKeyboardButton].
@@ -53,7 +53,7 @@ pub impl @json.FromJson for InlineKeyboardButton with from_json(json, path) {
 /// This object represents an inline keyboard that appears right next to the message it belongs to.
 pub struct InlineKeyboardMarkup {
   inline_keyboard : Array[Array[InlineKeyboardButton]]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineKeyboardMarkup].

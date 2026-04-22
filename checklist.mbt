@@ -4,7 +4,7 @@ pub struct ChecklistTask {
   id : Int
   text : String
   is_done : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChecklistTask].
@@ -42,7 +42,7 @@ pub impl @json.FromJson for ChecklistTask with from_json(json, path) {
 pub struct Checklist {
   header : String
   tasks : Array[ChecklistTask]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Checklist].
@@ -76,7 +76,7 @@ pub impl @json.FromJson for Checklist with from_json(json, path) {
 /// Describes a task to add to a checklist.
 pub struct InputChecklistTask {
   text : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InputChecklistTask].
@@ -106,7 +106,7 @@ pub impl @json.FromJson for InputChecklistTask with from_json(json, path) {
 pub struct InputChecklist {
   header : String
   tasks : Array[InputChecklistTask]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InputChecklist].
@@ -141,7 +141,7 @@ pub impl @json.FromJson for InputChecklist with from_json(json, path) {
 
 ///|
 /// Describes a service message about checklist tasks marked as done or not done.
-pub struct ChecklistTasksDone {} derive(Show, Eq)
+pub struct ChecklistTasksDone {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChecklistTasksDone].
@@ -167,7 +167,7 @@ pub impl @json.FromJson for ChecklistTasksDone with from_json(json, path) {
 
 ///|
 /// Describes a service message about tasks added to a checklist.
-pub struct ChecklistTasksAdded {} derive(Show, Eq)
+pub struct ChecklistTasksAdded {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChecklistTasksAdded].

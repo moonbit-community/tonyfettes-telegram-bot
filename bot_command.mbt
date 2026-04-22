@@ -3,7 +3,7 @@
 pub struct BotCommand {
   command : String
   description : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BotCommand].

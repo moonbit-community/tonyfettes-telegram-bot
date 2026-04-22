@@ -7,7 +7,7 @@ pub struct VideoNote {
   duration : Int
   thumbnail : PhotoSize?
   file_size : Int64?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [VideoNote].

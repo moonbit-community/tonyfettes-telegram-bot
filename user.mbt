@@ -7,7 +7,7 @@ pub struct User {
   last_name : String?
   username : String?
   language_code : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [User].

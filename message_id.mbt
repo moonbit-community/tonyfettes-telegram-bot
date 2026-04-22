@@ -2,7 +2,7 @@
 /// This object represents a unique message identifier.
 pub struct MessageId {
   message_id : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [MessageId].

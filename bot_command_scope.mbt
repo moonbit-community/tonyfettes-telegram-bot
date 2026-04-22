@@ -2,7 +2,7 @@
 /// Represents the scope of bot commands, covering a specific chat.
 pub struct BotCommandScopeChat {
   chat_id : Int64
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BotCommandScopeChat].
@@ -14,7 +14,7 @@ pub fn BotCommandScopeChat::new(chat_id~ : Int64) -> BotCommandScopeChat {
 /// Represents the scope of bot commands, covering all administrators of a specific chat.
 pub struct BotCommandScopeChatAdministrators {
   chat_id : Int64
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BotCommandScopeChatAdministrators].
@@ -29,7 +29,7 @@ pub fn BotCommandScopeChatAdministrators::new(
 pub struct BotCommandScopeChatMember {
   chat_id : Int64
   user_id : Int64
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BotCommandScopeChatMember].
@@ -50,7 +50,7 @@ pub(all) enum BotCommandScope {
   Chat(BotCommandScopeChat)
   ChatAdministrators(BotCommandScopeChatAdministrators)
   ChatMember(BotCommandScopeChatMember)
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub impl ToJson for BotCommandScope with to_json(self) {

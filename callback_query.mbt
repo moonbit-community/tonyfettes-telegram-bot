@@ -8,7 +8,7 @@ pub struct CallbackQuery {
   inline_message_id : String?
   chat_instance : String
   data : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [CallbackQuery].

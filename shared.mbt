@@ -7,7 +7,7 @@ pub struct SharedUser {
   last_name : String?
   username : String?
   photo : Array[PhotoSize]?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SharedUser].
@@ -74,7 +74,7 @@ pub impl @json.FromJson for SharedUser with from_json(json, path) {
 pub struct UsersShared {
   request_id : Int
   users : Array[SharedUser]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [UsersShared].
@@ -113,7 +113,7 @@ pub struct ChatShared {
   title : String?
   username : String?
   photo : Array[PhotoSize]?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatShared].

@@ -8,7 +8,7 @@ pub struct MessageEntity {
   url : String?
   user : User?
   language : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [MessageEntity].
@@ -84,7 +84,7 @@ pub struct Message {
   gift_upgrade_sent : GiftInfo?
   gift_id : String?
   is_from_blockchain : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Message].

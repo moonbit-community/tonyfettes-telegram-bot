@@ -10,7 +10,7 @@ pub struct WebhookInfo {
   last_synchronization_error_date : Int?
   max_connections : Int?
   allowed_updates : Array[String]?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [WebhookInfo].

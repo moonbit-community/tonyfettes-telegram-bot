@@ -4,7 +4,7 @@ pub struct ChatMemberOwner {
   user : User
   is_anonymous : Bool
   custom_title : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberOwner].
@@ -37,7 +37,7 @@ pub struct ChatMemberAdministrator {
   can_pin_messages : Bool?
   can_manage_topics : Bool?
   custom_title : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberAdministrator].
@@ -88,7 +88,7 @@ pub fn ChatMemberAdministrator::new(
 pub struct ChatMemberMember {
   user : User
   until_date : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberMember].
@@ -119,7 +119,7 @@ pub struct ChatMemberRestricted {
   can_pin_messages : Bool
   can_manage_topics : Bool
   until_date : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberRestricted].
@@ -167,7 +167,7 @@ pub fn ChatMemberRestricted::new(
 /// Represents a chat member that isn't currently a member of the chat but may join it themselves.
 pub struct ChatMemberLeft {
   user : User
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberLeft].
@@ -181,7 +181,7 @@ pub fn ChatMemberLeft::new(user~ : User) -> ChatMemberLeft {
 pub struct ChatMemberBanned {
   user : User
   until_date : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatMemberBanned].
@@ -201,7 +201,7 @@ pub(all) enum ChatMember {
   Restricted(ChatMemberRestricted)
   Left(ChatMemberLeft)
   Banned(ChatMemberBanned)
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub impl ToJson for ChatMember with to_json(self) {
@@ -541,7 +541,7 @@ pub struct ChatPermissions {
   can_invite_users : Bool?
   can_pin_messages : Bool?
   can_manage_topics : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatPermissions].
@@ -745,7 +745,7 @@ pub struct ChatAdministratorRights {
   can_edit_messages : Bool?
   can_pin_messages : Bool?
   can_manage_topics : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatAdministratorRights].

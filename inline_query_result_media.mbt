@@ -15,7 +15,7 @@ pub struct InlineQueryResultPhoto {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputTextMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultPhoto].
@@ -200,7 +200,7 @@ pub struct InlineQueryResultGif {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputTextMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultGif].
@@ -397,7 +397,7 @@ pub struct InlineQueryResultMpeg4Gif {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputTextMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultMpeg4Gif].
@@ -595,7 +595,7 @@ pub struct InlineQueryResultVideo {
   description : String?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputTextMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultVideo].

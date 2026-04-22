@@ -2,7 +2,7 @@
 /// Describes a Web App.
 pub struct WebAppInfo {
   url : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [WebAppInfo].
@@ -29,7 +29,7 @@ pub impl @json.FromJson for WebAppInfo with from_json(json, path) {
 /// Describes an inline message sent by a Web App on behalf of a user.
 pub struct SentWebAppMessage {
   inline_message_id : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SentWebAppMessage].

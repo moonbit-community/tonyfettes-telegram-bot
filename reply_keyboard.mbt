@@ -7,7 +7,7 @@ pub struct ReplyKeyboardMarkup {
   one_time_keyboard : Bool?
   input_field_placeholder : String?
   selective : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ReplyKeyboardMarkup].
@@ -106,7 +106,7 @@ pub impl @json.FromJson for ReplyKeyboardMarkup with from_json(json, path) {
 pub struct ReplyKeyboardRemove {
   remove_keyboard : Bool
   selective : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ReplyKeyboardRemove].
@@ -150,7 +150,7 @@ pub struct ForceReply {
   force_reply : Bool
   input_field_placeholder : String?
   selective : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ForceReply].

@@ -5,7 +5,7 @@ pub struct PassportElementErrorDataField {
   field_name : String
   data_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorDataField].
@@ -24,7 +24,7 @@ pub struct PassportElementErrorFrontSide {
   type_ : String
   file_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorFrontSide].
@@ -42,7 +42,7 @@ pub struct PassportElementErrorReverseSide {
   type_ : String
   file_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorReverseSide].
@@ -60,7 +60,7 @@ pub struct PassportElementErrorSelfie {
   type_ : String
   file_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorSelfie].
@@ -78,7 +78,7 @@ pub struct PassportElementErrorFile {
   type_ : String
   file_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorFile].
@@ -96,7 +96,7 @@ pub struct PassportElementErrorFiles {
   type_ : String
   file_hashes : Array[String]
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorFiles].
@@ -114,7 +114,7 @@ pub struct PassportElementErrorTranslationFile {
   type_ : String
   file_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorTranslationFile].
@@ -132,7 +132,7 @@ pub struct PassportElementErrorTranslationFiles {
   type_ : String
   file_hashes : Array[String]
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorTranslationFiles].
@@ -150,7 +150,7 @@ pub struct PassportElementErrorUnspecified {
   type_ : String
   element_hash : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportElementErrorUnspecified].
@@ -175,7 +175,7 @@ pub(all) enum PassportElementError {
   TranslationFile(PassportElementErrorTranslationFile)
   TranslationFiles(PassportElementErrorTranslationFiles)
   Unspecified(PassportElementErrorUnspecified)
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub impl ToJson for PassportElementError with to_json(self) {

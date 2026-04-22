@@ -6,7 +6,7 @@ pub struct Voice {
   duration : Int
   mime_type : String?
   file_size : Int64?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Voice].

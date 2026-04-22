@@ -3,7 +3,7 @@
 pub struct GiftInfo {
   gift : Gift
   from : User?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GiftInfo].

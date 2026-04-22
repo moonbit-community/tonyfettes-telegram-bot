@@ -5,7 +5,7 @@ pub struct LoginUrl {
   forward_text : String?
   bot_username : String?
   request_write_access : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [LoginUrl].
@@ -66,7 +66,7 @@ pub struct SwitchInlineQueryChosenChat {
   allow_bot_chats : Bool?
   allow_group_chats : Bool?
   allow_channel_chats : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SwitchInlineQueryChosenChat].
@@ -154,7 +154,7 @@ pub impl @json.FromJson for SwitchInlineQueryChosenChat with from_json(
 
 ///|
 /// A placeholder, currently holds no information. Use BotFather to set up your game.
-pub struct CallbackGame {} derive(Show, Eq)
+pub struct CallbackGame {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [CallbackGame].
