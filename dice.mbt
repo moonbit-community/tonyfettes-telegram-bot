@@ -3,7 +3,7 @@
 pub struct Dice {
   emoji : String
   value : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Dice].

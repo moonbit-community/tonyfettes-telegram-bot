@@ -1,7 +1,7 @@
 ///|
 /// Represents a service message about a forum topic closed in the chat.
 /// Currently holds no information.
-pub struct ForumTopicClosed {} derive(Show, Eq)
+pub struct ForumTopicClosed {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ForumTopicClosed].
@@ -26,7 +26,7 @@ pub impl @json.FromJson for ForumTopicClosed with from_json(json, path) {
 ///|
 /// Represents a service message about a forum topic reopened in the chat.
 /// Currently holds no information.
-pub struct ForumTopicReopened {} derive(Show, Eq)
+pub struct ForumTopicReopened {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ForumTopicReopened].
@@ -53,7 +53,7 @@ pub impl @json.FromJson for ForumTopicReopened with from_json(json, path) {
 ///|
 /// Represents a service message about General forum topic hidden in the chat.
 /// Currently holds no information.
-pub struct GeneralForumTopicHidden {} derive(Show, Eq)
+pub struct GeneralForumTopicHidden {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GeneralForumTopicHidden].
@@ -80,7 +80,7 @@ pub impl @json.FromJson for GeneralForumTopicHidden with from_json(json, path) {
 ///|
 /// Represents a service message about General forum topic unhidden in the chat.
 /// Currently holds no information.
-pub struct GeneralForumTopicUnhidden {} derive(Show, Eq)
+pub struct GeneralForumTopicUnhidden {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GeneralForumTopicUnhidden].
@@ -107,7 +107,7 @@ pub impl @json.FromJson for GeneralForumTopicUnhidden with from_json(json, path)
 ///|
 /// Represents a service message about a video chat started in the chat.
 /// Currently holds no information.
-pub struct VideoChatStarted {} derive(Show, Eq)
+pub struct VideoChatStarted {} derive(Debug, Eq)
 
 ///|
 /// Creates a new [VideoChatStarted].
@@ -133,7 +133,7 @@ pub impl @json.FromJson for VideoChatStarted with from_json(json, path) {
 /// Represents a service message about a video chat ended in the chat.
 pub struct VideoChatEnded {
   duration : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [VideoChatEnded].
@@ -160,7 +160,7 @@ pub impl @json.FromJson for VideoChatEnded with from_json(json, path) {
 /// Represents a service message about a video chat scheduled in the chat.
 pub struct VideoChatScheduled {
   start_date : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [VideoChatScheduled].
@@ -189,7 +189,7 @@ pub impl @json.FromJson for VideoChatScheduled with from_json(json, path) {
 /// Represents a service message about new members invited to a video chat.
 pub struct VideoChatParticipantsInvited {
   users : Array[User]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [VideoChatParticipantsInvited].
@@ -223,7 +223,7 @@ pub impl @json.FromJson for VideoChatParticipantsInvited with from_json(
 /// Represents a service message about a change in auto-delete timer settings.
 pub struct MessageAutoDeleteTimerChanged {
   message_auto_delete_time : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [MessageAutoDeleteTimerChanged].
@@ -262,7 +262,7 @@ pub impl @json.FromJson for MessageAutoDeleteTimerChanged with from_json(
 /// Represents a service message about a user boosting a chat.
 pub struct ChatBoostAdded {
   boost_count : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ChatBoostAdded].
@@ -292,7 +292,7 @@ pub struct ProximityAlertTriggered {
   traveler : User
   watcher : User
   distance : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ProximityAlertTriggered].
@@ -335,7 +335,7 @@ pub struct WriteAccessAllowed {
   from_request : Bool?
   web_app_name : String?
   from_attachment_menu : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [WriteAccessAllowed].
@@ -393,7 +393,7 @@ pub impl @json.FromJson for WriteAccessAllowed with from_json(json, path) {
 pub struct WebAppData {
   data : String
   button_text : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [WebAppData].

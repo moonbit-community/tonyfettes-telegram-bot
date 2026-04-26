@@ -5,7 +5,7 @@ pub struct File {
   file_unique_id : String
   file_size : Int64?
   file_path : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [File].

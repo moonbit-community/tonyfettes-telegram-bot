@@ -6,7 +6,7 @@ pub struct Invoice {
   start_parameter : String
   currency : String
   total_amount : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Invoice].
@@ -53,7 +53,7 @@ pub impl @json.FromJson for Invoice with from_json(json, path) {
 pub struct LabeledPrice {
   label : String
   amount : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [LabeledPrice].
@@ -89,7 +89,7 @@ pub struct ShippingAddress {
   street_line1 : String
   street_line2 : String
   post_code : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ShippingAddress].
@@ -138,7 +138,7 @@ pub struct OrderInfo {
   phone_number : String?
   email : String?
   shipping_address : ShippingAddress?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [OrderInfo].
@@ -204,7 +204,7 @@ pub struct ShippingOption {
   id : String
   title : String
   prices : Array[LabeledPrice]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [ShippingOption].
@@ -247,7 +247,7 @@ pub struct SuccessfulPayment {
   order_info : OrderInfo?
   telegram_payment_charge_id : String
   provider_payment_charge_id : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuccessfulPayment].
@@ -338,7 +338,7 @@ pub struct RefundedPayment {
   invoice_payload : String
   telegram_payment_charge_id : String
   provider_payment_charge_id : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [RefundedPayment].

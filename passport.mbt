@@ -6,7 +6,7 @@ pub struct PassportFile {
   file_unique_id : String
   file_size : Int64
   file_date : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportFile].
@@ -48,7 +48,7 @@ pub struct EncryptedCredentials {
   data : String
   hash : String
   secret : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [EncryptedCredentials].
@@ -96,7 +96,7 @@ pub struct EncryptedPassportElement {
   selfie : PassportFile?
   translation : Array[PassportFile]?
   hash : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [EncryptedPassportElement].
@@ -228,7 +228,7 @@ pub impl @json.FromJson for EncryptedPassportElement with from_json(json, path) 
 pub struct PassportData {
   data : Array[EncryptedPassportElement]
   credentials : EncryptedCredentials
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PassportData].

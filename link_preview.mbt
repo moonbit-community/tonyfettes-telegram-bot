@@ -6,7 +6,7 @@ pub struct LinkPreviewOptions {
   prefer_small_media : Bool?
   prefer_large_media : Bool?
   show_above_text : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [LinkPreviewOptions].
@@ -85,7 +85,7 @@ pub struct TextQuote {
   entities : Array[MessageEntity]?
   position : Int
   is_manual : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [TextQuote].

@@ -5,7 +5,7 @@ pub struct StickerPlaceholder {
   file_unique_id : String
   width : Int
   height : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [StickerPlaceholder].
@@ -53,7 +53,7 @@ pub struct UniqueGiftColors {
   link_color : Int
   button_color : Int
   button_text_color : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [UniqueGiftColors].
@@ -122,7 +122,7 @@ pub struct GiftBackground {
   fill_color : Int?
   gradient_top_color : Int?
   gradient_bottom_color : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GiftBackground].
@@ -191,7 +191,7 @@ pub struct Gift {
   gifts_from_channels : Bool?
   is_premium : Bool?
   has_colors : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Gift].
@@ -350,7 +350,7 @@ pub impl @json.FromJson for Gift with from_json(json, path) {
 /// This object represents a list of gifts.
 pub struct Gifts {
   gifts : Array[Gift]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Gifts].
@@ -380,7 +380,7 @@ pub struct AcceptedGiftTypes {
   limited_gifts : Bool
   unique_gifts : Bool
   premium_subscription : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [AcceptedGiftTypes].
@@ -427,7 +427,7 @@ pub struct UniqueGiftInfo {
   origin : String?
   gift_id : String
   is_from_blockchain : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [UniqueGiftInfo].
@@ -505,7 +505,7 @@ pub impl @json.FromJson for UniqueGiftInfo with from_json(json, path) {
 /// Describes the current Telegram Star balance of a business account.
 pub struct StarBalance {
   balance : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [StarBalance].

@@ -4,7 +4,7 @@ pub struct PollOption {
   text : String
   text_entities : Array[MessageEntity]?
   voter_count : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PollOption].
@@ -50,7 +50,7 @@ pub struct InputPollOption {
   text : String
   text_parse_mode : String?
   text_entities : Array[MessageEntity]?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InputPollOption].
@@ -111,7 +111,7 @@ pub struct Poll {
   explanation_entities : Array[MessageEntity]?
   open_period : Int?
   close_date : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Poll].
@@ -262,7 +262,7 @@ pub struct PollAnswer {
   voter_chat : Chat?
   user : User?
   option_ids : Array[Int]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [PollAnswer].

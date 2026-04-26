@@ -4,7 +4,7 @@ pub struct SuggestedPostParameters {
   text : String?
   link_preview_options : LinkPreviewOptions?
   is_disabled : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostParameters].
@@ -66,7 +66,7 @@ pub struct SuggestedPostInfo {
   is_approved : Bool
   is_declined : Bool
   is_paid : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostInfo].
@@ -115,7 +115,7 @@ pub impl @json.FromJson for SuggestedPostInfo with from_json(json, path) {
 /// Describes the price of a suggested post.
 pub struct SuggestedPostPrice {
   star_count : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostPrice].
@@ -145,7 +145,7 @@ pub impl @json.FromJson for SuggestedPostPrice with from_json(json, path) {
 pub struct SuggestedPostApproved {
   user : User
   suggested_post_info : SuggestedPostInfo
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostApproved].
@@ -185,7 +185,7 @@ pub impl @json.FromJson for SuggestedPostApproved with from_json(json, path) {
 pub struct SuggestedPostDeclined {
   user : User
   suggested_post_info : SuggestedPostInfo
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostDeclined].
@@ -225,7 +225,7 @@ pub impl @json.FromJson for SuggestedPostDeclined with from_json(json, path) {
 pub struct SuggestedPostPaid {
   user : User
   suggested_post_info : SuggestedPostInfo
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostPaid].
@@ -263,7 +263,7 @@ pub impl @json.FromJson for SuggestedPostPaid with from_json(json, path) {
 pub struct SuggestedPostApprovalFailed {
   user : User
   suggested_post_info : SuggestedPostInfo
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [SuggestedPostApprovalFailed].

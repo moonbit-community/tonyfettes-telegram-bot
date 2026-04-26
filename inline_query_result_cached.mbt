@@ -2,7 +2,7 @@
 /// Simplified input message content for cached inline query results.
 pub struct CachedInputMessageContent {
   message_text : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [CachedInputMessageContent].
@@ -45,7 +45,7 @@ pub struct InlineQueryResultCachedPhoto {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedPhoto].
@@ -201,7 +201,7 @@ pub struct InlineQueryResultCachedGif {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedGif].
@@ -346,7 +346,7 @@ pub struct InlineQueryResultCachedMpeg4Gif {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedMpeg4Gif].
@@ -486,7 +486,7 @@ pub struct InlineQueryResultCachedSticker {
   sticker_file_id : String
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedSticker].
@@ -561,7 +561,7 @@ pub struct InlineQueryResultCachedDocument {
   caption_entities : Array[MessageEntity]?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedDocument].
@@ -701,7 +701,7 @@ pub struct InlineQueryResultCachedVideo {
   show_caption_above_media : Bool?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedVideo].
@@ -850,7 +850,7 @@ pub struct InlineQueryResultCachedVoice {
   caption_entities : Array[MessageEntity]?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedVoice].
@@ -973,7 +973,7 @@ pub struct InlineQueryResultCachedAudio {
   caption_entities : Array[MessageEntity]?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : CachedInputMessageContent?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultCachedAudio].

@@ -2,7 +2,7 @@
 /// This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed.
 pub struct KeyboardButtonPollType {
   type_ : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [KeyboardButtonPollType].
@@ -44,7 +44,7 @@ pub struct KeyboardButtonRequestUsers {
   request_name : Bool?
   request_username : Bool?
   request_photo : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [KeyboardButtonRequestUsers].
@@ -156,7 +156,7 @@ pub struct KeyboardButtonRequestChat {
   request_title : Bool?
   request_username : Bool?
   request_photo : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [KeyboardButtonRequestChat].
@@ -281,7 +281,7 @@ pub struct KeyboardButton {
   request_location : Bool?
   request_poll : KeyboardButtonPollType?
   web_app : WebAppInfo?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [KeyboardButton].

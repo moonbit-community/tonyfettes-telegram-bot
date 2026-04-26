@@ -3,7 +3,7 @@
 pub struct BusinessOpeningHoursInterval {
   opening_minute : Int
   closing_minute : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessOpeningHoursInterval].
@@ -43,7 +43,7 @@ pub impl @json.FromJson for BusinessOpeningHoursInterval with from_json(
 pub struct BusinessOpeningHours {
   time_zone_name : String
   opening_hours : Array[BusinessOpeningHoursInterval]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessOpeningHours].
@@ -83,7 +83,7 @@ pub impl @json.FromJson for BusinessOpeningHours with from_json(json, path) {
 pub struct BusinessLocation {
   address : String
   location : Location?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessLocation].
@@ -123,7 +123,7 @@ pub struct BusinessIntro {
   title : String?
   message : String?
   sticker : Sticker?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessIntro].
@@ -182,7 +182,7 @@ pub struct BusinessConnection {
   date : Int
   can_reply : Bool
   is_enabled : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessConnection].
@@ -232,7 +232,7 @@ pub struct BusinessMessagesDeleted {
   business_connection_id : String
   chat : Chat
   message_ids : Array[Int]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [BusinessMessagesDeleted].

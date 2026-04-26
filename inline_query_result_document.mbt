@@ -2,7 +2,7 @@
 /// Placeholder for the InputMessageContent type.
 pub struct InputMessageContentPlaceholder {
   message_text : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InputMessageContentPlaceholder].
@@ -48,7 +48,7 @@ pub struct InlineQueryResultAudio {
   audio_duration : Int?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputMessageContentPlaceholder?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultAudio].
@@ -192,7 +192,7 @@ pub struct InlineQueryResultVoice {
   voice_duration : Int?
   reply_markup : InlineKeyboardMarkup?
   input_message_content : InputMessageContentPlaceholder?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultVoice].
@@ -329,7 +329,7 @@ pub struct InlineQueryResultDocument {
   thumbnail_url : String?
   thumbnail_width : Int?
   thumbnail_height : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [InlineQueryResultDocument].

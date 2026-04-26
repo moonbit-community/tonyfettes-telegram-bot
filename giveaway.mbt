@@ -2,7 +2,7 @@
 /// Represents a service message about the creation of a scheduled giveaway.
 pub struct GiveawayCreated {
   prize_star_count : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GiveawayCreated].
@@ -44,7 +44,7 @@ pub struct Giveaway {
   country_codes : Array[String]?
   prize_star_count : Int?
   premium_subscription_month_count : Int?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [Giveaway].
@@ -174,7 +174,7 @@ pub struct GiveawayWinners {
   only_new_members : Bool?
   was_refunded : Bool?
   prize_description : String?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GiveawayWinners].
@@ -322,7 +322,7 @@ pub struct GiveawayCompleted {
   unclaimed_prize_count : Int?
   giveaway_message : Message?
   is_star_giveaway : Bool?
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Creates a new [GiveawayCompleted].
